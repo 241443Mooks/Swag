@@ -48,7 +48,7 @@ Calm, accessible, professional and usable at ordinary laptop width. Prioritise r
 Production-grade legal analysis, deployment with real contracts, OCR guarantees, all contract families, autonomous negotiation, automatic redlining, silent model fine-tuning, or enterprise authentication. If these are not supported, say so explicitly.
 
 ## Architecture guidance
-Prefer a straightforward Python local app with testable modules for extraction, comparison, independent safeguards, precedent lookup, review ledger and UI. A genuine model API integration is required for semantic analysis and precedent reasoning, with explicit opt-in, provenance, and a robust non-AI fallback that is never misrepresented as AI. See `docs/AI_ARCHITECTURE.md`.
+Prefer a straightforward Python local app with testable modules for extraction, comparison, independent safeguards, precedent lookup, review ledger and UI. Begin with conventional baselines for semantic matching and precedent search. Implement at least one **genuine, commercially justified** model-assisted capability where comparison shows a plausible benefit, with explicit opt-in, provenance, and a robust non-AI fallback. Do not mandate AI for either function without evaluating alternatives. See `docs/ENGINEERING_PRINCIPLES.md` and `docs/AI_ARCHITECTURE.md`.
 
 ## Demonstration
 Use six synthetic incoming NDAs, one reference, and five historical precedents. Show both an easy review and a standard-looking contract with a hidden consequential deviation. Demonstrate why human review remains in control.

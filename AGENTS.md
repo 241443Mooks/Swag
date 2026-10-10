@@ -1,3 +1,6 @@
+## Creative direction — mandatory
+**Simple on the surface. Exceptionally robust underneath.** Before building, read `docs/CREATIVE_INTENT.md` and `docs/EXPERIENCE_PRINCIPLES.md`. Complexity is justified only when it removes user friction, improves assurance or provides demonstrable business value. Build a coherent exception-first reviewer journey, not a generic AI dashboard. Follow `docs/CREATIVE_REVIEW.md`; record meaningful discoveries in `docs/DESIGN_JOURNAL.md`. Creative acceptance belongs to the human owner; do not self-certify it. Preserve full-document evidence and human judgement.
+
 # Agent operating instructions — Swag
 
 This repository is a synthetic-data proof of concept for a **human-led, precedent-aware commercial contract review assistant**. Follow these instructions when making changes.

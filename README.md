@@ -15,6 +15,10 @@ A human-led prototype for reviewing routine commercial contracts using reference
 - `docs/ACCEPTANCE_TESTS.md` — test cases and mandatory release gates
 - `docs/AI_ARCHITECTURE.md` — scoped genuine model integration, provenance and queue triage
 - `docs/ENGINEERING_PRINCIPLES.md` — engineering, business-case and UX standards; AI only when justified
+- `docs/CREATIVE_INTENT.md` — simple on the surface, robust underneath
+- `docs/EXPERIENCE_PRINCIPLES.md` — calm, evidence-led reviewer journeys
+- `docs/CREATIVE_REVIEW.md` — human creative acceptance checkpoint
+- `docs/DESIGN_JOURNAL.md` — design discoveries and hypotheses
 - `docs/decisions/` — evidence-based design decision records
 - `AGENTS.md` — autonomous coding-agent instructions
 

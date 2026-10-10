@@ -13,6 +13,7 @@ A human-led prototype for reviewing routine commercial contracts using reference
 - `dataset/ground_truth/` — held-out evaluation answer key; **never accessible to runtime**
 - `docs/PRODUCT_SPEC.md` — workflow, review states, data and safety requirements
 - `docs/ACCEPTANCE_TESTS.md` — test cases and mandatory release gates
+- `docs/AI_ARCHITECTURE.md` — genuine model integration, provenance and queue triage
 - `AGENTS.md` — autonomous coding-agent instructions
 
 ## Non-negotiable principles

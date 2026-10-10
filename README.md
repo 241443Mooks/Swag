@@ -13,10 +13,13 @@ A human-led prototype for reviewing routine commercial contracts using reference
 - `dataset/ground_truth/` — held-out evaluation answer key; **never accessible to runtime**
 - `docs/PRODUCT_SPEC.md` — workflow, review states, data and safety requirements
 - `docs/ACCEPTANCE_TESTS.md` — test cases and mandatory release gates
-- `docs/AI_ARCHITECTURE.md` — genuine model integration, provenance and queue triage
+- `docs/AI_ARCHITECTURE.md` — scoped genuine model integration, provenance and queue triage
+- `docs/ENGINEERING_PRINCIPLES.md` — engineering, business-case and UX standards; AI only when justified
+- `docs/decisions/` — evidence-based design decision records
 - `AGENTS.md` — autonomous coding-agent instructions
 
 ## Non-negotiable principles
+- AI must earn its place: prefer a reliable conventional solution when it meets the need as well or better.
 - Similarity is not safety or approval.
 - Inspect the whole document, including schedules and omitted clauses; incomplete extraction blocks shortcut routing.
 - Show exact source passages and preserve original bytes.

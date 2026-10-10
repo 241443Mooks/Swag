@@ -40,7 +40,7 @@ The dangerous cases T03, T04 and T05 are **mandatory blockers**: missing any req
 - Record exact commands, versions, known limitations and unresolved risks in the draft PR.
 
 ## Real AI and submission checks
-- Verify a configured real provider can perform semantic comparison and evidence-linked precedent reasoning; record provider/model and actual outcomes. If no credentials are available, report live integration as unverified.
+- Verify at least one genuinely useful model-assisted capability against a documented conventional baseline, including evidence-linked outputs; record provider/model and actual outcomes. Do not mandate AI for both semantic comparison and precedent retrieval. If no credentials are available, report live integration as unverified.
 - Verify missing credentials or provider failure never produces simulated AI findings or a routine shortcut.
 - Verify the queue displays multiple contracts and preserves escalation priority.
 - Verify the single-ZIP submission excludes secrets and includes runnable source, setup and reviewer walkthrough.

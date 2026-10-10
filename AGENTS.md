@@ -52,4 +52,6 @@ This repository is a synthetic-data proof of concept for a **human-led, preceden
 - Deliver a runnable demo, automated test suite, limitations, and draft PR with an evidence-based summary.
 - Never merge, deploy publicly, or ingest real/confidential contracts without explicit permission.
 
-See `docs/PRODUCT_SPEC.md` and `docs/ACCEPTANCE_TESTS.md`.
+Real AI analysis is a required product capability. Follow `docs/AI_ARCHITECTURE.md`: support at least one genuine model API, require explicit opt-in, never simulate model output, and distinguish live AI results from deterministic findings. Include queue triage and a single-ZIP submission plan.
+
+See `docs/PRODUCT_SPEC.md`, `docs/AI_ARCHITECTURE.md` and `docs/ACCEPTANCE_TESTS.md`.

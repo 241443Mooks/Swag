@@ -52,7 +52,7 @@ This repository is a synthetic-data proof of concept for a **human-led, preceden
 - Deliver a runnable demo, automated test suite, limitations, and draft PR with an evidence-based summary.
 - Never merge, deploy publicly, or ingest real/confidential contracts without explicit permission.
 
-Real AI analysis is a required product capability. Follow `docs/AI_ARCHITECTURE.md`: support at least one genuine model API, require explicit opt-in, never simulate model output, and distinguish live AI results from deterministic findings. Include queue triage and a single-ZIP submission plan.
+Demonstrate at least one genuine AI capability **only where justified against a conventional baseline**. AI must earn its place; follow `docs/ENGINEERING_PRINCIPLES.md` and record major choices in `docs/decisions/`. Follow `docs/AI_ARCHITECTURE.md`: support a genuine model API for a narrowly justified capability, require explicit opt-in, never simulate model output, and distinguish live AI results from deterministic findings. Include queue triage and a single-ZIP submission plan.
 
 ## Sprint execution controls
 Before coding, read and follow `docs/SPRINT_01_PLAN.md`, `docs/QUALITY_GATES.md`, `docs/TEST_STRATEGY.md`, and `docs/DELIVERY_CHECKLIST.md`. These are binding for Sprint 1. Record evidence for each gate in `docs/SPRINT_01_STATUS.md` as work proceeds. Do not self-certify a gate without the required evidence, bypass critical failures, exceed explicitly authorised AI usage, or retry indefinitely. After three materially different failed fixes to the same blocker, stop that line of work and report it. Do not merge or deploy autonomously.

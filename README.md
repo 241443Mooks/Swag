@@ -1,32 +1,29 @@
 # Swag — Precedent-Aware Contract Review
 
-A prototype for safe, human-led review of routine commercial contracts.
-
-## Aim
-
-Reduce repetitive reading by finding relevant historical decisions and highlighting document differences, while retaining independent safeguards and access to the full original document.
-
-## Principles
-
-- Similarity is not approval.
-- Process the whole document; missing or unreadable content requires escalation.
-- Distinguish previous decisions from approved policy.
-- Show exact passages and preserve original evidence.
-- Human reviewers make the final decision.
-- Use synthetic contracts only in this prototype.
-
-## Initial dataset
-
-Dataset v0.1 contains 12 synthetic Word documents (1 reference, 5 historical, 6 incoming), a historical-decision register and a separate ground-truth test register. The dataset ZIP was created in the project conversation; the Word binaries are not yet committed here.
-
-## Proposed structure
-
-- `dataset/reference/` — approved template
-- `dataset/historical/` — fictional previously reviewed contracts
-- `dataset/incoming/` — test inputs
-- `dataset/review_records/` — fictional reviewer decisions
-- `dataset/ground_truth/` — expected test results, kept inaccessible to the review engine
+A human-led prototype for reviewing routine commercial contracts using reference wording, previous review decisions, and independent full-document safeguards.
 
 ## Status
+**Dataset ready; application not yet implemented.** The 12 synthetic DOCX contracts are committed in `dataset/`.
 
-Day 1: dataset and scope definition. Prototype implementation to follow.
+## Repository map
+- `dataset/reference/` — one baseline synthetic mutual NDA
+- `dataset/historical/` — five historical synthetic NDAs
+- `dataset/incoming/` — six challenge documents
+- `dataset/review_records/` — fictional decisions, not approved policy
+- `dataset/ground_truth/` — held-out evaluation answer key; **never accessible to runtime**
+- `docs/PRODUCT_SPEC.md` — workflow, review states, data and safety requirements
+- `docs/ACCEPTANCE_TESTS.md` — test cases and mandatory release gates
+- `AGENTS.md` — autonomous coding-agent instructions
+
+## Non-negotiable principles
+- Similarity is not safety or approval.
+- Inspect the whole document, including schedules and omitted clauses; incomplete extraction blocks shortcut routing.
+- Show exact source passages and preserve original bytes.
+- Previous decisions are context-specific and do not automatically create policy.
+- Humans make every final decision.
+- Synthetic data only. No external AI processing by default.
+
+## First development task
+Audit the actual DOCX files and implement the vertical slice described in `docs/PRODUCT_SPEC.md`. Work in a feature branch and open a draft PR; do not merge automatically.
+
+This project is a demonstration, not a production legal review service or legal advice.

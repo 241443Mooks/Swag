@@ -1,7 +1,9 @@
 # Sprint 01 — Controlled autonomous build
 
 ## Objective
-Deliver a genuine, locally runnable AI-powered precedent-aware mutual NDA review product, with independent safeguards, a multi-document triage queue, and human-only final decisions. Follow `AGENTS.md`, `docs/PRODUCT_SPEC.md`, `docs/AI_ARCHITECTURE.md`, `docs/ACCEPTANCE_TESTS.md`, and the quality/test/delivery documents.
+Deliver a locally runnable precedent-aware mutual NDA review product with at least one genuine, commercially justified AI capability, with independent safeguards, a multi-document triage queue, and human-only final decisions. Follow `AGENTS.md`, `docs/PRODUCT_SPEC.md`, `docs/AI_ARCHITECTURE.md`, `docs/ACCEPTANCE_TESTS.md`, and the quality/test/delivery documents.
+
+Read `docs/ENGINEERING_PRINCIPLES.md` first. Evaluate business value, reliability, latency and cost before choosing AI or extra infrastructure.
 
 ## Scope freeze
 In scope: DOCX ingestion and original preservation; extraction coverage; clause comparison; precedent retrieval with context; genuine model API adapter and structured analysis; independent full-document controls; evidence-linked findings; review routing; multi-document queue; append-only human review events; tests; local setup; reviewer walkthrough; single ZIP.
@@ -15,7 +17,7 @@ Inventory all 12 DOCX files; verify readable contents and structure including ta
 Implement source preservation, parsing, comparison, missing/added clauses, independent full-document safeguards, precedent retrieval and structured findings. Validate against unit tests and unseen mutations. Demonstrate no route can automatically approve.
 
 ### Gate 3 — Genuine AI
-Implement at least one real provider integration with explicit opt-in and configurable model, structured outputs, source-anchor validation, timeouts and failure behaviour. Test using mocks; perform a real call only if credentials and permission are available. If not, report live AI **unverified**, never simulate it.
+First compare the conventional baseline for a selected semantic task (such as paraphrase interpretation or contextual explanation). Record the rationale in `docs/decisions/`. Implement a real provider integration only for a use case that earns its place, with explicit opt-in, configurable model, structured outputs, source-anchor validation, timeouts and failure behaviour. Test using mocks; perform a real call only if credentials and permission are available. If not, report live AI **unverified**, never simulate it.
 
 ### Gate 4 — Reviewer experience and delivery
 Implement queue, evidence navigation, original access and append-only human decision logging. Test a fresh install and UI walkthrough. Build a single submission ZIP excluding secrets and generated sensitive caches. Open a draft PR; do not merge.

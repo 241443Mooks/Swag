@@ -1,16 +1,16 @@
 # Real AI capability — architecture and evidence
 
 ## Product requirement
-Swag is a **genuine AI-powered** contract review assistant, not a simulated or scripted AI demo. The first release must include a working integration with at least one real language model API, configured using environment variables or local secrets, with no credential embedded in the repository or submission ZIP.
+Swag must demonstrate at least one **genuine and justified** AI capability, not simulated or scripted AI. **AI must earn its place against a conventional baseline.** The prototype should support at least one real language model API for a narrowly scoped, evidence-backed use case, configured using environment variables or local secrets, with no credential embedded in the repository or submission ZIP. Other functions should use conventional software when that is the better commercial and engineering choice. See `docs/ENGINEERING_PRINCIPLES.md`.
 
 ## Division of responsibilities
 1. **Deterministic extraction and controls:** preserve original DOCX bytes, extract/track all supported document content, identify structural differences and omissions, run independent full-document safety checks, and enforce review routing.
 2. **Real model analysis:** interpret semantically similar or changed clauses, identify possible contradictions and context-sensitive issues, explain findings with source spans, and generate a reviewer-oriented summary.
-3. **Precedent retrieval:** retrieve relevant historical clauses and decisions from the allowed reference/historical material, not from the ground-truth evaluation data. Prefer transparent lexical + embedding or model-based semantic retrieval; demonstrate why a precedent was retrieved.
+3. **Precedent retrieval:** retrieve relevant historical clauses and decisions from the allowed reference/historical material, not from the ground-truth evaluation data. Start with transparent lexical and metadata search. Add embeddings or model-based retrieval only if comparison shows worthwhile incremental value; demonstrate why a precedent was retrieved.
 4. **Human authority:** no model output can finalise legal approval. Historical acceptance is context-limited evidence, not policy.
 
 ## Implementation expectations
-- Implement a clean provider adapter with at least one supported real API provider, documented model configuration and timeout/retry/error handling.
+- Implement a clean provider adapter for at least one real API provider, for a use case justified by a recorded baseline comparison. Document model configuration and timeout/retry/error handling.
 - Use structured model output validated against a schema; reject malformed results and route uncertainty to human review.
 - Keep document excerpts and retrieved context clearly separated from system instructions. Treat contract text as untrusted and resistant to prompt injection.
 - Model findings must include document/source anchors and confidence/uncertainty notes. Verify that cited anchors actually exist in extracted text; do not fabricate citations.

@@ -20,7 +20,8 @@ A gate passes only when supported by executable checks or recorded manual eviden
 **Blocker:** missed critical scenario, fabricated source anchor, or automatic legal approval.
 
 ## Gate 3 — Genuine AI
-- A real model provider adapter exists, with explicit user opt-in, model configuration and documented data transmission.
+- At least one candidate AI use case has a recorded conventional baseline and a justified expected advantage (quality, reviewer effort, or otherwise), including cost/latency/privacy trade-offs.
+- A real model provider adapter exists for that justified use case, with explicit user opt-in, model configuration and documented data transmission.
 - Outputs are schema-validated and citations checked against extracted source anchors.
 - No provider/key, timeout, malformed output or failed anchor validation cannot produce fake AI findings or an inappropriate routine route.
 - Mock-based integration tests pass; live-provider execution is **separately** evidenced when credentials/budget are available.

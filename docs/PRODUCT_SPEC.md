@@ -48,10 +48,13 @@ Calm, accessible, professional and usable at ordinary laptop width. Prioritise r
 Production-grade legal analysis, deployment with real contracts, OCR guarantees, all contract families, autonomous negotiation, automatic redlining, silent model fine-tuning, or enterprise authentication. If these are not supported, say so explicitly.
 
 ## Architecture guidance
-Prefer a straightforward Python local app with testable modules for extraction, comparison, independent safeguards, precedent lookup, review ledger and UI. An optional AI adapter may be added only if it has a documented, explicit opt-in and a robust non-AI fallback.
+Prefer a straightforward Python local app with testable modules for extraction, comparison, independent safeguards, precedent lookup, review ledger and UI. A genuine model API integration is required for semantic analysis and precedent reasoning, with explicit opt-in, provenance, and a robust non-AI fallback that is never misrepresented as AI. See `docs/AI_ARCHITECTURE.md`.
 
 ## Demonstration
 Use six synthetic incoming NDAs, one reference, and five historical precedents. Show both an easy review and a standard-looking contract with a hidden consequential deviation. Demonstrate why human review remains in control.
+
+## Queue and business value
+Provide a multi-document review queue and explain how it helps prioritise attention at month-end/quarter-end. Demonstrate workload using synthetic contracts; report measured time savings only if actually measured. Prepare a single-ZIP submission containing the runnable product, demo walkthrough and limitations.
 
 ## Definition of done
 A fresh checkout can install dependencies, start the app, process all six examples, show linked evidence and full original text, record a human decision, and run tests. Known blind spots and failure states are clearly documented. The draft PR includes exact commands and test outcomes.

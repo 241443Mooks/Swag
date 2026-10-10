@@ -31,6 +31,7 @@ A gate passes only when supported by executable checks or recorded manual eviden
 ## Gate 4 — Experience and packaging
 - A fresh checkout can install and run using documented commands.
 - Actual DOCX upload, analysis, source navigation, multi-document queue and reviewer decision are manually exercised.
+- A human creative review checkpoint is prepared under `docs/CREATIVE_REVIEW.md`; if not yet performed, explicitly mark creative acceptance as pending rather than passed.
 - Human decision events persist append-only.
 - A single ZIP contains source, synthetic dataset, explanation, setup and reviewer walkthrough, with no keys, caches or private data.
 - A draft PR is opened with exact test results, limitations and any unverified live AI features.

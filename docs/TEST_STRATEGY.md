@@ -6,6 +6,9 @@
 - Tests should exercise public interfaces or documented contracts rather than reimplementing the same rules they purport to test.
 - Do not hardcode T01–T06 IDs, expected outcomes or hidden answer-key strings into application logic or prompts.
 
+## Technology choice tests
+For each selected AI capability, compare it with a non-AI baseline on representative and adversarial inputs. Record quality, latency, model calls/cost when measured, failure behaviour and reviewer effort where measurable. Do not assert AI is superior without evidence. Keep conventional solutions where they perform as well or better.
+
 ## Test layers
 1. **Unit:** DOCX extraction, structural coverage, hashes, clause alignment, differences, anchors, decision event persistence, route precedence, schema validation.
 2. **Integration:** reference + historical decisions + incoming document produces source-linked findings and review route. All six baseline cases required.

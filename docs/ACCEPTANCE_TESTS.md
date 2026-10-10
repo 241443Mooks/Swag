@@ -39,5 +39,11 @@ The dangerous cases T03, T04 and T05 are **mandatory blockers**: missing any req
 - Start the app from a clean environment and perform a manual walkthrough.
 - Record exact commands, versions, known limitations and unresolved risks in the draft PR.
 
+## Real AI and submission checks
+- Verify a configured real provider can perform semantic comparison and evidence-linked precedent reasoning; record provider/model and actual outcomes. If no credentials are available, report live integration as unverified.
+- Verify missing credentials or provider failure never produces simulated AI findings or a routine shortcut.
+- Verify the queue displays multiple contracts and preserves escalation priority.
+- Verify the single-ZIP submission excludes secrets and includes runnable source, setup and reviewer walkthrough.
+
 ## Release gate
 Do not describe the prototype as ready for demonstration if T03, T04 or T05 is missed, if original content is not accessible, or if incomplete extraction can result in a routine shortcut. Instead report the failure and continue remediation or clearly label the build incomplete.

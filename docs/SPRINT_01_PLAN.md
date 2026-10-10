@@ -3,7 +3,7 @@
 ## Objective
 Deliver a locally runnable precedent-aware mutual NDA review product with at least one genuine, commercially justified AI capability, with independent safeguards, a multi-document triage queue, and human-only final decisions. Follow `AGENTS.md`, `docs/PRODUCT_SPEC.md`, `docs/AI_ARCHITECTURE.md`, `docs/ACCEPTANCE_TESTS.md`, and the quality/test/delivery documents.
 
-Read `docs/ENGINEERING_PRINCIPLES.md` first. Evaluate business value, reliability, latency and cost before choosing AI or extra infrastructure.
+Read `docs/CREATIVE_INTENT.md`, `docs/EXPERIENCE_PRINCIPLES.md` and `docs/ENGINEERING_PRINCIPLES.md` first. Evaluate business value, reliability, latency and cost before choosing AI or extra infrastructure.
 
 ## Scope freeze
 In scope: DOCX ingestion and original preservation; extraction coverage; clause comparison; precedent retrieval with context; genuine model API adapter and structured analysis; independent full-document controls; evidence-linked findings; review routing; multi-document queue; append-only human review events; tests; local setup; reviewer walkthrough; single ZIP.

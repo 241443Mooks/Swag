@@ -27,5 +27,11 @@ PortSwigger's application task requests **a single zipped file** showing how AI 
 - [ ] Confirm the ZIP can be opened and contents inspected independently.
 - [ ] Do not submit or upload to the employer automatically.
 
+## Creative QA
+- [ ] Reviewer sees what changed, why it matters, relevant history and next action without a wall of text.
+- [ ] Full evidence is one interaction away; no shortcut hides missing coverage or failed checks.
+- [ ] Human creative review is completed or clearly marked pending; document insights in `docs/DESIGN_JOURNAL.md`.
+- [ ] The result feels simple on the surface and robust underneath, not like a generic AI dashboard.
+
 ## Final QA
 An independent reviewer should be able to answer within ten minutes: What problem does this solve? Where is real AI used? What safeguards exist? Can I run it? What evidence shows it works? What are its limitations?

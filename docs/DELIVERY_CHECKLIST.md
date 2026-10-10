@@ -3,9 +3,9 @@
 PortSwigger's application task requests **a single zipped file** showing how AI could help a small legal team with routine contracts, recurring redlines and month-end/quarter-end review peaks. This is an application exercise, not a request for production legal automation.
 
 ## Reviewer experience
-- [ ] Start with a short `START_HERE.md` explaining the problem, approach and what makes the AI contribution genuine.
+- [ ] Start with a short `START_HERE.md` explaining the problem, approach, why conventional engineering handles much of it, and where the genuine AI contribution earns its place.
 - [ ] Provide a five-to-ten-minute guided walkthrough: routine NDA, context-limited precedent, hidden critical amendment, queue prioritisation, human decision.
-- [ ] State what is deterministic, what uses a real model and what always requires a person.
+- [ ] State what is deterministic, what uses a real model, the baseline and business justification for that choice, and what always requires a person.
 - [ ] Include clear instructions for running locally with and without optional configured AI access; offline mode must not impersonate AI.
 - [ ] Show how the design could reduce repetitive review and handle peaks; do not invent measured time savings.
 - [ ] Explain limits, privacy and why this is not legal advice.

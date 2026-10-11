@@ -134,6 +134,16 @@ def _tokens(text):
     return {word for word in re.findall(r"[a-z]{3,}", text.lower()) if word not in STOP}
 
 
+def _match_basis(unit, title, findings):
+    """Describe the observable lexical relationship, never legal equivalence."""
+    if any(normal(unit["text"]) == normal(source["text"]) for finding in findings for source in finding["sources"]):
+        return "exact wording"
+    changed = {normal(finding["title"].split(":", 1)[-1]) for finding in findings}
+    if normal(title) in changed:
+        return "same clause topic"
+    return "similar wording"
+
+
 def precedents(findings, reference, historical, decisions, published=(), incoming_sha256=None, limit=3):
     terms = set()
     titles = set()
@@ -180,17 +190,19 @@ def precedents(findings, reference, historical, decisions, published=(), incomin
     out = []
     for score, document_id, unit, candidate in ranked[:limit]:
         decision = candidate["decision"]
+        source_title = next((title for title, source in candidate["units"] if source["anchor"] == unit["anchor"]), "")
+        match_basis = _match_basis(unit, source_title, findings)
         if candidate["kind"] == "published":
-            out.append({"document_id": document_id, "filename": candidate["document"]["filename"], "source": unit, "decision": decision["decision"], "date": decision["timestamp"], "rationale": decision["rationale"], "conditions": decision["conditions"], "context": decision["context"], "reuse_authority": decision["reuse_limits"], "publication_id": decision["id"], "kind": "published_demo", "authoriser": decision["authoriser"], "why_retrieved": "Shared wording or clause topic in a published demonstration precedent; lexical baseline (score %d). Check context and conditions." % score})
+            out.append({"document_id": document_id, "filename": candidate["document"]["filename"], "source": unit, "decision": decision["decision"], "date": decision["timestamp"], "rationale": decision["rationale"], "conditions": decision["conditions"], "context": decision["context"], "reuse_authority": decision["reuse_limits"], "publication_id": decision["id"], "kind": "published_demo", "authoriser": decision["authoriser"], "match_basis": match_basis, "why_retrieved": "Lexical match in a published demonstration precedent. Check context and conditions."})
         else:
-            out.append({"document_id": document_id, "filename": candidate["document"]["filename"], "source": unit, "decision": decision["decision"], "date": decision["decision_date"], "rationale": decision["rationale"], "reuse_authority": decision["reuse_authority"], "kind": "historical", "why_retrieved": "Shared wording or clause topic; lexical baseline (score %d)." % score})
+            out.append({"document_id": document_id, "filename": candidate["document"]["filename"], "source": unit, "decision": decision["decision"], "date": decision["decision_date"], "rationale": decision["rationale"], "reuse_authority": decision["reuse_authority"], "kind": "historical", "match_basis": match_basis, "why_retrieved": "Lexical match in a previously reviewed contract; the whole-contract decision may concern other wording."})
     if not out and changed_titles:
         for document_id, doc in sorted(historical.items()):
             standard = clauses(doc)
             for title in sorted(changed_titles):
                 if title in standard and title in baseline and normal(" ".join(u["text"] for u in standard[title]["units"])) == normal(" ".join(u["text"] for u in baseline[title]["units"])) and standard[title]["units"]:
                     decision = decisions[document_id]
-                    out.append({"document_id": document_id, "filename": doc["filename"], "source": standard[title]["units"][0], "decision": decision["decision"], "date": decision["decision_date"], "rationale": decision["rationale"], "reuse_authority": decision["reuse_authority"], "why_retrieved": "Same clause topic in a previously reviewed standard provision; not evidence that the changed wording is equivalent."})
+                    out.append({"document_id": document_id, "filename": doc["filename"], "source": standard[title]["units"][0], "decision": decision["decision"], "date": decision["decision_date"], "rationale": decision["rationale"], "reuse_authority": decision["reuse_authority"], "kind": "historical", "match_basis": "same clause topic", "why_retrieved": "Standard wording in the same clause topic; not evidence that the changed wording is equivalent."})
                     break
             if out:
                 break

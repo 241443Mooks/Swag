@@ -49,6 +49,8 @@ Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the 
 
 The first screen now offers **Start reviewing**, **Add incoming DOCX**, and a link to the currently selected reference. Home, Review queue, Reference and Help remain available in the top navigation. The review screen starts with one observation; findings, past decisions, check detail and correction controls open when needed.
 
+For the wider product idea, choose **Explore Swig's potential workspaces** near the bottom of Home (or open `#explore`). Legal is the only working tile and opens the real review queue. Muted department cards are concepts, with no navigation or data behind them. Daily reviewers can continue directly through Home or Review queue. See the [Issue #10 status](docs/ISSUE_10_STATUS.md), [workspace wireframe](docs/ISSUE_10_WORKSPACE_WIREFRAME.md) and [architecture decision](docs/decisions/002-legal-pack-and-workspace-boundary.md).
+
 ## Issue #8: reference → review → correction → reuse
 
 1. Open **Reference**. Inspect the bundled fictional NDA or choose an uploaded synthetic reference. The selected reference applies to **new** incoming uploads. Each existing review keeps its original reference identity. Uploaded references must have complete supported DOCX extraction and the bundled mutual NDA clause headings; this is not a general contract-family matcher.

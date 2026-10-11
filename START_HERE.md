@@ -47,11 +47,23 @@ python3 -m swag.server --port 8771
 
 Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the repository root. If 8771 is busy, choose another unused port. Decisions and uploaded local demonstration files go into ignored `.swag-data/`; a clean checkout starts without reviewer decisions. Use synthetic documents only.
 
+The first screen now offers **Start reviewing**, **Add incoming DOCX**, and a link to the currently selected reference. Home, Review queue, Reference and Help remain available in the top navigation. The review screen starts with one observation; findings, past decisions, check detail and correction controls open when needed.
+
+## Issue #8: reference → review → correction → reuse
+
+1. Open **Reference**. Inspect the bundled fictional NDA or choose an uploaded synthetic reference. The selected reference applies to **new** incoming uploads. Each existing review keeps its original reference identity. Uploaded references must have complete supported DOCX extraction and the bundled mutual NDA clause headings; this is not a general contract-family matcher.
+2. Use **Add incoming DOCX** on Home or in the queue. Try [L01](dataset/learning/L01-audit-retention.docx). Open the returned review and inspect the changed Return or Destruction passage beside the reference. The original DOCX and exact extracted text are available from the review.
+3. Open **View history** from an original scenario such as Brookside AI / T02. The drawer shows the actual number of fictional records searched, why each was retrieved and whether its wording is exact, similar or merely the same topic. **Inspect original passage** opens the complete historical extraction and exact historical DOCX; the prior decision remains a whole-contract decision.
+4. On L01's changed finding, expand **Improve this comparison**. Record a fictional reviewer correction explaining that retained archives are limited to a named regulatory duty and unavailable for business use. This correction is separate from the legal decision and initially appears only in Review history.
+5. In **Review history → Comparison corrections**, explicitly share the lesson with fictional context and reuse limits. Upload [L03](dataset/learning/L03-regulatory-records.docx) and [L02](dataset/learning/L02-analytics-retention.docx). Both can surface the authorised correction beside their changed clause. L03 uses different words for a related restricted archive; L02 permits commercial analytics access. In both, applicability remains **unverified** and the independent review route stays **Needs judgement**. Withdraw the lesson from L01's history to remove it from later active retrieval while retaining its audit trail.
+
+The A/B/C check proves a governed retrieval path and a useful caution on the misleading variant. It does **not** prove that the comparison itself improved semantically, that a reviewer saved time, or that the legal interpretation is correct. The optional AI adapter remains disabled by default; no live model run was made for Issue #8. See [Issue #8 status](docs/ISSUE_08_STATUS.md).
+
 The repository URL, Python package (`swag`), `SWAG_AI_*` configuration names and `.swag-data/` state path retain their original technical names for compatibility. The reviewer-facing product is **Swig**.
 
 ## Five-minute walkthrough
 
-1. **Queue:** Notice three escalation candidates before the two judgement cases and the routine candidate. These are routes for human work, not legal outcomes.
+1. **Home → Start reviewing:** Notice three escalation candidates before the two judgement cases and the routine candidate. These are routes for human work, not legal outcomes.
 2. **Falcon Data / T03:** Open the first item. The clause 11 addition preserves commercially exploitable rights despite a standard no-licence clause. Follow “View in full text” to the exact passage. Compare the linked clause 9 and the rejected H03 prior decision. Open the original DOCX if needed.
 3. **Elm Studio / T04 and Moorland / T05:** One lacks the no-licence protection; the other has a Schedule 1 that overrides permitted use. Both must remain escalations despite otherwise familiar wording.
 4. **Brookside AI / T02:** See the five-year term change and H02's conditional acceptance. The previous decision is context, not reusable authority.

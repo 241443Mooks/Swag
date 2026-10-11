@@ -20,7 +20,9 @@ Environment: macOS, Python 3.9.6, standard-library runtime. The full suite's loo
 
 ```sh
 python3 scripts/build_adversarial_fixtures.py         # passed; deterministic outputs
+git worktree add --detach /tmp/swag-pr1-baseline 2ea24ae  # temporary original implementation
 PYTHONPATH=/tmp/swag-pr1-baseline python3 tests/adversarial_audit.py --out docs/ADVERSARIAL_BASELINE.json
+git worktree remove /tmp/swag-pr1-baseline
 python3 -m tests.adversarial_audit --out docs/ADVERSARIAL_AFTER.json
 python3 -m unittest discover -s tests -v             # 19 passed
 python3 -m tests.evaluate                             # 6/6 original routes

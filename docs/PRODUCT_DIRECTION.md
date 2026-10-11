@@ -1,10 +1,10 @@
-# Swag — product direction
+# Swig — product direction
 
 **Working direction, 11 October 2026.** This records the owner's direction and the narrow synthetic learning-cycle demonstration added on the current feature branch. It does not declare the product ready for submission or real contracts.
 
 ## The product we are building toward
 
-Help a small legal team turn its review history into **governed, reusable organisational knowledge**. Swag should make the next review easier by showing relevant past wording, decisions, reasons and conditions alongside the current document's evidence. A legal reviewer remains responsible for deciding whether that history applies.
+Make routine commercial contract review easier, safer and more consistent by bringing **important differences, supporting evidence and relevant organisational experience** together. Swig should make the next review easier by showing relevant past wording, decisions, reasons and conditions alongside the current document's evidence. A legal reviewer remains responsible for deciding whether that history applies. Deliberate feedback and governed reuse should increase usefulness over time; AI is used only where it offers a worthwhile advantage over simpler methods.
 
 The experience stays simple: find the work needing attention, understand why, inspect the source and relevant history, then record a decision. Underneath, source coverage, check status, provenance, authority and uncertainty must remain explicit. Similarity to a previous acceptance never means approval.
 
@@ -24,11 +24,11 @@ Every precedent result remains context about a past case. It has no authority to
 4. **Publish knowledge:** Make a selected precedent searchable with its source, status, publisher, version and withdrawal history. Treat authorised playbook guidance as a separate, more authoritative record.
 5. **Improve:** Measure retrieval usefulness, repeated questions, missed exceptions, unnecessary escalations and reviewer corrections. Turn verified failure examples into regression cases and revise checks or guidance through review.
 
-Steps 1–4 are demonstrated only in a local, synthetic, single-user form. Step 5 and real authorisation remain proposed. None requires automatic model retraining. A reviewed precedent helps a person reason about a new case; it does not authorise Swag to decide that case.
+Steps 1–4 are demonstrated only in a local, synthetic, single-user form. Step 5 and real authorisation remain proposed. None requires automatic model retraining. A reviewed precedent helps a person reason about a new case; it does not authorise Swig to decide that case.
 
 ## How development should work with the legal team
 
-Swag should be developed **with the legal team, without making them responsible for building it**. Their knowledge of normal amendments, commercial context, escalation thresholds and practical review work is the starting point. The developer's responsibility is to translate that knowledge into a usable, testable system. The developer must not invent legal policy in the absence of legal expertise.
+Swig should be developed **with the legal team, without making them responsible for building it**. Their knowledge of normal amendments, commercial context, escalation thresholds and practical review work is the starting point. The developer's responsibility is to translate that knowledge into a usable, testable system. The developer must not invent legal policy in the absence of legal expertise.
 
 Use a repeating, proportionate cycle:
 
@@ -41,9 +41,13 @@ Use a repeating, proportionate cycle:
 
 The intended outcome is a product that grows in usefulness as the team works, with minimal extra administration. The team owns legal judgement and acceptance criteria; the developer owns implementation and technical assurance; organisational owners must establish publication authority, privacy, security and deployment controls.
 
-**Current boundary:** This collaboration model is a proposed way of working, not an activity completed for the prototype. No qualified legal professional has yet validated Swag, and there are no observed real-team usability or productivity results.
+**Current boundary:** This collaboration model is a proposed way of working, not an activity completed for the prototype. No qualified legal professional has yet validated Swig, and there are no observed real-team usability or productivity results.
 
-## Next investment, in order
+## Validation before real use
+
+The next decision is whether a legal reviewer can use the current journey quickly and correctly. Human creative acceptance, legal assessment of representative wording, retrieval usefulness, and realistic exception testing remain open. Real documents additionally require privacy, security, verified publication authority and operational controls. These are gates for real use, not features to add to this application prototype.
+
+## Possible later investments
 
 1. **Validate and harden the demonstrated reuse loop.** Test retrieval usefulness and context mismatch with legal reviewers. Before real contracts, replace self-attested demo publication with actual identity, roles and approval policy; define correction and version governance. Promotion must never silently change routing or legal approval.
 2. **Introduce versioned playbooks.** Separate individual precedents from approved organisational guidance, with named authority, effective dates, change history and reversal. Do this after the team defines who may publish guidance and how conflicts are resolved.
@@ -54,6 +58,6 @@ The synthetic slice demonstrates decision → explicit demo publication → cont
 
 ## Submission claim and limits
 
-Describe Swag as **a working foundation for an evolving, precedent-aware legal review system**. Demonstrate the current end-to-end review, source evidence, historical context, Assurance view, human decision capture and the small synthetic publication/withdrawal loop. Make clear that only explicitly published decisions enter later search. Do not call the prototype self-learning or claim measured legal accuracy or time savings from the synthetic demonstration.
+Describe Swig as **a working foundation for an evolving, precedent-aware legal review system**. Demonstrate the current end-to-end review, source evidence, historical context, Assurance view, human decision capture and the small synthetic publication/withdrawal loop. Make clear that only explicitly published decisions enter later search. Do not call the prototype self-learning or claim measured legal accuracy or time savings from the synthetic demonstration.
 
-Before real use, the legal team must define publication authority, required context and conditions, and how conflicting or withdrawn guidance is handled. Human creative acceptance and submission QA remain open.
+Before real use, the legal team must define publication authority, required context and conditions, and how conflicting or withdrawn guidance is handled. Human creative acceptance and submission QA remain open. The possible investments above are not prerequisites for demonstrating the current prototype.

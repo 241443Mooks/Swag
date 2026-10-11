@@ -1,13 +1,15 @@
-# Swag — Creative intent
+# Swig — Creative intent
 
 ## The idea
 **Simple on the surface. Exceptionally robust underneath.**
 
 The aim is not to hide complexity behind a pretty interface. It is to understand the complexity, handle as much of it as software can reliably handle, and leave the user with a calm, natural and trustworthy experience.
 
-The longer-term direction is to make a legal team's reviewed experience useful in later reviews through a governed, traceable learning loop. The present prototype records decisions but does not promote them into searchable precedents. See [Product direction](PRODUCT_DIRECTION.md) for the current boundary and proposed next stage.
+The longer-term direction is to make a legal team's reviewed experience useful in later reviews through a governed, traceable learning loop. The present synthetic prototype records decisions and lets a demonstration reviewer explicitly publish a source-linked decision for later search, then withdraw it. Publication authority is self-attested and does not create organisational policy. See [Product direction](PRODUCT_DIRECTION.md) for the current boundary and proposed next stage.
 
-A busy legal reviewer should not have to reconstruct an entire contract merely to find out what needs their judgement. Swag should do the mechanical work of extracting, comparing, organising, checking and retrieving relevant history, then make the important differences and their evidence easy to inspect.
+A busy legal reviewer should not have to reconstruct an entire contract merely to find out what needs their judgement. Swig should do the mechanical work of extracting, comparing, organising, checking and retrieving relevant history, then make the important differences and their evidence easy to inspect.
+
+**Product north star:** Make routine commercial contract review easier, safer and more consistent by bringing important differences, supporting evidence and relevant organisational experience together. Legal professionals retain judgement and authority. Deliberate feedback and governed reuse make the product more useful over time; AI is used only where it offers a worthwhile advantage over simpler methods.
 
 This is a creativity demonstration: the distinctive idea is not “add AI to legal review”. It is **redesign the work so that routine effort falls away without losing assurance**.
 

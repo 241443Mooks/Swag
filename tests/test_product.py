@@ -188,6 +188,9 @@ class JourneyTests(unittest.TestCase):
             base='http://127.0.0.1:%d'%server.server_port
             def get(path):return json.load(urllib.request.urlopen(base+path))
             try:
+                home=urllib.request.urlopen(base+'/').read().decode()
+                self.assertIn('<title>Swig · Contract review</title>', home)
+                self.assertIn('class="brand">Swig', home)
                 queue=get('/api/queue')['items']
                 self.assertEqual(len(queue),6)
                 self.assertEqual(queue[0]['route'],'escalate')
@@ -201,7 +204,7 @@ class JourneyTests(unittest.TestCase):
                 self.assertEqual(len(get('/api/contracts/T03')['history']),1)
                 reloaded=App(ROOT,Path(temp))
                 self.assertEqual(len(reloaded.detail('T03')['history']),1)
-                boundary='swag-boundary'; file=(ROOT/'dataset/incoming/T01-template-match.docx').read_bytes()
+                boundary='swig-boundary'; file=(ROOT/'dataset/incoming/T01-template-match.docx').read_bytes()
                 multipart=(f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="T01.docx"\r\nContent-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document\r\n\r\n').encode()+file+(f'\r\n--{boundary}--\r\n').encode()
                 request=urllib.request.Request(base+'/api/upload',data=multipart,headers={'Content-Type':'multipart/form-data; boundary='+boundary,'X-Filename':'uploaded-synthetic.docx'},method='POST')
                 uploaded=json.load(urllib.request.urlopen(request))['id']

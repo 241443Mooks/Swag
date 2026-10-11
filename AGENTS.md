@@ -1,9 +1,11 @@
 ## Creative direction — mandatory
 **Simple on the surface. Exceptionally robust underneath.** Before building, read `docs/CREATIVE_INTENT.md` and `docs/EXPERIENCE_PRINCIPLES.md`. Complexity is justified only when it removes user friction, improves assurance or provides demonstrable business value. Build a coherent exception-first reviewer journey, not a generic AI dashboard. Follow `docs/CREATIVE_REVIEW.md`; record meaningful discoveries in `docs/DESIGN_JOURNAL.md`. Creative acceptance belongs to the human owner; do not self-certify it. Preserve full-document evidence and human judgement.
 
-# Agent operating instructions — Swag
+# Agent operating instructions — Swig
 
 This repository is a synthetic-data proof of concept for a **human-led, precedent-aware commercial contract review assistant**. Follow these instructions when making changes.
+
+**Product north star:** Swig makes routine commercial contract review easier, safer and more consistent by bringing important differences, source evidence and relevant organisational experience together. Legal professionals retain judgement and authority. Deliberate feedback and governed reuse should increase usefulness over time. AI is used only where it offers a worthwhile advantage over simpler methods. Keep the reviewer journey simple and the underlying checks inspectable.
 
 ## Mission and boundaries
 - Build a demonstrable, locally runnable vertical slice for routine mutual NDA review.
@@ -55,9 +57,9 @@ This repository is a synthetic-data proof of concept for a **human-led, preceden
 - Deliver a runnable demo, automated test suite, limitations, and draft PR with an evidence-based summary.
 - Never merge, deploy publicly, or ingest real/confidential contracts without explicit permission.
 
-Demonstrate at least one genuine AI capability **only where justified against a conventional baseline**. AI must earn its place; follow `docs/ENGINEERING_PRINCIPLES.md` and record major choices in `docs/decisions/`. Follow `docs/AI_ARCHITECTURE.md`: support a genuine model API for a narrowly justified capability, require explicit opt-in, never simulate model output, and distinguish live AI results from deterministic findings. Include queue triage and a single-ZIP submission plan.
+The present optional provider adapter is a narrow, genuine integration, not evidence of live model usefulness. AI must earn its place against a conventional baseline; follow `docs/ENGINEERING_PRINCIPLES.md` and `docs/AI_ARCHITECTURE.md`. Require explicit opt-in, never simulate model output, and distinguish live AI results from deterministic findings. The employer brief asks how AI could help; do not turn an earlier internal live-demo assumption into an employer requirement. Include queue triage and a single-ZIP submission plan.
 
 ## Sprint execution controls
-Before coding, read and follow `docs/SPRINT_01_PLAN.md`, `docs/QUALITY_GATES.md`, `docs/TEST_STRATEGY.md`, and `docs/DELIVERY_CHECKLIST.md`. These are binding for Sprint 1. Record evidence for each gate in `docs/SPRINT_01_STATUS.md` as work proceeds. Do not self-certify a gate without the required evidence, bypass critical failures, exceed explicitly authorised AI usage, or retry indefinitely. After three materially different failed fixes to the same blocker, stop that line of work and report it. Do not merge or deploy autonomously.
+Before coding, read and follow `docs/SPRINT_01_PLAN.md`, `docs/QUALITY_GATES.md`, `docs/TEST_STRATEGY.md`, and `docs/DELIVERY_CHECKLIST.md`. The Sprint 1 controls and status record apply to that completed sprint; later work should preserve the safety gates and record its own evidence. Do not self-certify a gate without the required evidence, bypass critical failures, exceed explicitly authorised AI usage, or retry indefinitely. After three materially different failed fixes to the same blocker, stop that line of work and report it. Do not merge or deploy autonomously.
 
 See `docs/PRODUCT_SPEC.md`, `docs/AI_ARCHITECTURE.md` and `docs/ACCEPTANCE_TESTS.md`.

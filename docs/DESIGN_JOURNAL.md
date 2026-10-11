@@ -1,4 +1,4 @@
-# Swag — Design journal
+# Swig — Design journal
 
 Record meaningful discoveries, decisions and surprises as the product is built. Separate observations from hypotheses; do not fabricate user research, performance or results.
 

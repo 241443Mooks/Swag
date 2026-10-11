@@ -1,12 +1,12 @@
-# Swag — review the exceptions first
+# Swig — review the exceptions first
 
 PortSwigger's task describes a small legal team receiving mostly standard commercial contracts, many with familiar amendments, while its queue grows faster than it can read everything. This proof of concept reorganises six **fictional mutual NDAs** around the exceptions that deserve a person's attention. It is decision support, not legal advice or automatic approval.
 
-**Product direction:** Swag is a foundation for an evolving, precedent-aware legal review system. It now demonstrates one governed reuse cycle with synthetic contracts: a new decision enters later precedent search only after explicit local demo publication, and can be withdrawn. This does not create production authorisation or organisational policy. See [Product direction](docs/PRODUCT_DIRECTION.md).
+**Product direction:** Swig makes routine commercial contract review easier, safer and more consistent by bringing important differences, source evidence and relevant organisational experience together. Legal professionals retain judgement and authority. The synthetic prototype demonstrates a governed reuse cycle: a new decision enters later precedent search only after explicit local demo publication, and can be withdrawn. This does not create production authorisation or organisational policy. See [Product direction](docs/PRODUCT_DIRECTION.md).
 
 ## Risks, concerns and responsible use
 
-Swag explores whether a small legal team can spend less effort on repetitive contract checks, notice important exceptions and preserve the reasoning behind earlier decisions. **It is a workflow demonstration, not legal advice, an autonomous approval system or a validated legal product.**
+Swig explores whether a small legal team can spend less effort on repetitive contract checks, notice important exceptions and preserve the reasoning behind earlier decisions. **It is a workflow demonstration, not legal advice, an autonomous approval system or a validated legal product.**
 
 **Design principle:** Technology should earn its place by improving human capability, not by making human judgement subordinate to the technology. Faster processing alone is not proof of better decisions or a better working environment.
 
@@ -25,7 +25,7 @@ Swag explores whether a small legal team can spend less effort on repetitive con
 
 Automated tests, adversarial synthetic DOCX cases and the demonstrated publication/retrieval/withdrawal cycle establish that selected technical behaviours work in the tested conditions. They **do not establish legal accuracy, real-contract safety or measurable time savings**. No qualified legal professional has reviewed or validated this prototype. Legal subject-matter review, realistic user testing and an authorised operational design would be necessary before deployment.
 
-Human oversight must be meaningful: a reviewer needs access to the original wording, the ability to question the comparison or precedent, and authority to make an independent decision. Whether Swag actually improves reviewer autonomy and reduces cognitive burden remains untested.
+Human oversight must be meaningful: a reviewer needs access to the original wording, the ability to question the comparison or precedent, and authority to make an independent decision. Whether Swig actually improves reviewer autonomy and reduces cognitive burden remains untested.
 
 ### Why AI is optional
 
@@ -46,6 +46,8 @@ python3 -m swag.server --port 8771
 ```
 
 Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the repository root. If 8771 is busy, choose another unused port. Decisions and uploaded local demonstration files go into ignored `.swag-data/`; a clean checkout starts without reviewer decisions. Use synthetic documents only.
+
+The repository URL, Python package (`swag`), `SWAG_AI_*` configuration names and `.swag-data/` state path retain their original technical names for compatibility. The reviewer-facing product is **Swig**.
 
 ## Five-minute walkthrough
 
@@ -96,3 +98,7 @@ The evaluator alone reads the held-out answer key. Runtime modules never access 
 - Demo publication requires explicit action and a source-linked considered finding, but publisher identity is self-attested. There is no multi-user access control or legally authorised playbook.
 - AI live quality, latency, provider errors and cost remain unverified until an authorised paid test. No synthetic time savings or legal-team productivity study is claimed.
 - Human creative acceptance and submission QA are pending. Do not submit this ZIP as a final employer response without review.
+
+## What comes next
+
+The **working prototype** is the offline synthetic review journey, assurance view, decision history and explicit demo precedent publication/withdrawal. **Before real use**, legal reviewers must validate the experience and legal assumptions, and the team needs privacy, security, identity and publication controls. **Possible later work** includes authorised playbooks, retrieval feedback, other contract families and document formats. Those are product options, not unfinished application requirements. See [Product direction](docs/PRODUCT_DIRECTION.md).

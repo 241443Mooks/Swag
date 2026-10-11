@@ -309,7 +309,7 @@ def main():
     root = Path(__file__).resolve().parent.parent
     Handler.app = App(root, args.state_dir.resolve())
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
-    print("Swag synthetic review: http://127.0.0.1:%d" % args.port, flush=True)
+    print("Swig synthetic review: http://127.0.0.1:%d" % args.port, flush=True)
     server.serve_forever()
 
 

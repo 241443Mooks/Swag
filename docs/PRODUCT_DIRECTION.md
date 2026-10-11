@@ -26,6 +26,23 @@ Every precedent result remains context about a past case. It has no authority to
 
 Steps 1–4 are demonstrated only in a local, synthetic, single-user form. Step 5 and real authorisation remain proposed. None requires automatic model retraining. A reviewed precedent helps a person reason about a new case; it does not authorise Swag to decide that case.
 
+## How development should work with the legal team
+
+Swag should be developed **with the legal team, without making them responsible for building it**. Their knowledge of normal amendments, commercial context, escalation thresholds and practical review work is the starting point. The developer's responsibility is to translate that knowledge into a usable, testable system. The developer must not invent legal policy in the absence of legal expertise.
+
+Use a repeating, proportionate cycle:
+
+1. **Understand together.** Spend focused time observing the team, examining representative contracts and asking what they check first, which variations recur, which decisions depend on context, where work slows down and what would make a tool untrustworthy. Agree a small initial scope and how success will be judged.
+2. **Develop independently.** Protect time to design, build, investigate and test a bounded improvement. Use deterministic methods where they are sufficient; assess AI only where it might add demonstrable value. Return with something usable rather than requiring the team to supervise implementation.
+3. **Test together.** Have legal professionals try representative examples and observe how they actually work, including hesitations, misunderstandings, missed issues, unnecessary escalations and whether they can challenge the system. Ask them to validate the legal assumptions and decide whether the result is useful and safe enough for its intended scope.
+4. **Iterate periodically.** Collect feedback and recurring patterns, prioritise improvements by impact and risk, then repeat. Keep a stable useful product between iterations; do not create a permanent dependency on development activity.
+
+**Learning during use is a parallel activity, not an automatic rule change.** Normal reviews can capture source-linked decisions, reasons, conditions and corrections. A suitably authorised person can explicitly publish selected examples as contextual precedents. Repeated patterns may suggest changes to checks or approved playbooks, but these require separate review, testing, versioning and authorisation. Neither one person's decision nor a frequently repeated practice should silently become policy.
+
+The intended outcome is a product that grows in usefulness as the team works, with minimal extra administration. The team owns legal judgement and acceptance criteria; the developer owns implementation and technical assurance; organisational owners must establish publication authority, privacy, security and deployment controls.
+
+**Current boundary:** This collaboration model is a proposed way of working, not an activity completed for the prototype. No qualified legal professional has yet validated Swag, and there are no observed real-team usability or productivity results.
+
 ## Next investment, in order
 
 1. **Validate and harden the demonstrated reuse loop.** Test retrieval usefulness and context mismatch with legal reviewers. Before real contracts, replace self-attested demo publication with actual identity, roles and approval policy; define correction and version governance. Promotion must never silently change routing or legal approval.

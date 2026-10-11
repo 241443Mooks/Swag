@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import io
 import json
+import warnings
 import zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -54,7 +55,10 @@ def edit_document(source, change, part="word/document.xml", duplicate=False):
             changed.writestr(member, contents)
         if duplicate:
             # ZIP permits duplicate member names; last-wins lookups conceal ambiguity.
-            changed.writestr(part, duplicate_contents)
+            duplicate_member = zipfile.ZipInfo(part, date_time=(2020, 1, 1, 0, 0, 0))
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", message="Duplicate name:", category=UserWarning)
+                changed.writestr(duplicate_member, duplicate_contents)
     return output.getvalue()
 
 
@@ -68,6 +72,20 @@ def hidden_no_licence(root):
                     properties = ET.Element(W + "rPr")
                     run.insert(0, properties)
                 ET.SubElement(properties, W + "vanish")
+            return
+    raise ValueError("No-licence paragraph not found")
+
+
+def struck_out_protection(root, enabled=True):
+    for item in root.findall(".//" + W + "p"):
+        text = "".join(node.text or "" for node in item.iter(W + "t"))
+        if text.startswith("No intellectual property licence"):
+            for run in item.findall(W + "r"):
+                properties = run.find(W + "rPr")
+                if properties is None:
+                    properties = ET.Element(W + "rPr")
+                    run.insert(0, properties)
+                ET.SubElement(properties, W + "strike", {} if enabled else {W + "val": "0"})
             return
     raise ValueError("No-licence paragraph not found")
 
@@ -88,6 +106,33 @@ def relocate_paragraph(root):
     raise ValueError("No-licence paragraph not found")
 
 
+def style_hidden_protection(source):
+    output = io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(source)) as original, zipfile.ZipFile(output, "w") as changed:
+        for member in original.infolist():
+            contents = original.read(member.filename)
+            if member.filename == "word/document.xml":
+                root = ET.fromstring(contents)
+                for item in root.findall(".//" + W + "p"):
+                    text = "".join(node.text or "" for node in item.iter(W + "t"))
+                    if text.startswith("No intellectual property licence"):
+                        properties = ET.Element(W + "pPr")
+                        ET.SubElement(properties, W + "pStyle", {W + "val": "HiddenProvision"})
+                        item.insert(0, properties)
+                        break
+                else:
+                    raise ValueError("No-licence paragraph not found")
+                contents = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            elif member.filename == "word/styles.xml":
+                root = ET.fromstring(contents)
+                style = ET.SubElement(root, W + "style", {W + "type": "paragraph", W + "styleId": "HiddenProvision"})
+                ET.SubElement(style, W + "name", {W + "val": "Hidden Provision"})
+                ET.SubElement(ET.SubElement(style, W + "rPr"), W + "vanish")
+                contents = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            changed.writestr(member, contents)
+    return output.getvalue()
+
+
 def build():
     base = SOURCE.read_bytes()
     DEST.mkdir(parents=True, exist_ok=True)
@@ -105,6 +150,9 @@ def build():
         ("A11-party-only", "Administrative party change", "Only the counterparty name differs from T01.", "routine_candidate", False, lambda: edit_document(base, lambda xml: replace_all(xml, "Birchbridge Ltd", "Mapleline Ltd"))),
         ("A12-unchanged", "Exact supported template", "Byte-identical T01 for a routine-route control.", "routine_candidate", False, lambda: base),
         ("A13-displaced-protection", "Displaced protection", "No-licence wording moves after signatures, leaving its heading with no body.", "review_required", True, lambda: edit_document(base, relocate_paragraph)),
+        ("A14-style-hidden-protection", "Style-hidden protection", "No-licence paragraph uses a custom paragraph style whose text is hidden.", "blocked_extraction", True, lambda: style_hidden_protection(base)),
+        ("A15-struck-protection", "Struck-out protection", "The no-licence paragraph is formatted as struck out while its extracted text remains unchanged.", "blocked_extraction", True, lambda: edit_document(base, struck_out_protection)),
+        ("A16-disabled-strike", "Disabled strike control", "The no-licence paragraph carries an explicit strike property set to off; visible wording is unchanged.", "routine_candidate", False, lambda: edit_document(base, lambda xml: struck_out_protection(xml, enabled=False))),
     ]
     manifest = []
     for stem, risk, change, expected, critical, make in cases:

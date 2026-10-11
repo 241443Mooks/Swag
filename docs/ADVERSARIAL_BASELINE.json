@@ -3,19 +3,31 @@
   "metrics": {
     "critical_exception_recall": {
       "surfaced": 5,
-      "total": 9
+      "total": 11
+    },
+    "critical_source_linked_findings": {
+      "count": 5,
+      "critical_cases": 11
+    },
+    "critical_safe_blocks": {
+      "count": 0,
+      "critical_cases": 11
     },
     "false_routine_recommendations": {
-      "count": 4,
-      "critical_cases": 9
+      "count": 6,
+      "critical_cases": 11
     },
     "unnecessary_escalations": {
       "count": 2,
-      "noncritical_cases": 4
+      "review_or_routine_targets": 9
+    },
+    "noncritical_false_escalations": {
+      "count": 2,
+      "noncritical_cases": 5
     },
     "expected_route_matches": {
-      "count": 6,
-      "total": 13
+      "count": 7,
+      "total": 16
     }
   },
   "cases": [
@@ -31,9 +43,12 @@
       "source_anchors": [],
       "coverage_issues": [],
       "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": true,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": false
     },
     {
@@ -48,9 +63,12 @@
       "source_anchors": [],
       "coverage_issues": [],
       "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": true,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": false
     },
     {
@@ -65,9 +83,12 @@
       "source_anchors": [],
       "coverage_issues": [],
       "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": true,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": false
     },
     {
@@ -82,9 +103,12 @@
       "source_anchors": [],
       "coverage_issues": [],
       "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": true,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": false
     },
     {
@@ -104,9 +128,12 @@
       ],
       "coverage_issues": [],
       "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": true
     },
     {
@@ -125,9 +152,12 @@
       ],
       "coverage_issues": [],
       "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": false
     },
     {
@@ -146,9 +176,12 @@
       ],
       "coverage_issues": [],
       "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": true
     },
     {
@@ -167,9 +200,12 @@
       ],
       "coverage_issues": [],
       "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": true
     },
     {
@@ -190,9 +226,12 @@
       ],
       "coverage_issues": [],
       "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": true,
+      "noncritical_false_escalation": true,
       "meets_expected_route": false
     },
     {
@@ -213,9 +252,12 @@
       ],
       "coverage_issues": [],
       "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": true,
+      "noncritical_false_escalation": true,
       "meets_expected_route": false
     },
     {
@@ -230,9 +272,12 @@
       "source_anchors": [],
       "coverage_issues": [],
       "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": true
     },
     {
@@ -247,9 +292,12 @@
       "source_anchors": [],
       "coverage_issues": [],
       "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": true
     },
     {
@@ -270,9 +318,72 @@
       ],
       "coverage_issues": [],
       "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
       "valid_evidence": true,
       "unsafe_routine": false,
       "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": true
+    },
+    {
+      "id": "A14",
+      "file": "A14-style-hidden-protection.docx",
+      "risk": "Style-hidden protection",
+      "change": "No-licence paragraph uses a custom paragraph style whose text is hidden.",
+      "expected_route": "blocked_extraction",
+      "critical_exception": true,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": true,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A15",
+      "file": "A15-struck-protection.docx",
+      "risk": "Struck-out protection",
+      "change": "The no-licence paragraph is formatted as struck out while its extracted text remains unchanged.",
+      "expected_route": "blocked_extraction",
+      "critical_exception": true,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": true,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A16",
+      "file": "A16-disabled-strike.docx",
+      "risk": "Disabled strike control",
+      "change": "The no-licence paragraph carries an explicit strike property set to off; visible wording is unchanged.",
+      "expected_route": "routine_candidate",
+      "critical_exception": false,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
       "meets_expected_route": true
     }
   ]

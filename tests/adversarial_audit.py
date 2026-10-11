@@ -9,7 +9,6 @@ from swag.document import extract_file
 from swag.engine import analyse, load_library
 
 ROOT = Path(__file__).resolve().parents[1]
-ORDER = {"routine_candidate": 0, "review_required": 1, "escalate": 2, "blocked_extraction": 3}
 
 
 def audit():
@@ -29,6 +28,8 @@ def audit():
         surfaced = result["route"] != "routine_candidate" and (
             bool(result["findings"]) or bool(document["coverage"]["issues"])
         ) and valid_evidence
+        source_linked_finding = bool(result["findings"]) and valid_evidence
+        safe_block = result["route"] == "blocked_extraction" and bool(document["coverage"]["issues"])
         rows.append({
             **case,
             "observed_route": result["route"],
@@ -36,9 +37,12 @@ def audit():
             "source_anchors": [unit["anchor"] for finding in result["findings"] for unit in finding["sources"]],
             "coverage_issues": document["coverage"]["issues"],
             "exception_surfaced": surfaced,
+            "source_linked_finding": source_linked_finding,
+            "safe_block": safe_block,
             "valid_evidence": valid_evidence,
             "unsafe_routine": case["critical_exception"] and result["route"] == "routine_candidate",
-            "unnecessary_escalation": not case["critical_exception"] and ORDER[result["route"]] > ORDER[case["expected_route"]],
+            "unnecessary_escalation": case["expected_route"] in {"routine_candidate", "review_required"} and result["route"] == "escalate",
+            "noncritical_false_escalation": not case["critical_exception"] and case["expected_route"] != "escalate" and result["route"] == "escalate",
             "meets_expected_route": result["route"] == case["expected_route"],
         })
     critical = [row for row in rows if row["critical_exception"]]
@@ -47,8 +51,11 @@ def audit():
         "scope": "Small, authored synthetic challenge set; not real-world legal accuracy.",
         "metrics": {
             "critical_exception_recall": {"surfaced": sum(row["exception_surfaced"] for row in critical), "total": len(critical)},
+            "critical_source_linked_findings": {"count": sum(row["source_linked_finding"] for row in critical), "critical_cases": len(critical)},
+            "critical_safe_blocks": {"count": sum(row["safe_block"] for row in critical), "critical_cases": len(critical)},
             "false_routine_recommendations": {"count": sum(row["unsafe_routine"] for row in critical), "critical_cases": len(critical)},
-            "unnecessary_escalations": {"count": sum(row["unnecessary_escalation"] for row in noncritical), "noncritical_cases": len(noncritical)},
+            "unnecessary_escalations": {"count": sum(row["unnecessary_escalation"] for row in rows), "review_or_routine_targets": sum(row["expected_route"] in {"routine_candidate", "review_required"} for row in rows)},
+            "noncritical_false_escalations": {"count": sum(row["noncritical_false_escalation"] for row in noncritical), "noncritical_cases": len(noncritical)},
             "expected_route_matches": {"count": sum(row["meets_expected_route"] for row in rows), "total": len(rows)},
         },
         "cases": rows,

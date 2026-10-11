@@ -102,5 +102,29 @@
     "change": "No-licence wording moves after signatures, leaving its heading with no body.",
     "expected_route": "review_required",
     "critical_exception": true
+  },
+  {
+    "id": "A14",
+    "file": "A14-style-hidden-protection.docx",
+    "risk": "Style-hidden protection",
+    "change": "No-licence paragraph uses a custom paragraph style whose text is hidden.",
+    "expected_route": "blocked_extraction",
+    "critical_exception": true
+  },
+  {
+    "id": "A15",
+    "file": "A15-struck-protection.docx",
+    "risk": "Struck-out protection",
+    "change": "The no-licence paragraph is formatted as struck out while its extracted text remains unchanged.",
+    "expected_route": "blocked_extraction",
+    "critical_exception": true
+  },
+  {
+    "id": "A16",
+    "file": "A16-disabled-strike.docx",
+    "risk": "Disabled strike control",
+    "change": "The no-licence paragraph carries an explicit strike property set to off; visible wording is unchanged.",
+    "expected_route": "routine_candidate",
+    "critical_exception": false
   }
 ]

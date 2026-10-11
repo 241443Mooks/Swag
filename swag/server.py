@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import os
 import re
 from email import policy
 from email.parser import BytesParser
@@ -26,20 +28,38 @@ class App:
             self.contracts[document_id] = {"document": document, "path": next((root / "dataset/incoming").glob(document_id + "-*.docx"))}
         uploads = state_dir / "uploads"
         if uploads.exists():
-            for meta_path in uploads.glob("*.json"):
-                try:
-                    meta = json.loads(meta_path.read_text())
-                    path = uploads / (meta["sha256"] + ".docx")
-                    if path.is_file():
-                        self.contracts[meta["id"]] = {"document": extract(path.read_bytes(), meta["filename"]), "path": path}
-                except (OSError, ValueError, KeyError):
-                    pass
+            if list(uploads.glob("*.uploading")) or list(uploads.glob("*.recording")):
+                raise ValueError("Upload recovery required: interrupted write detected")
+            metadata = {path.stem: path for path in uploads.glob("*.json")}
+            originals = {path.stem: path for path in uploads.glob("*.docx")}
+            if set(metadata) != set(originals):
+                raise ValueError("Upload recovery required: original and metadata files do not match")
+            for stem, meta_path in metadata.items():
+                meta = json.loads(meta_path.read_text())
+                path = originals[stem]
+                data = path.read_bytes()
+                digest = hashlib.sha256(data).hexdigest()
+                if digest != stem or meta.get("sha256") != digest or meta.get("id") != "U-" + digest[:10] or not meta.get("filename"):
+                    raise ValueError("Upload recovery required: source identity mismatch for " + stem)
+                self.contracts[meta["id"]] = {"document": extract(data, meta["filename"]), "path": path}
         self.ledger = Ledger(state_dir / "decisions.jsonl")
         self.ai = AIService()
         self.ai_results = {}
 
     def analysis(self, document_id):
-        return analyse(self.reference, self.contracts[document_id]["document"], self.historical, self.decisions)
+        item = self.contracts[document_id]
+        document = item["document"]
+        try:
+            source_matches = hashlib.sha256(item["path"].read_bytes()).hexdigest() == document["sha256"]
+        except OSError:
+            source_matches = False
+        if not source_matches:
+            issue = "Original source is unavailable or changed after intake; analysis cannot be trusted"
+            damaged = {**document, "coverage": {**document["coverage"], "status": "blocked", "issues": [*document["coverage"]["issues"], issue]}}
+            report = analyse(self.reference, damaged, self.historical, self.decisions)
+            report["assurance"]["source_integrity"]["status"] = "mismatch"
+            return report
+        return analyse(self.reference, document, self.historical, self.decisions)
 
     def queue(self):
         latest = {}
@@ -54,7 +74,10 @@ class App:
 
     def detail(self, document_id):
         document = self.contracts[document_id]["document"]
-        return {"id": document_id, "display_name": self.display_name(document), "document": document, "reference": self.reference, "analysis": self.analysis(document_id), "history": self.ledger.all(document["sha256"]), "ai": self.ai.status(), "ai_results": self.ai_results.get(document["sha256"], [])}
+        history = self.ledger.all(document["sha256"])
+        analysis = self.analysis(document_id)
+        analysis["assurance"]["human_review"] = {"status": "recorded" if history else "not recorded", "last_decision": history[-1]["decision"] if history else None, "events": len(history)}
+        return {"id": document_id, "display_name": self.display_name(document), "document": document, "reference": self.reference, "analysis": analysis, "history": history, "ai": self.ai.status(), "ai_results": self.ai_results.get(document["sha256"], [])}
 
     @staticmethod
     def display_name(document):
@@ -74,9 +97,22 @@ class App:
         target.mkdir(parents=True, exist_ok=True)
         file_path = target / (document["sha256"] + ".docx")
         if not file_path.exists():
-            with file_path.open("xb") as handle:
+            temporary = target / (document["sha256"] + ".uploading")
+            with temporary.open("xb") as handle:
                 handle.write(data)
-            (target / (document["sha256"] + ".json")).write_text(json.dumps({"id": document_id, "sha256": document["sha256"], "filename": document["filename"]}))
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(temporary, file_path)
+        elif hashlib.sha256(file_path.read_bytes()).hexdigest() != document["sha256"]:
+            raise ValueError("Existing uploaded original does not match its source hash")
+        meta_path = target / (document["sha256"] + ".json")
+        if not meta_path.exists():
+            temporary = target / (document["sha256"] + ".recording")
+            with temporary.open("x") as handle:
+                json.dump({"id": document_id, "sha256": document["sha256"], "filename": document["filename"]}, handle)
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(temporary, meta_path)
         self.contracts[document_id] = {"document": document, "path": file_path}
         return document_id
 
@@ -119,7 +155,12 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(self.app.detail(document_id))
             if parts[4] != "original":
                 return self._error(404, "Not found")
-            data = self.app.contracts[document_id]["path"].read_bytes()
+            try:
+                data = self.app.contracts[document_id]["path"].read_bytes()
+            except OSError:
+                return self._error(409, "Original source unavailable; stop review and inspect local files")
+            if hashlib.sha256(data).hexdigest() != self.app.contracts[document_id]["document"]["sha256"]:
+                return self._error(409, "Original source identity changed; stop review and inspect local files")
             self.send_response(200)
             self.send_header("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
             self.send_header("Content-Disposition", 'attachment; filename="contract.docx"')

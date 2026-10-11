@@ -14,8 +14,8 @@ from urllib.parse import urlparse, unquote
 
 from .ai import AIService, AIUnavailable
 from .document import extract
-from .engine import analyse, load_library, ROUTE_ORDER
-from .ledger import Ledger
+from .engine import analyse, clauses, load_library, ROUTE_ORDER
+from .ledger import KnowledgeLedger, Ledger
 
 
 class App:
@@ -43,8 +43,52 @@ class App:
                     raise ValueError("Upload recovery required: source identity mismatch for " + stem)
                 self.contracts[meta["id"]] = {"document": extract(data, meta["filename"]), "path": path}
         self.ledger = Ledger(state_dir / "decisions.jsonl")
+        self.knowledge = KnowledgeLedger(state_dir / "knowledge.jsonl")
+        self.active_precedents()  # Fail visibly on broken publication history or source links.
         self.ai = AIService()
         self.ai_results = {}
+
+    def active_precedents(self):
+        decisions = {event["id"]: event for event in self.ledger.all()}
+        records = []
+        for event in self.knowledge.active():
+            item = self.contracts.get(event["document_id"])
+            decision = decisions.get(event["decision_id"])
+            if not item or not decision or decision["sha256"] != event["sha256"] or decision["decision"] != event["decision"] or decision["rationale"] != event["rationale"] or decision.get("conditions", "") != event["conditions"]:
+                raise ValueError("Published precedent has a broken decision or document link; retrieval unavailable")
+            document = item["document"]
+            source = next((unit for unit in document["units"] if unit["anchor"] == event["source_anchor"]), None)
+            try:
+                source_matches = hashlib.sha256(item["path"].read_bytes()).hexdigest() == event["sha256"]
+            except OSError:
+                source_matches = False
+            if document["sha256"] != event["sha256"] or document["coverage"]["status"] != "complete" or not source_matches or not source or source["text"] != event["source_text"]:
+                raise ValueError("Published precedent source is unavailable or changed; retrieval unavailable")
+            considered = decision.get("considered_sources", [])
+            evidence_matches = any(row.get("finding_id") == event["finding_id"] and row.get("anchor") == event["source_anchor"] and row.get("text") == event["source_text"] for row in considered)
+            if event["finding_id"] not in decision["finding_ids"] or not evidence_matches or decision["timestamp"] > event["timestamp"]:
+                raise ValueError("Published precedent no longer matches its reviewed evidence; retrieval unavailable")
+            records.append({**event, "document": document, "source": source})
+        return records
+
+    def publish(self, document_id, decision_id, source_anchor, authoriser, context, reuse_limits):
+        detail = self.detail(document_id)
+        if detail["analysis"]["route"] == "blocked_extraction":
+            raise ValueError("Complete extraction and source integrity are required before publication")
+        decision = next((event for event in detail["history"] if event["id"] == decision_id), None)
+        if not decision:
+            raise ValueError("Choose a recorded decision for this exact document")
+        evidence = next((row for row in decision.get("considered_sources", []) if row["anchor"] == source_anchor and row["finding_id"] in decision["finding_ids"]), None)
+        source = next((unit for unit in detail["document"]["units"] if unit["anchor"] == source_anchor), None)
+        if not evidence or not source or source["text"] != evidence["text"]:
+            raise ValueError("Choose a source passage from a finding considered in this decision")
+        section_title = next((section["title"] for section in clauses(detail["document"]).values() if any(unit["anchor"] == source_anchor for unit in section["units"])), "")
+        if not section_title:
+            raise ValueError("The source passage has no reviewable section")
+        return self.knowledge.publish(decision, document_id, evidence["finding_id"], source, section_title, authoriser, context, reuse_limits)
+
+    def withdraw(self, publication_id, actor, reason):
+        return self.knowledge.withdraw(publication_id, actor, reason)
 
     def analysis(self, document_id):
         item = self.contracts[document_id]
@@ -59,7 +103,7 @@ class App:
             report = analyse(self.reference, damaged, self.historical, self.decisions)
             report["assurance"]["source_integrity"]["status"] = "mismatch"
             return report
-        return analyse(self.reference, document, self.historical, self.decisions)
+        return analyse(self.reference, document, self.historical, self.decisions, self.active_precedents())
 
     def queue(self):
         latest = {}
@@ -75,9 +119,16 @@ class App:
     def detail(self, document_id):
         document = self.contracts[document_id]["document"]
         history = self.ledger.all(document["sha256"])
+        knowledge_events = self.knowledge.all()
+        publications = []
+        for event in knowledge_events:
+            if event["type"] != "publish" or event["sha256"] != document["sha256"]:
+                continue
+            withdrawal = next((row for row in knowledge_events if row["type"] == "withdraw" and row["publication_id"] == event["id"]), None)
+            publications.append({**event, "status": "withdrawn" if withdrawal else "active", "withdrawal": withdrawal})
         analysis = self.analysis(document_id)
         analysis["assurance"]["human_review"] = {"status": "recorded" if history else "not recorded", "last_decision": history[-1]["decision"] if history else None, "events": len(history)}
-        return {"id": document_id, "display_name": self.display_name(document), "document": document, "reference": self.reference, "analysis": analysis, "history": history, "ai": self.ai.status(), "ai_results": self.ai_results.get(document["sha256"], [])}
+        return {"id": document_id, "display_name": self.display_name(document), "document": document, "reference": self.reference, "analysis": analysis, "history": history, "publications": publications, "ai": self.ai.status(), "ai_results": self.ai_results.get(document["sha256"], [])}
 
     @staticmethod
     def display_name(document):
@@ -145,14 +196,20 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = unquote(urlparse(self.path).path)
         if path == "/api/queue":
-            return self._json({"items": self.app.queue()})
+            try:
+                return self._json({"items": self.app.queue()})
+            except ValueError as exc:
+                return self._error(409, str(exc))
         if path.startswith("/api/contracts/"):
             parts = path.split("/")
             if len(parts) not in (4, 5) or parts[3] not in self.app.contracts:
                 return self._error(404, "Contract not found")
             document_id = parts[3]
             if len(parts) == 4:
-                return self._json(self.app.detail(document_id))
+                try:
+                    return self._json(self.app.detail(document_id))
+                except ValueError as exc:
+                    return self._error(409, str(exc))
             if parts[4] != "original":
                 return self._error(404, "Not found")
             try:
@@ -196,8 +253,12 @@ class Handler(BaseHTTPRequestHandler):
                     raise ValueError("DOCX only")
                 return self._json({"id": self.app.upload(files[0].get_payload(decode=True), filename)}, 201)
             body = json.loads(self._body(100_000))
+            if not isinstance(body, dict):
+                raise ValueError("Expected a JSON object")
             if path == "/api/decisions":
                 document_id = body["document_id"]
+                if not isinstance(document_id, str):
+                    raise ValueError("Invalid contract ID")
                 if document_id not in self.app.contracts:
                     return self._error(404, "Contract not found")
                 detail = self.app.detail(document_id)
@@ -206,8 +267,24 @@ class Handler(BaseHTTPRequestHandler):
                 if not isinstance(finding_ids, list) or not set(finding_ids).issubset(valid_ids):
                     raise ValueError("Unknown finding reference")
                 doc = detail["document"]
-                event = self.app.ledger.append(doc["sha256"], doc["filename"], body.get("reviewer", ""), body.get("decision", ""), body.get("rationale", ""), finding_ids)
+                considered_sources = [{"finding_id": finding["id"], "anchor": source["anchor"], "text": source["text"]} for finding in detail["analysis"]["findings"] if finding["id"] in finding_ids for source in finding["sources"]]
+                event = self.app.ledger.append(doc["sha256"], doc["filename"], body.get("reviewer", ""), body.get("decision", ""), body.get("rationale", ""), finding_ids, body.get("conditions", ""), considered_sources)
                 return self._json(event, 201)
+            if path == "/api/precedents":
+                if body.get("role") != "demo_legal_reviewer" or body.get("acknowledged") is not True:
+                    raise ValueError("Confirm the local demonstration publisher role and responsibility")
+                document_id = body["document_id"]
+                if not isinstance(document_id, str):
+                    raise ValueError("Invalid contract ID")
+                if document_id not in self.app.contracts:
+                    return self._error(404, "Contract not found")
+                event = self.app.publish(document_id, body["decision_id"], body["source_anchor"], body.get("authoriser", ""), body.get("context", ""), body.get("reuse_limits", ""))
+                return self._json(event, 201)
+            withdrawal = re.fullmatch(r"/api/precedents/([0-9a-f-]+)/withdraw", path)
+            if withdrawal:
+                if body.get("role") != "demo_legal_reviewer" or body.get("acknowledged") is not True:
+                    raise ValueError("Confirm the local demonstration publisher role and responsibility")
+                return self._json(self.app.withdraw(withdrawal.group(1), body.get("actor", ""), body.get("reason", "")), 201)
             if path == "/api/ai":
                 document_id = body["document_id"]
                 if document_id not in self.app.contracts:

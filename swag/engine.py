@@ -134,7 +134,7 @@ def _tokens(text):
     return {word for word in re.findall(r"[a-z]{3,}", text.lower()) if word not in STOP}
 
 
-def precedents(findings, reference, historical, decisions, limit=3):
+def precedents(findings, reference, historical, decisions, published=(), incoming_sha256=None, limit=3):
     terms = set()
     titles = set()
     for finding in findings:
@@ -144,32 +144,46 @@ def precedents(findings, reference, historical, decisions, limit=3):
     baseline = clauses(reference)
     concern_categories = {f["category"] for f in findings}
     changed_titles = {normal(f["title"].split(":", 1)[-1]) for f in findings if f["category"] == "changed_clause"}
+    candidates = []
     for document_id, doc in historical.items():
-        best = (0, None)
-        prior_categories = {f["category"] for f in whole_document_controls(reference, doc)}
+        units = []
         for title, section in clauses(doc).items():
             if title == "parties and purpose":
                 continue
             prior = baseline.get(title)
             if prior and normal(" ".join(u["text"] for u in prior["units"])) == normal(" ".join(u["text"] for u in section["units"])):
                 continue
-            for unit in section["units"]:
-                overlap = len(terms & _tokens(unit["text"]))
-                title_overlap = len(titles & _tokens(section["title"]))
-                score = overlap + title_overlap * 3
-                if title in changed_titles:
-                    score += 12
-                if concern_categories & prior_categories:
-                    score += 20
-                if score > best[0]:
-                    best = (score, unit)
+            units.extend((title, unit) for unit in section["units"])
+        candidates.append({"document_id": document_id, "document": doc, "units": units, "decision": decisions[document_id], "kind": "historical"})
+    for publication in published:
+        doc = publication["document"]
+        if doc["sha256"] == incoming_sha256:
+            continue
+        candidates.append({"document_id": publication["document_id"], "document": doc, "units": [(normal(publication["section_title"]), publication["source"])], "decision": publication, "kind": "published"})
+    for candidate in candidates:
+        best = (0, None)
+        doc = candidate["document"]
+        prior_categories = {f["category"] for f in whole_document_controls(reference, doc)}
+        for title, unit in candidate["units"]:
+            overlap = len(terms & _tokens(unit["text"]))
+            title_overlap = len(titles & _tokens(title))
+            score = overlap + title_overlap * 3
+            if title in changed_titles:
+                score += 12
+            if concern_categories & prior_categories:
+                score += 20
+            if score > best[0]:
+                best = (score, unit)
         if best[1] is not None and best[0] >= 5:
-            ranked.append((best[0], document_id, best[1]))
+            ranked.append((best[0], candidate["document_id"], best[1], candidate))
     ranked.sort(key=lambda item: (-item[0], item[1]))
     out = []
-    for score, document_id, unit in ranked[:limit]:
-        decision = decisions[document_id]
-        out.append({"document_id": document_id, "filename": historical[document_id]["filename"], "source": unit, "decision": decision["decision"], "date": decision["decision_date"], "rationale": decision["rationale"], "reuse_authority": decision["reuse_authority"], "why_retrieved": "Shared wording or clause topic; lexical baseline (score %d)." % score})
+    for score, document_id, unit, candidate in ranked[:limit]:
+        decision = candidate["decision"]
+        if candidate["kind"] == "published":
+            out.append({"document_id": document_id, "filename": candidate["document"]["filename"], "source": unit, "decision": decision["decision"], "date": decision["timestamp"], "rationale": decision["rationale"], "conditions": decision["conditions"], "context": decision["context"], "reuse_authority": decision["reuse_limits"], "publication_id": decision["id"], "kind": "published_demo", "authoriser": decision["authoriser"], "why_retrieved": "Shared wording or clause topic in a published demonstration precedent; lexical baseline (score %d). Check context and conditions." % score})
+        else:
+            out.append({"document_id": document_id, "filename": candidate["document"]["filename"], "source": unit, "decision": decision["decision"], "date": decision["decision_date"], "rationale": decision["rationale"], "reuse_authority": decision["reuse_authority"], "kind": "historical", "why_retrieved": "Shared wording or clause topic; lexical baseline (score %d)." % score})
     if not out and changed_titles:
         for document_id, doc in sorted(historical.items()):
             standard = clauses(doc)
@@ -183,7 +197,7 @@ def precedents(findings, reference, historical, decisions, limit=3):
     return out
 
 
-def analyse(reference, incoming, historical, decisions):
+def analyse(reference, incoming, historical, decisions, published=()):
     if incoming["coverage"]["status"] != "complete":
         return {"route": "blocked_extraction", "findings": [], "precedents": [], "checks": {"extraction": "blocked", "comparison": "not run", "whole_document": "not run", "ai": "not run"}, "reason": "Document content could not be fully accounted for. Manual review is required.", "assurance": {"source_integrity": {"status": "identified", "sha256": incoming["sha256"], "bytes": incoming["size"]}, "extraction": {"status": "blocked", "parts": incoming["coverage"]["parts"], "passages": len(incoming["units"]), "issues": incoming["coverage"]["issues"]}, "comparison": {"status": "not run", "differences": None}, "safeguards": {"status": "not run", "passages_examined": 0}, "escalation_indicators": 0, "limitations": incoming["coverage"]["issues"], "human_review": {"status": "not recorded"}}}
     findings = compare(reference, incoming) + whole_document_controls(reference, incoming)
@@ -196,7 +210,7 @@ def analyse(reference, incoming, historical, decisions):
     priority = {"broad_rights": 0, "protection_absent": 1, "override": 2, "structural_ambiguity": 3, "changed_document_part": 4, "added_section": 5, "missing_clause": 6, "changed_clause": 7}
     findings.sort(key=lambda finding: (-ROUTE_ORDER[finding["route"]], priority.get(finding["category"], 9)))
     route = max((f["route"] for f in findings), key=lambda value: ROUTE_ORDER[value], default="routine_candidate")
-    context = precedents(findings, reference, historical, decisions) if findings else []
+    context = precedents(findings, reference, historical, decisions, published, incoming["sha256"]) if findings else []
     reason = findings[0]["title"] if findings else "No material wording difference found; party details still need confirmation."
     limitations = ["Repeated clause headings limit clause alignment; manual review required."] if repeated else []
     assurance = {"source_integrity": {"status": "identified", "sha256": incoming["sha256"], "bytes": incoming["size"]}, "extraction": {"status": "complete", "parts": incoming["coverage"]["parts"], "passages": len(incoming["units"]), "issues": []}, "comparison": {"status": "limited" if repeated else "complete", "differences": sum(f["category"] in {"changed_clause", "added_section", "missing_clause", "changed_document_part"} for f in findings), "scope": "Body clauses and every extracted header/footer part"}, "safeguards": {"status": "complete", "passages_examined": len(incoming["units"]), "scope": "Pattern indicators and required no-licence heading across extracted passages"}, "escalation_indicators": sum(f["route"] == "escalate" for f in findings), "limitations": limitations + ["Pattern indicators are not exhaustive legal interpretation; a human must assess changed wording."], "human_review": {"status": "not recorded"}}

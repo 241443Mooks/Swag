@@ -51,4 +51,12 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 
 **Direction:** Frame the product around governed reuse of reviewed experience. A decision must be assessed for context, conditions and authority before publication as a precedent; playbook guidance needs a separate approval process. Preserve the distinction in the submission narrative and do not describe the current prototype as self-learning.
 
-**Status:** Product direction recorded in [Product direction](PRODUCT_DIRECTION.md); promotion, playbook governance and improvement from corrections remain unimplemented. No new feature was commissioned by this entry.
+**Status at `55882e7`:** Product direction recorded in [Product direction](PRODUCT_DIRECTION.md); promotion, playbook governance and improvement from corrections were then unimplemented. Entry 007 records the subsequent synthetic promotion slice.
+
+## Entry 007 — Reuse needs its own event and the same retrieval path
+
+**Observation:** A human decision and permission to show it in later reviews are different acts. Loading every ledger decision into precedent search would give an unreviewed case more authority than its evidence supports.
+
+**Decision:** Keep decision events and explicit publication/withdrawal events distinct, with the publication tied to a considered source passage and contextual limits. Search historical and newly published cases through one lexical ranker; leave review routing independent. The local publisher role is self-attested and visibly labelled as demonstration-only.
+
+**Evidence and limit:** The L01/L02 HTTP lifecycle and browser walkthrough show that publication makes a case retrievable and withdrawal removes it, while L02 still needs human judgement. This proves the interaction and state boundary, not legal applicability, secure authorisation or improved retrieval quality. See [feature evidence](LEARNING_LOOP_STATUS.md).

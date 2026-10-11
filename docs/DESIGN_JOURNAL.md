@@ -28,3 +28,19 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Display the counterparty extracted from the parties clause, retaining the filename and hash in the document view. This reduces scanning effort without changing source identity or routing.
 
 **Status:** Browser checked at desktop and 390 px. Human creative acceptance remains pending.
+
+## Entry 004 — Extraction coverage did not imply review coverage
+
+**Observation:** The first adversarial run offered a routine route when a consequential provision was added in a header or footer. Both parts had been extracted, but neither comparison nor the independent indicator scan examined them. Hidden or struck protection and duplicate ZIP parts produced similarly unjustified routine routes.
+
+**Decision:** Treat extraction, comparison and independent safeguards as separate evidence-bearing checks. Compare all extracted non-body parts, scan all passages, block ambiguous or visibility-altered content, and show each check's status in a short Assurance view. A human still makes the legal decision.
+
+**Evidence and trade-off:** The fixed synthetic challenge set moved from six false routine recommendations to zero. Two critical grants now escalate above the prewritten review target, and general DOCX visual fidelity is still unverified. The [audit](MISSED_EXCEPTION_AUDIT.md) preserves both the original misses and current limitations.
+
+## Entry 005 — A blocked route needs blocked-state language everywhere
+
+**Observation:** Browser QA of a hidden-text challenge showed “Analysis blocked” in the route, while the overview fallback still said no material wording change was found. That mixed message could invite a shortcut despite incomplete checks.
+
+**Decision:** The blocked overview now says extraction is incomplete, comparison and safeguards were not run, and no clause conclusion is available. The Assurance tab repeats the specific extraction issue and leaves potential indicators “not assessed”.
+
+**Evidence:** Reloaded browser view of uploaded A03 showed the corrected notice, blocked extraction, `not run` comparison/indicators and the `vanish` source location. Human legal review remains necessary.

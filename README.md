@@ -3,7 +3,7 @@
 A human-led prototype for reviewing routine commercial contracts using reference wording, previous review decisions, and independent full-document safeguards.
 
 ## Status
-**Dataset ready; application not yet implemented.** The 12 synthetic DOCX contracts are committed in `dataset/`.
+**Working local proof of concept; pending human QA and live-AI verification.** The 12 synthetic DOCX contracts are committed in `dataset/`. Start with [START_HERE.md](START_HERE.md).
 
 ## Repository map
 - `dataset/reference/` — one baseline synthetic mutual NDA

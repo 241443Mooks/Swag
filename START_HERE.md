@@ -1,0 +1,50 @@
+# Swag — review the exceptions first
+
+PortSwigger's task describes a small legal team receiving mostly standard commercial contracts, many with familiar amendments, while its queue grows faster than it can read everything. This proof of concept reorganises six **fictional mutual NDAs** around the exceptions that deserve a person's attention. It is decision support, not legal advice or automatic approval.
+
+## Start in under a minute
+
+Requires Python **3.9 or newer**. No package installation, account or API key is needed for the offline journey.
+
+```sh
+python3 -m swag.server --port 8771
+```
+
+Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the repository root. If 8771 is busy, choose another unused port. Decisions and uploaded local demonstration files go into ignored `.swag-data/`; a clean checkout starts without reviewer decisions. Use synthetic documents only.
+
+## Five-minute walkthrough
+
+1. **Queue:** Notice three escalation candidates before the two judgement cases and the routine candidate. These are routes for human work, not legal outcomes.
+2. **Falcon Data / T03:** Open the first item. The clause 11 addition preserves commercially exploitable rights despite a standard no-licence clause. Follow “View in full text” to the exact passage. Compare the linked clause 9 and the rejected H03 prior decision. Open the original DOCX if needed.
+3. **Elm Studio / T04 and Moorland / T05:** One lacks the no-licence protection; the other has a Schedule 1 that overrides permitted use. Both must remain escalations despite otherwise familiar wording.
+4. **Brookside AI / T02:** See the five-year term change and H02's conditional acceptance. The previous decision is context, not reusable authority.
+5. **Orchard Research / T06 and Birchbridge / T01:** A paraphrase needs interpretation; the template-like document is only a routine *candidate* because a person must still confirm the parties and purpose.
+6. **Human decision:** On any document, enter a reviewer label, choose a decision and give a reason. Open Decision history, refresh the browser and see the append-only event tied to the exact SHA-256 hash.
+
+## What the system does
+
+Conventional software preserves and hashes source bytes, accounts for DOCX body paragraphs, table cells, headers and footers, compares clause text and omissions, checks the whole document for broad rights/overrides, ranks context from the five historical decisions, and persists human review events. Every material finding has a source anchor or an explicit reference anchor for a missing provision. Unsupported or unaccounted content blocks extraction and therefore blocks a routine route.
+
+The one AI capability is an **optional, real provider integration** for explaining the possible effect of a selected changed clause against the reference. The lexical baseline already finds the change and routes it to a person; the model may help a reviewer interpret a paraphrase. It never changes the route or makes a final decision. The interface says when AI has not run. This environment made **no live paid API call**, so model quality and live-provider behaviour are unverified. Mocked adapter tests only verify schema, citations, caps and failure handling. See [Decision 001](docs/decisions/001-scoped-semantic-comparison.md).
+
+To enable later, supply `OPENAI_API_KEY`, set `SWAG_AI_ENABLED=1`, `SWAG_AI_MODEL` (defaults to `gpt-4o-mini`), positive `SWAG_AI_SESSION_CAP`, `SWAG_AI_DOCUMENT_CAP`, `SWAG_AI_MAX_OUTPUT_TOKENS`, and `SWAG_AI_MAX_INPUT_CHARS` before starting the app. The last setting is a conservative input-size cap, not a token count. The UI then offers a per-change action and asks before sending the selected **synthetic** passages to OpenAI. Calls may incur charges. No key is stored in this repository. Do not use this mode with real or confidential contracts.
+
+## Verify
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 -m tests.evaluate
+node --check web/app.js
+git diff --check
+```
+
+The evaluator alone reads the held-out answer key. Runtime modules never access it. The current synthetic route result is 6/6, including the three mandatory escalations. These cases do not establish accuracy or safety on real agreements. Browser QA and limitations are recorded in [Sprint 01 status](docs/SPRINT_01_STATUS.md).
+
+## Known limits
+
+- This is a local single-reviewer demonstration. There is no authentication, shared workflow, real-contract privacy review or production storage model.
+- The document parser conservatively blocks unfamiliar Word structures. It does not support OCR, nested tables, tracked changes, footnotes, embedded objects or every DOCX feature. Full source bytes are available for manual inspection.
+- Structural matching assumes this mutual NDA clause family. Lexical controls are indicators, not a comprehensive legal risk model. A routine candidate means checks completed within that scope, not legal safety.
+- Precedent ranking is lexical and contextual. It does not infer policy or transfer conditional acceptance.
+- AI live quality, latency, provider errors and cost remain unverified until an authorised paid test. No synthetic time savings or legal-team productivity study is claimed.
+- Human creative acceptance and submission QA are pending. Do not submit this ZIP as a final employer response without review.

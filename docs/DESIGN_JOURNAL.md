@@ -44,3 +44,11 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** The blocked overview now says extraction is incomplete, comparison and safeguards were not run, and no clause conclusion is available. The Assurance tab repeats the specific extraction issue and leaves potential indicators “not assessed”.
 
 **Evidence:** Reloaded browser view of uploaded A03 showed the corrected notice, blocked extraction, `not run` comparison/indicators and the `vanish` source location. Human legal review remains necessary.
+
+## Entry 006 — A decision log is not a learning loop
+
+**Observation:** The local ledger retains new human decisions, but precedent retrieval reads only the fixed historical library. A recorded decision is therefore visible as history without becoming reusable search context or organisational guidance.
+
+**Direction:** Frame the product around governed reuse of reviewed experience. A decision must be assessed for context, conditions and authority before publication as a precedent; playbook guidance needs a separate approval process. Preserve the distinction in the submission narrative and do not describe the current prototype as self-learning.
+
+**Status:** Product direction recorded in [Product direction](PRODUCT_DIRECTION.md); promotion, playbook governance and improvement from corrections remain unimplemented. No new feature was commissioned by this entry.

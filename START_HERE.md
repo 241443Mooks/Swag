@@ -2,6 +2,8 @@
 
 PortSwigger's task describes a small legal team receiving mostly standard commercial contracts, many with familiar amendments, while its queue grows faster than it can read everything. This proof of concept reorganises six **fictional mutual NDAs** around the exceptions that deserve a person's attention. It is decision support, not legal advice or automatic approval.
 
+**Product direction:** Swag is a foundation for an evolving, precedent-aware legal review system. Today it records human decisions and retrieves context from a fixed historical library; new decisions do not yet become searchable precedents. The proposed [governed learning loop](docs/PRODUCT_DIRECTION.md) explains how reviewed decisions could become reusable organisational knowledge without silently becoming policy.
+
 ## Start in under a minute
 
 Requires Python **3.9 or newer**. No package installation, account or API key is needed for the offline journey.

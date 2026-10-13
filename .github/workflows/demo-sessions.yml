@@ -28,3 +28,7 @@ jobs:
           node --test tests/test_web_ui.mjs
       - name: Independent adversarial regression
         run: python3 -m tests.adversarial_audit
+      - name: Build isolated demo container
+        run: |
+          docker build -f Dockerfile.demo -t chugchug-demo:ci .
+          docker run --rm --entrypoint python chugchug-demo:ci -c "from pathlib import Path; from chugchug.server import App; import tempfile; assert not Path('dataset/ground_truth').exists(); d=tempfile.TemporaryDirectory(); assert len(App(Path.cwd(), Path(d.name)).queue()) == 6; print('Container: six NDA routes, no answer keys')"

@@ -1,0 +1,500 @@
+{
+  "id": "T01",
+  "display_name": "Birchbridge Ltd · Mutual NDA",
+  "document": {
+    "filename": "T01-template-match.docx",
+    "sha256": "19d51e11d5d6277f3600283c1271fb4aa062cf1dbdeac768159e5c36626b7d03",
+    "units": [
+      {
+        "anchor": "word/document.xml:p1",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "MUTUAL NON-DISCLOSURE AGREEMENT"
+      },
+      {
+        "anchor": "word/document.xml:p2",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Document ID: T01  |  Synthetic demonstration material"
+      },
+      {
+        "anchor": "word/document.xml:p3",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "1. Parties and Purpose"
+      },
+      {
+        "anchor": "word/document.xml:p4",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "This Mutual Non-Disclosure Agreement is made between Birchbridge Ltd and Northbridge Systems Ltd. The parties wish to exchange confidential information solely to evaluate a possible commercial relationship (the Purpose)."
+      },
+      {
+        "anchor": "word/document.xml:p5",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "2. Confidential Information"
+      },
+      {
+        "anchor": "word/document.xml:p6",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Confidential Information means non-public information disclosed by either party in connection with the Purpose, whether written, oral, visual or electronic, that is identified as confidential or reasonably understood to be confidential."
+      },
+      {
+        "anchor": "word/document.xml:p7",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "3. Permitted Use"
+      },
+      {
+        "anchor": "word/document.xml:p8",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Each receiving party shall use Confidential Information solely for the Purpose and shall not use it for any other purpose."
+      },
+      {
+        "anchor": "word/document.xml:p9",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "4. Protection"
+      },
+      {
+        "anchor": "word/document.xml:p10",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Each receiving party shall protect Confidential Information using at least reasonable care and no less than the care it applies to its own comparable information."
+      },
+      {
+        "anchor": "word/document.xml:p11",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "5. Permitted Recipients"
+      },
+      {
+        "anchor": "word/document.xml:p12",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "A receiving party may disclose Confidential Information only to its employees, professional advisers and contractors who need to know for the Purpose and are bound by confidentiality obligations no less protective than this Agreement."
+      },
+      {
+        "anchor": "word/document.xml:p13",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "6. Exceptions"
+      },
+      {
+        "anchor": "word/document.xml:p14",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Confidential Information excludes information that becomes public without breach, was lawfully known before disclosure, is received lawfully from another source without restriction, or is independently developed without use of Confidential Information."
+      },
+      {
+        "anchor": "word/document.xml:p15",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "7. Compelled Disclosure"
+      },
+      {
+        "anchor": "word/document.xml:p16",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "If disclosure is required by law, the receiving party may disclose only what is legally required and shall, where legally permitted, give prompt notice."
+      },
+      {
+        "anchor": "word/document.xml:p17",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "8. Return or Destruction"
+      },
+      {
+        "anchor": "word/document.xml:p18",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "On written request, a receiving party shall return or destroy Confidential Information, except for one archival copy retained for legal compliance and routine backups subject to continuing confidentiality."
+      },
+      {
+        "anchor": "word/document.xml:p19",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "9. No Licence"
+      },
+      {
+        "anchor": "word/document.xml:p20",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "No intellectual property licence or other right is granted by disclosure except the limited right to use Confidential Information for the Purpose."
+      },
+      {
+        "anchor": "word/document.xml:p21",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "10. Term and Survival"
+      },
+      {
+        "anchor": "word/document.xml:p22",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "This Agreement lasts two years from signature. Confidentiality obligations survive for three years from the date of each disclosure; trade secrets remain protected for so long as they remain trade secrets under applicable law."
+      },
+      {
+        "anchor": "word/document.xml:p23",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "11. No Obligation"
+      },
+      {
+        "anchor": "word/document.xml:p24",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Neither party is obliged to proceed with any transaction. Information is provided without warranty as to completeness or accuracy."
+      },
+      {
+        "anchor": "word/document.xml:p25",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "12. Liability"
+      },
+      {
+        "anchor": "word/document.xml:p26",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Neither party excludes or limits liability where such exclusion or limitation is prohibited by law."
+      },
+      {
+        "anchor": "word/document.xml:p27",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "13. Governing Law"
+      },
+      {
+        "anchor": "word/document.xml:p28",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "This Agreement is governed by the laws of England and Wales, and the courts of England and Wales have exclusive jurisdiction."
+      },
+      {
+        "anchor": "word/document.xml:p29",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "14. Entire Agreement"
+      },
+      {
+        "anchor": "word/document.xml:p30",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "This Agreement constitutes the entire agreement between the parties concerning the Purpose and may be amended only in writing signed by both parties."
+      },
+      {
+        "anchor": "word/document.xml:p31",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Signed for Birchbridge Ltd: ____________________    Signed for Northbridge Systems Ltd: ____________________"
+      },
+      {
+        "anchor": "word/footer1.xml:p1",
+        "part": "word/footer1.xml",
+        "kind": "paragraph",
+        "text": "Synthetic legal workflow fixture • No real parties or legal advice"
+      },
+      {
+        "anchor": "word/header1.xml:p1",
+        "part": "word/header1.xml",
+        "kind": "paragraph",
+        "text": "FICTIONAL TEST DOCUMENT  •  NOT FOR SIGNATURE OR LEGAL USE"
+      }
+    ],
+    "coverage": {
+      "status": "complete",
+      "issues": [],
+      "parts": [
+        "word/document.xml",
+        "word/footer1.xml",
+        "word/header1.xml"
+      ]
+    },
+    "size": 39138
+  },
+  "reference": {
+    "filename": "REF-001-approved-mutual-nda.docx",
+    "sha256": "2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817",
+    "units": [
+      {
+        "anchor": "word/document.xml:p1",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "MUTUAL NON-DISCLOSURE AGREEMENT"
+      },
+      {
+        "anchor": "word/document.xml:p2",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Document ID: REF-001  |  Synthetic demonstration material"
+      },
+      {
+        "anchor": "word/document.xml:p3",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "1. Parties and Purpose"
+      },
+      {
+        "anchor": "word/document.xml:p4",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "This Mutual Non-Disclosure Agreement is made between Northbridge Systems Ltd and Cedar Labs Ltd. The parties wish to exchange confidential information solely to evaluate a possible commercial relationship (the Purpose)."
+      },
+      {
+        "anchor": "word/document.xml:p5",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "2. Confidential Information"
+      },
+      {
+        "anchor": "word/document.xml:p6",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Confidential Information means non-public information disclosed by either party in connection with the Purpose, whether written, oral, visual or electronic, that is identified as confidential or reasonably understood to be confidential."
+      },
+      {
+        "anchor": "word/document.xml:p7",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "3. Permitted Use"
+      },
+      {
+        "anchor": "word/document.xml:p8",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Each receiving party shall use Confidential Information solely for the Purpose and shall not use it for any other purpose."
+      },
+      {
+        "anchor": "word/document.xml:p9",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "4. Protection"
+      },
+      {
+        "anchor": "word/document.xml:p10",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Each receiving party shall protect Confidential Information using at least reasonable care and no less than the care it applies to its own comparable information."
+      },
+      {
+        "anchor": "word/document.xml:p11",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "5. Permitted Recipients"
+      },
+      {
+        "anchor": "word/document.xml:p12",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "A receiving party may disclose Confidential Information only to its employees, professional advisers and contractors who need to know for the Purpose and are bound by confidentiality obligations no less protective than this Agreement."
+      },
+      {
+        "anchor": "word/document.xml:p13",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "6. Exceptions"
+      },
+      {
+        "anchor": "word/document.xml:p14",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Confidential Information excludes information that becomes public without breach, was lawfully known before disclosure, is received lawfully from another source without restriction, or is independently developed without use of Confidential Information."
+      },
+      {
+        "anchor": "word/document.xml:p15",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "7. Compelled Disclosure"
+      },
+      {
+        "anchor": "word/document.xml:p16",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "If disclosure is required by law, the receiving party may disclose only what is legally required and shall, where legally permitted, give prompt notice."
+      },
+      {
+        "anchor": "word/document.xml:p17",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "8. Return or Destruction"
+      },
+      {
+        "anchor": "word/document.xml:p18",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "On written request, a receiving party shall return or destroy Confidential Information, except for one archival copy retained for legal compliance and routine backups subject to continuing confidentiality."
+      },
+      {
+        "anchor": "word/document.xml:p19",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "9. No Licence"
+      },
+      {
+        "anchor": "word/document.xml:p20",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "No intellectual property licence or other right is granted by disclosure except the limited right to use Confidential Information for the Purpose."
+      },
+      {
+        "anchor": "word/document.xml:p21",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "10. Term and Survival"
+      },
+      {
+        "anchor": "word/document.xml:p22",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "This Agreement lasts two years from signature. Confidentiality obligations survive for three years from the date of each disclosure; trade secrets remain protected for so long as they remain trade secrets under applicable law."
+      },
+      {
+        "anchor": "word/document.xml:p23",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "11. No Obligation"
+      },
+      {
+        "anchor": "word/document.xml:p24",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Neither party is obliged to proceed with any transaction. Information is provided without warranty as to completeness or accuracy."
+      },
+      {
+        "anchor": "word/document.xml:p25",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "12. Liability"
+      },
+      {
+        "anchor": "word/document.xml:p26",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Neither party excludes or limits liability where such exclusion or limitation is prohibited by law."
+      },
+      {
+        "anchor": "word/document.xml:p27",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "13. Governing Law"
+      },
+      {
+        "anchor": "word/document.xml:p28",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "This Agreement is governed by the laws of England and Wales, and the courts of England and Wales have exclusive jurisdiction."
+      },
+      {
+        "anchor": "word/document.xml:p29",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "14. Entire Agreement"
+      },
+      {
+        "anchor": "word/document.xml:p30",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "This Agreement constitutes the entire agreement between the parties concerning the Purpose and may be amended only in writing signed by both parties."
+      },
+      {
+        "anchor": "word/document.xml:p31",
+        "part": "word/document.xml",
+        "kind": "paragraph",
+        "text": "Signed for Northbridge Systems Ltd: ____________________    Signed for Cedar Labs Ltd: ____________________"
+      },
+      {
+        "anchor": "word/footer1.xml:p1",
+        "part": "word/footer1.xml",
+        "kind": "paragraph",
+        "text": "Synthetic legal workflow fixture • No real parties or legal advice"
+      },
+      {
+        "anchor": "word/header1.xml:p1",
+        "part": "word/header1.xml",
+        "kind": "paragraph",
+        "text": "FICTIONAL TEST DOCUMENT  •  NOT FOR SIGNATURE OR LEGAL USE"
+      }
+    ],
+    "coverage": {
+      "status": "complete",
+      "issues": [],
+      "parts": [
+        "word/document.xml",
+        "word/footer1.xml",
+        "word/header1.xml"
+      ]
+    },
+    "size": 39141
+  },
+  "reference_kind": "bundled",
+  "analysis": {
+    "route": "routine_candidate",
+    "findings": [],
+    "precedents": [],
+    "checks": {
+      "extraction": "complete",
+      "comparison": "complete",
+      "whole_document": "complete",
+      "ai": "not run"
+    },
+    "reason": "No material wording difference found; party details still need confirmation.",
+    "assurance": {
+      "source_integrity": {
+        "status": "identified",
+        "sha256": "19d51e11d5d6277f3600283c1271fb4aa062cf1dbdeac768159e5c36626b7d03",
+        "bytes": 39138
+      },
+      "extraction": {
+        "status": "complete",
+        "parts": [
+          "word/document.xml",
+          "word/footer1.xml",
+          "word/header1.xml"
+        ],
+        "passages": 33,
+        "issues": []
+      },
+      "comparison": {
+        "status": "complete",
+        "differences": 0,
+        "scope": "Body clauses and every extracted header/footer part"
+      },
+      "safeguards": {
+        "status": "complete",
+        "passages_examined": 33,
+        "scope": "Pattern indicators and required no-licence heading across extracted passages"
+      },
+      "escalation_indicators": 0,
+      "limitations": [
+        "Pattern indicators are not exhaustive legal interpretation; a human must assess changed wording."
+      ],
+      "human_review": {
+        "status": "not recorded",
+        "last_decision": null,
+        "events": 0
+      }
+    },
+    "history_scope": {
+      "historical_records": 5,
+      "active_published_records": 0,
+      "shown": 0,
+      "method": "lexical ranking of changed passages and clause topics"
+    },
+    "reference_sha256": "2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817",
+    "comparison_lessons": []
+  },
+  "history": [],
+  "publications": [],
+  "corrections": [],
+  "ai": {
+    "available": false,
+    "provider": "OpenAI Responses API",
+    "model": "gpt-4o-mini",
+    "status": "not configured / not run",
+    "transmission": "Selected synthetic source and reference passages are sent to OpenAI only after explicit action."
+  },
+  "ai_results": []
+}

@@ -1,0 +1,57 @@
+name: Build synthetic public demo data
+
+on:
+  push:
+    branches:
+      - feature/public-demo-data
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch with fixture sources
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate existing Python behaviour
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: Validate browser JavaScript
+        run: |
+          node --check web/app.js
+          node --test tests/test_web_ui.mjs
+      - name: Export strictly synthetic read-only snapshot
+        run: python3 scripts/export_public_demo.py
+      - name: Verify exported files before commit
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          base = Path("web/demo-data")
+          queue = json.loads((base / "queue.json").read_text())
+          research = json.loads((base / "research.json").read_text())
+          assert len(queue["items"]) == 6, "Expected six reviewed NDA fixtures"
+          assert len(research["references"]) == 8, "Expected eight research standards"
+          assert len(research["routine_clients"]) == 20, "PR #20 fixtures must be present"
+          assert len(research["challenge_cases"]) == 4, "Expected four research challenge cases"
+          assert not (base / "ground_truth").exists()
+          assert not (base / "expected-matches.json").exists()
+          for row in queue["items"]:
+              assert (base / "contracts" / (row["id"] + ".json")).exists()
+          print("Static dataset verified: six analysed NDA cases; 8 + 20 + 4 unassessed research specimens.")
+          PY
+      - name: Commit generated snapshot to feature branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/demo-data
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate synthetic-only public demo snapshot"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi

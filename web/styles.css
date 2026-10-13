@@ -77,3 +77,30 @@
 .page-review .tabs{margin:15px 0 25px;gap:20px}
 .page-review .tab{font-size:13px}
 @media(max-width:700px){.home-work{margin-top:38px}.summary-route{grid-template-columns:38px 1fr 18px;gap:10px}.page-review .workspace{padding-top:23px}.review-focus{padding:17px 18px}.primary-evidence .evidence-grid{grid-template-columns:1fr}.past-peek{display:block}.past-peek .text-action{margin-top:7px}.page-review .tabs{gap:17px}}
+
+
+/* Public static snapshot: honest, view-only demo; no browser-side decisions. */
+[hidden] { display: none !important; }
+#demo-banner {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border, #d1d5db);
+  background: #f2f5f8;
+  color: #253447;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.research-library {
+  margin-top: 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border, #d1d5db);
+}
+.research-library p { line-height: 1.55; }
+.research-library details { padding: 0.75rem 0; border-bottom: 1px solid var(--border, #d1d5db); }
+.research-library summary { cursor: pointer; font-weight: 650; }
+.research-library ul { margin: 0.9rem 0; padding-left: 1.1rem; }
+.research-library li { padding: 0.55rem 0; line-height: 1.45; }
+.research-library li a { margin-left: 0.7rem; }
+.research-meta { color: var(--muted, #5a6775); font-size: 0.85rem; }
+@media (prefers-color-scheme: dark) {
+  #demo-banner { background: #233143; color: #e8eef5; }
+}

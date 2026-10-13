@@ -1,0 +1,273 @@
+{
+  "notice": "Research-only synthetic specimens. No applicability check, legal approval, comparison, or route has been performed.",
+  "references": [
+    {
+      "id": "NDA-UK-EVAL",
+      "name": "Mutual NDA — Product evaluation (UK)",
+      "family": "nda",
+      "variant": "mutual_evaluation",
+      "deployment": null,
+      "channel": null,
+      "version": "0.1",
+      "approval_status": "unapproved_demo_candidate",
+      "sha256": "6a1055c5a7b2f93159080bd9a3b0f2a774390fdbdac89c1b669fa886bd4fe59a",
+      "download": "/demo-data/originals/research/NDA-UK-EVAL.docx"
+    },
+    {
+      "id": "NDA-UK-SUPPLIER",
+      "name": "Mutual NDA — Supplier assessment (UK)",
+      "family": "nda",
+      "variant": "mutual_supplier_due_diligence",
+      "deployment": null,
+      "channel": null,
+      "version": "0.1",
+      "approval_status": "unapproved_demo_candidate",
+      "sha256": "003922c5817e2f9af5d281f9f67af9f718d82955f4cbe72c68a3c3ffaef7b9b5",
+      "download": "/demo-data/originals/research/NDA-UK-SUPPLIER.docx"
+    },
+    {
+      "id": "NDA-UK-ONEWAY",
+      "name": "One-way NDA — Customer disclosures (UK)",
+      "family": "nda",
+      "variant": "one_way_customer_disclosure",
+      "deployment": null,
+      "channel": null,
+      "version": "0.1",
+      "approval_status": "unapproved_demo_candidate",
+      "sha256": "62437da75a43c01e7e183a0fba17bbc2424fec2def21e052db126d8134479138",
+      "download": "/demo-data/originals/research/NDA-UK-ONEWAY.docx"
+    },
+    {
+      "id": "ORDER-PRO-DIRECT",
+      "name": "Customer Order — Desktop user licences (direct)",
+      "family": "customer_order",
+      "variant": "desktop_seats",
+      "deployment": "desktop",
+      "channel": "direct",
+      "version": "0.1",
+      "approval_status": "unapproved_demo_candidate",
+      "sha256": "ccd5cb3bc208940be76d3649fa4c946e16317cc5ec4307d5f166bc533d641207",
+      "download": "/demo-data/originals/research/ORDER-PRO-DIRECT.docx"
+    },
+    {
+      "id": "ORDER-DAST-CLOUD",
+      "name": "Customer Order — Managed cloud scanning",
+      "family": "customer_order",
+      "variant": "managed_cloud_scanning",
+      "deployment": "vendor_cloud",
+      "channel": "direct",
+      "version": "0.1",
+      "approval_status": "unapproved_demo_candidate",
+      "sha256": "f943acb3a4898e965919f6e404ebfedc6568aa5077d85a1a8797d840d9978b97",
+      "download": "/demo-data/originals/research/ORDER-DAST-CLOUD.docx"
+    },
+    {
+      "id": "ORDER-DAST-SELF",
+      "name": "Customer Order — Self-hosted scanning",
+      "family": "customer_order",
+      "variant": "self_hosted_scanning",
+      "deployment": "customer_hosted",
+      "channel": "direct",
+      "version": "0.1",
+      "approval_status": "unapproved_demo_candidate",
+      "sha256": "7f184cb2a7652ca69f3644d92b38b0333a64a7a1d440e7ac6b3733c79688c24c",
+      "download": "/demo-data/originals/research/ORDER-DAST-SELF.docx"
+    },
+    {
+      "id": "ORDER-COMBINED",
+      "name": "Customer Order — Desktop plus cloud bundle",
+      "family": "customer_order",
+      "variant": "combined_bundle",
+      "deployment": "mixed",
+      "channel": "direct",
+      "version": "0.1",
+      "approval_status": "unapproved_demo_candidate",
+      "sha256": "03a5c96d369208b09c1e18def17f7e9419baacd50e154ff9c9fab1c2061bc326",
+      "download": "/demo-data/originals/research/ORDER-COMBINED.docx"
+    },
+    {
+      "id": "ORDER-RESELLER",
+      "name": "Customer Order — Reseller desktop licences",
+      "family": "customer_order",
+      "variant": "desktop_reseller",
+      "deployment": "desktop",
+      "channel": "reseller",
+      "version": "0.1",
+      "approval_status": "unapproved_demo_candidate",
+      "sha256": "25faa37169e381da193d6e353b77c84aec9ca091e86c4a167d18e998cdd03fa1",
+      "download": "/demo-data/originals/research/ORDER-RESELLER.docx"
+    }
+  ],
+  "routine_clients": [
+    {
+      "id": "RC-01",
+      "name": "C001 - Alderbrook Digital Ltd",
+      "sha256": "181217e2dc2538a8963a909f4ab090efb8fc71e430fcbde53d1c22e1c8082759",
+      "download": "/demo-data/originals/research/RC-01.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-02",
+      "name": "C002 - Birchstone Analytics Ltd",
+      "sha256": "7f7212bdece101914740449130e210c9018356887bffda0e1539ae47f96db164",
+      "download": "/demo-data/originals/research/RC-02.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-03",
+      "name": "C003 - Cedarfield Technology Ltd",
+      "sha256": "3c190d568e5b7db1670cba097db06e046aed9cf417e6ff26171a61b8b8359f45",
+      "download": "/demo-data/originals/research/RC-03.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-04",
+      "name": "C004 - DeltaWorks Consulting Ltd",
+      "sha256": "00c26e1dd82380c9834b58742deedb9d9fc70e218a3b8cf319a3ddfa31e93769",
+      "download": "/demo-data/originals/research/RC-04.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-05",
+      "name": "C005 - Eastmere Infrastructure Ltd",
+      "sha256": "c703af8a6e2001a9ff587094c0b73c8bafde3f19bf728df1bdfec3e5bd3aa3ad",
+      "download": "/demo-data/originals/research/RC-05.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-06",
+      "name": "C006 - Fellspring Operations Ltd",
+      "sha256": "54a3eb17f6ca5b7fa1754cfd234d9106f835d40209c76c27b3caa2ef625e10a7",
+      "download": "/demo-data/originals/research/RC-06.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-07",
+      "name": "C007 - Garnet Research Ltd",
+      "sha256": "4997b33c9deed06521f0d3c4531e7236519925a319ad879b3be068a1192e8ebd",
+      "download": "/demo-data/originals/research/RC-07.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-08",
+      "name": "C008 - Harbourlight Systems Ltd",
+      "sha256": "23ca8ff9b5cfcbd9bf1f605eb906ab60d6c4a836bd0075f11222285a3209e0ce",
+      "download": "/demo-data/originals/research/RC-08.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-09",
+      "name": "C009 - Inverlea Media Ltd",
+      "sha256": "b44106083deb830ca2e33e56efc242f43eb65a8243d71a13ca46a7d0f551ec23",
+      "download": "/demo-data/originals/research/RC-09.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-10",
+      "name": "C010 - Juniper Labs Ltd",
+      "sha256": "a682af98e5e06d0c26c923733daddf4425cd1d2388430b7ea2aa157662d4f061",
+      "download": "/demo-data/originals/research/RC-10.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-11",
+      "name": "C011 - Kestrel Studio Ltd",
+      "sha256": "c5cec2ec74d6a73d6148d31cc6a85c8c5ca49b07347db37693f796db8a6c898e",
+      "download": "/demo-data/originals/research/RC-11.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-12",
+      "name": "C012 - Langford Services Ltd",
+      "sha256": "92bb169816069479b787044d503d3125139f1403e1fb00e22f32d628c977b52e",
+      "download": "/demo-data/originals/research/RC-12.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-13",
+      "name": "C013 - Maplebrook Software Ltd",
+      "sha256": "1e44fc0950d588eace5f76357fe13875a2c718e829a4cf01ed0cfe658dcae410",
+      "download": "/demo-data/originals/research/RC-13.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-14",
+      "name": "C014 - Northwind Retail Ltd",
+      "sha256": "2095b6d76d9662e61ccb1b8a98673165af92ae467c00252bc5657bd5127bf040",
+      "download": "/demo-data/originals/research/RC-14.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-15",
+      "name": "C015 - Oakbridge Engineering Ltd",
+      "sha256": "ab25dfcd056c27cfa6946b8c575464aa6826e55bba7f0bf173fa04820a31eaf6",
+      "download": "/demo-data/originals/research/RC-15.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-16",
+      "name": "C016 - Penrose Data Ltd",
+      "sha256": "31f34e854e08167c303bcef9b7b33153e2842281146ec5043c8ddd78365b2230",
+      "download": "/demo-data/originals/research/RC-16.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-17",
+      "name": "C017 - Quarryside Finance Ltd",
+      "sha256": "7b90809423d20643cea614a1e9e7033f056ceca0c225fd2a30a90efa632c6698",
+      "download": "/demo-data/originals/research/RC-17.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-18",
+      "name": "C018 - Rosemere Applications Ltd",
+      "sha256": "eef443e83f02380a479b891e53572a5ba39ce266a79ec04bbecdddd5dab75a62",
+      "download": "/demo-data/originals/research/RC-18.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-19",
+      "name": "C019 - Silverpeak Partners Ltd",
+      "sha256": "6f6c9b2d26025813036590f24d871812527d1d10069a77ce3518b7c4bc399086",
+      "download": "/demo-data/originals/research/RC-19.docx",
+      "status": "Routine-looking specimen; match not verified"
+    },
+    {
+      "id": "RC-20",
+      "name": "C020 - Tamarind Technology Ltd",
+      "sha256": "102d355586749485e7afd188b98460f9caeff23930628379db0d4ec1285579a4",
+      "download": "/demo-data/originals/research/RC-20.docx",
+      "status": "Routine-looking specimen; match not verified"
+    }
+  ],
+  "challenge_cases": [
+    {
+      "id": "CH-01",
+      "name": "Ambiguous Reseller Cloud Scan Purchase",
+      "sha256": "360def80fc88cef8212e2bfb83e9985acf42e1d07cd74d9db241733a6e4ead90",
+      "download": "/demo-data/originals/research/CH-01.docx",
+      "status": "Unassessed research fixture"
+    },
+    {
+      "id": "CH-02",
+      "name": "Desktop Reseller Seat Increase",
+      "sha256": "382fa40007ca24b7894b155874a504d41940ee775b757f6ae7040b8cc6eb393f",
+      "download": "/demo-data/originals/research/CH-02.docx",
+      "status": "Unassessed research fixture"
+    },
+    {
+      "id": "CH-03",
+      "name": "Evaluation NDA with Longer Retention",
+      "sha256": "9f1be3a46af4074d4e986ae200f3c49a22b70aca7c0d2e1e604e8737bfcbb81a",
+      "download": "/demo-data/originals/research/CH-03.docx",
+      "status": "Unassessed research fixture"
+    },
+    {
+      "id": "CH-04",
+      "name": "Hosted Scanning with Different Hosting Region",
+      "sha256": "ab903151dac9cb02526bfe608b581abbbe32e95152c76278c9d7d2e03b6a9a85",
+      "download": "/demo-data/originals/research/CH-04.docx",
+      "status": "Unassessed research fixture"
+    }
+  ]
+}

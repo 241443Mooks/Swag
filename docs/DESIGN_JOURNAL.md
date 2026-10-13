@@ -115,3 +115,12 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Keep the runtime registry limited to hash-verified reference sources. Move expected labels into an evaluation-only file, extract contextual facts from exact source passages, hard-exclude known conflicts, and abstain or expose a gap where context is missing. Treat every result as an unapproved research candidate that a human must validate before comparison.
 
 **Evidence and uncertainty:** Independent synthetic tests cover mutual and one-way NDA context, supplier and product-evaluation purpose, direct cloud orders, reseller/cloud incompatibility, missing or contradictory context, incomplete extraction, source hashes and evaluation-file isolation. The rules have not been evaluated on a blind dataset or validated by legal reviewers; no matching accuracy or applicability claim follows.
+## Issue #5 audit — keyboard access to document intake
+
+**Observation:** In the rendered local queue, Add DOCX looked like a button but the accessibility tree exposed it as plain text because the visible label wrapped a hidden file input. Keyboard navigation could not focus the picker.
+
+**Decision:** Give the control native button semantics and keep the existing hidden file input and upload path. This is a narrow access fix; no route, evidence, or decision behavior changes.
+
+**Evidence and uncertainty:** The before/after accessibility-tree role changed from text to button, and a regression test verifies the markup and click wiring. The file chooser itself, screen-reader output, and mobile layout were not exercised. Owner creative acceptance remains pending.
+
+**Additional queue observation:** The fixed-width queue card forced the contract title into character-by-character wrapping beside its route badge. The title now gets a minimum readable width and may wrap the badge to its own line. A focused CSS regression assertion covers this layout rule; narrow device rendering still needs a real viewport check.

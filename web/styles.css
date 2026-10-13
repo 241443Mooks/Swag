@@ -78,6 +78,10 @@
 .page-review .tab{font-size:13px}
 @media(max-width:700px){.home-work{margin-top:38px}.summary-route{grid-template-columns:38px 1fr 18px;gap:10px}.page-review .workspace{padding-top:23px}.review-focus{padding:17px 18px}.primary-evidence .evidence-grid{grid-template-columns:1fr}.past-peek{display:block}.past-peek .text-action{margin-top:7px}.page-review .tabs{gap:17px}}
 
+/* Keep queue titles readable when the route badge competes for a narrow row. */
+.queue-item-top{flex-wrap:wrap}
+.queue-item-title{min-width:11ch;flex:1 1 11ch}
+
 
 /* Public static snapshot: honest, view-only demo; no browser-side decisions. */
 [hidden] { display: none !important; }

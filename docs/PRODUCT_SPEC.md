@@ -1,4 +1,4 @@
-# Swig — Product specification (prototype v0.1)
+# ChugChug — Product specification (prototype v0.1)
 
 ## Problem
 A small in-house legal team reviews a steady stream of relatively standard commercial contracts, particularly NDAs and small order forms. Repeated boilerplate and recurring amendments create queues and peaks in workload. The opportunity is to reduce repetitive work **without allowing a standard-looking document to hide consequential terms**.

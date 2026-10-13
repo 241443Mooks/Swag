@@ -84,3 +84,16 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Offer a collapsed “Something Swig missed?” control on every completely extracted review. Require an exact incoming or reference passage and explanation. Record the challenge as a comparison event with no invented system finding, and lift a routine candidate to human review while the challenge remains in the audit history.
 
 **Evidence:** A synthetic T01 test begins with zero findings and a routine route, records a source-linked missed-provision report, then verifies `review_required` persists after restart. This is a reviewer signal, not a claim that the reported issue is legally material.
+
+## Entry 011 — Show the extension idea without making it the daily workspace
+
+**Observation:** A permanent organisation map would make every Legal reviewer navigate an unbuilt product on each visit. The existing server also kept NDA reference and comparison policy inside the application.
+
+**Decision:** Put one optional Explore page behind a quiet Home link. Keep Legal as its only actionable tile, with other teams described as concepts. Move actual NDA policy and source-path choices behind a small pack boundary while leaving persistence and source identity in the application. Do not add speculative permissions or a pack registry.
+
+**Evidence and limit:** The pack-boundary test and six-route evaluator exercise the existing Legal path. Browser navigation and responsive inspection are recorded in the Issue #10 status. A second pack, organisational isolation and usefulness of the Explore page remain unvalidated; creative acceptance is pending.
+## Entry 012 — One name through the local demo (13 October 2026)
+
+**Observation:** The reviewer-facing name and the launch command used different product names, making a simple user-test handoff confusing.
+
+**Decision:** Use ChugChug consistently for the interface, Python package, optional AI settings and default local state path. Keep older dated test records and working GitHub links as historical identifiers. The local rename changes no review policy or safety route; the renamed app passed the existing tests and rendered smoke check. The repository slug still requires a separate GitHub rename.

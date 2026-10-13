@@ -1,14 +1,14 @@
-# Swig reviewer journey — reversible design proposal
+# ChugChug reviewer journey — reversible design proposal
 
 These are implementation wireframes for Issue #8, not owner creative acceptance. The existing contract checks and human authority remain unchanged.
 
 ## Desktop, first visit
 
 ```text
-Swig                         Home   Review queue   Reference   Help
+ChugChug                         Home   Review queue   Reference   Help
 ─────────────────────────────────────────────────────────────────
 Your contract review, in order
-Six fictional NDAs are ready. Swig compares each with the named
+Six fictional NDAs are ready. ChugChug compares each with the named
 reference and points you to wording that needs a human decision.
 
 3 closer review     2 judgement     1 routine candidate
@@ -16,7 +16,7 @@ reference and points you to wording that needs a human decision.
 [Start reviewing]   [Add incoming DOCX]
 
 Reference: bundled mutual NDA · exact source identity available
-What Swig cannot decide → Help
+What ChugChug cannot decide → Help
 ```
 
 The counts are derived from the queue, never hardcoded. Returning users can use the persistent Review queue link without passing through instructions.
@@ -28,7 +28,7 @@ Home   Review queue   Reference   Help
 ─────────────────────────────────────────────────────────────────
 Queue / Falcon Data                     Reference: bundled NDA · hash
 ┌───────────────┐ ┌─────────────────────────────────────────────┐
-│ Falcon        │ │ Swig noticed a possible broader right      │
+│ Falcon        │ │ ChugChug noticed a possible broader right      │
 │ Elm           │ │ Escalate · human judgement required         │
 │ Moorland      │ │ Wording may preserve commercial use.        │
 │ Brookside     │ │ [Compare wording] [Record decision]         │
@@ -39,7 +39,7 @@ Queue / Falcon Data                     Reference: bundled NDA · hash
                   │ 3. No Obligation changed · view evidence    │
                   │                                             │
                   │ Similar past decisions · [View history]     │
-                  │ [Something Swig missed?]                    │
+                  │ [Something ChugChug missed?]                    │
                   │ [What was checked]  [Full text]              │
                   └─────────────────────────────────────────────┘
 ```
@@ -67,7 +67,7 @@ Help is a short, optional explanation of route labels, comparison scope, precede
 ## Content rules
 
 - One short observation and route at the top. Distinct material findings remain visible as a list.
-- Verbatim wording is labelled **Incoming document** or **Reference**. Explanations are Swig commentary.
+- Verbatim wording is labelled **Incoming document** or **Reference**. Explanations are ChugChug commentary.
 - Check details, source IDs and full audit events are available deliberately, without crowding the default view.
 - “Looks routine” is a queue priority, never legal approval. An untested or failed check remains visible.
 - Past decisions are about whole contracts unless a reviewed source passage is explicitly linked. Similarity does not authorise reuse.

@@ -14,24 +14,25 @@ from urllib.parse import urlparse, unquote
 
 from .ai import AIService, AIUnavailable
 from .document import extract
-from .engine import analyse, clauses, duplicate_headings, load_library, ROUTE_ORDER, _tokens
+from .nda_pack import NDAPack
 from .ledger import KnowledgeLedger, Ledger
 from .corrections import CorrectionLedger
 
 
 class App:
-    def __init__(self, root: Path, state_dir: Path):
+    def __init__(self, root: Path, state_dir: Path, pack: NDAPack | None = None):
         self.root = root
         self.state_dir = state_dir
-        self.reference, self.historical, incoming, self.decisions = load_library(root)
+        self.pack = pack if pack is not None else NDAPack()
+        self.reference, self.historical, incoming, self.decisions = self.pack.load_library(root)
         self.bundled_reference_sha256 = self.reference["sha256"]
-        bundled_path = next((root / "dataset/reference").glob("*.docx"))
+        bundled_path = self.pack.reference_path(root)
         self.references = {self.bundled_reference_sha256: {"document": self.reference, "path": bundled_path, "kind": "bundled"}}
         self._load_references()
         self.active_reference_sha256 = self._load_selection()
         self.contracts = {}
         for document_id, document in incoming.items():
-            self.contracts[document_id] = {"document": document, "path": next((root / "dataset/incoming").glob(document_id + "-*.docx")), "reference_sha256": self.bundled_reference_sha256}
+            self.contracts[document_id] = {"document": document, "path": self.pack.incoming_path(root, document_id), "reference_sha256": self.bundled_reference_sha256}
         uploads = state_dir / "uploads"
         if uploads.exists():
             if list(uploads.glob("*.uploading")) or list(uploads.glob("*.recording")):
@@ -94,12 +95,7 @@ class App:
         return digest
 
     def _validate_reference(self, document):
-        if document["coverage"]["status"] != "complete" or duplicate_headings(document):
-            raise ValueError("Reference extraction or clause alignment is incomplete; choose a supported synthetic NDA")
-        required = set(clauses(self.reference))
-        present = set(clauses(document))
-        if not required.issubset(present):
-            raise ValueError("Reference has different or missing clause headings; this prototype needs the bundled NDA clause family")
+        self.pack.validate_reference(document, self.reference)
 
     def _bindings(self, meta, digest):
         if "bindings" not in meta:
@@ -210,7 +206,7 @@ class App:
         source = next((unit for unit in detail["document"]["units"] if unit["anchor"] == source_anchor), None)
         if not evidence or not source or source["text"] != evidence["text"]:
             raise ValueError("Choose a source passage from a finding considered in this decision")
-        section_title = next((section["title"] for section in clauses(detail["document"]).values() if any(unit["anchor"] == source_anchor for unit in section["units"])), "")
+        section_title = self.pack.section_title(detail["document"], source_anchor)
         if not section_title:
             raise ValueError("The source passage has no reviewable section")
         return self.knowledge.publish(decision, document_id, evidence["finding_id"], source, section_title, authoriser, context, reuse_limits, self.contracts[document_id]["reference_sha256"])
@@ -277,10 +273,8 @@ class App:
             past = pair["correction"]
             if past["reference_sha256"] != item["reference_sha256"] or past["document_sha256"] == item["document"]["sha256"]:
                 continue
-            previous_words = _tokens(past["source_text"] or past["reference_text"])
             for finding in findings:
-                current_words = _tokens(" ".join(unit["text"] for unit in finding["sources"]) or (finding["reference"]["text"] if finding["reference"] else ""))
-                overlap = sorted(previous_words & current_words)
+                overlap = self.pack.shared_terms(past["source_text"] or past["reference_text"], " ".join(unit["text"] for unit in finding["sources"]) or (finding["reference"]["text"] if finding["reference"] else ""))
                 if len(overlap) < 3:
                     continue
                 matches.append({"finding_id": finding["id"], "publication_id": pair["publication"]["id"], "previous_document_id": past["document_id"], "previous_source_anchor": past["source_anchor"], "previous_source_text": past["source_text"], "previous_reference_anchor": past["reference_anchor"], "relationship": past["relationship"], "explanation": past["explanation"], "reviewer": past["reviewer"], "publisher": pair["publication"]["publisher"], "context": pair["publication"]["context"], "reuse_limits": pair["publication"]["reuse_limits"], "match_basis": "shared terms: " + ", ".join(overlap[:5]), "applicability": "unverified; compare the current exception and commercial context"})
@@ -301,19 +295,13 @@ class App:
         if not source_matches or not reference_matches:
             issue = "Original source or chosen reference is unavailable or changed after intake; analysis cannot be trusted"
             damaged = {**document, "coverage": {**document["coverage"], "status": "blocked", "issues": [*document["coverage"]["issues"], issue]}}
-            report = analyse(reference, damaged, {}, {})
+            report = self.pack.blocked_analysis(reference, damaged)
             report["assurance"]["source_integrity"]["status"] = "mismatch" if not source_matches else "identified"
             report["assurance"]["limitations"].append("Chosen reference integrity: " + ("verified" if reference_matches else "mismatch"))
             report["reference_sha256"] = reference_sha256
             return report
-        known = reference_sha256 == self.bundled_reference_sha256
         published = [record for record in self.active_precedents() if record["reference_sha256"] == reference_sha256]
-        report = analyse(reference, document, self.historical if known else {}, self.decisions if known else {}, published)
-        if not known:
-            report["assurance"]["limitations"].append("Uploaded reference has not been approved as organisational guidance; compare its provisions and context before deciding.")
-            if report["route"] == "routine_candidate":
-                report["route"] = "review_required"
-                report["reason"] = "Uploaded reference requires human validation before a routine route"
+        report = self.pack.analyse(reference, document, self.historical, self.decisions, published, self.reference)
         unresolved = [row for row in self.correction_history(document_id) if row["relationship"] == "overlooked_exception"]
         if unresolved:
             report["assurance"]["limitations"].append("A reviewer reported a possibly missed exception; inspect the correction history and cited original before deciding.")
@@ -321,7 +309,6 @@ class App:
                 report["route"] = "review_required"
                 report["reason"] = "Reviewer reported a possibly missed exception"
         report["reference_sha256"] = reference_sha256
-        report["history_scope"] = {"historical_records": len(self.historical) if known else 0, "active_published_records": len(published), "shown": len(report["precedents"]), "method": "lexical ranking of changed passages and clause topics"}
         report["comparison_lessons"] = self.correction_lessons(document_id, report["findings"])
         return report
 
@@ -333,8 +320,8 @@ class App:
         for document_id, item in self.contracts.items():
             document = item["document"]
             review = self.analysis(document_id)
-            rows.append({"id": document_id, "filename": document["filename"], "display_name": self.display_name(document), "sha256": document["sha256"], "reference_sha256": item["reference_sha256"], "route": review["route"], "reason": review["reason"], "findings_count": len(review["findings"]), "latest_decision": latest.get((document["sha256"], item["reference_sha256"]))})
-        return sorted(rows, key=lambda row: (-ROUTE_ORDER[row["route"]], row["id"]))
+            rows.append({"id": document_id, "filename": document["filename"], "display_name": self.pack.display_name(document), "sha256": document["sha256"], "reference_sha256": item["reference_sha256"], "route": review["route"], "reason": review["reason"], "findings_count": len(review["findings"]), "latest_decision": latest.get((document["sha256"], item["reference_sha256"]))})
+        return sorted(rows, key=lambda row: (-self.pack.route_order[row["route"]], row["id"]))
 
     def detail(self, document_id):
         item = self.contracts[document_id]
@@ -350,18 +337,7 @@ class App:
             publications.append({**event, "status": "withdrawn" if withdrawal else "active", "withdrawal": withdrawal})
         analysis = self.analysis(document_id)
         analysis["assurance"]["human_review"] = {"status": "recorded" if history else "not recorded", "last_decision": history[-1]["decision"] if history else None, "events": len(history)}
-        return {"id": document_id, "display_name": self.display_name(document), "document": document, "reference": self.references[reference_sha256]["document"], "reference_kind": self.references[reference_sha256]["kind"], "analysis": analysis, "history": history, "publications": publications, "corrections": self.correction_history(document_id), "ai": self.ai.status(), "ai_results": self.ai_results.get((document["sha256"], reference_sha256), [])}
-
-    @staticmethod
-    def display_name(document):
-        for unit in document["units"]:
-            if unit["part"] == "word/document.xml":
-                match = re.search(r"made between (.+?) and (.+?)\. The parties wish", unit["text"])
-                if match:
-                    parties = [match.group(1), match.group(2)]
-                    other = next((party for party in parties if party != "Northbridge Systems Ltd"), parties[0])
-                    return other + " · Mutual NDA"
-        return document["filename"].removesuffix(".docx")
+        return {"id": document_id, "display_name": self.pack.display_name(document), "document": document, "reference": self.references[reference_sha256]["document"], "reference_kind": self.references[reference_sha256]["kind"], "analysis": analysis, "history": history, "publications": publications, "corrections": self.correction_history(document_id), "ai": self.ai.status(), "ai_results": self.ai_results.get((document["sha256"], reference_sha256), [])}
 
     def upload(self, data, filename):
         if not isinstance(filename, str) or not filename.lower().endswith(".docx") or len(data) > 2_000_000:
@@ -452,13 +428,13 @@ class Handler(BaseHTTPRequestHandler):
                 return self._error(409, str(exc))
         if path == "/api/reference":
             return self._json(self.app.reference_info())
-        historical = re.fullmatch(r"/api/history/(H[0-9]{2})(/original)?", path)
+        historical = re.fullmatch(r"/api/history/([A-Za-z0-9_-]+)(/original)?", path)
         if historical:
             document_id = historical.group(1)
             document = self.app.historical.get(document_id)
             if not document:
                 return self._error(404, "Historical case not found")
-            source = next((self.app.root / "dataset/historical").glob(document_id + "-*.docx"), None)
+            source = self.app.pack.historical_path(self.app.root, document_id)
             try:
                 data = source.read_bytes() if source else b""
             except OSError:
@@ -606,12 +582,12 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=8765)
-    parser.add_argument("--state-dir", type=Path, default=Path(".swag-data"))
+    parser.add_argument("--state-dir", type=Path, default=Path(".chugchug-data"))
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
     Handler.app = App(root, args.state_dir.resolve())
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
-    print("Swig synthetic review: http://127.0.0.1:%d" % args.port, flush=True)
+    print("ChugChug synthetic review: http://127.0.0.1:%d" % args.port, flush=True)
     server.serve_forever()
 
 

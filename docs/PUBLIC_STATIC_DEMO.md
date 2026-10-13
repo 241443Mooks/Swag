@@ -21,6 +21,7 @@ The exporter writes **web/demo-data/** with:
 
 - Six original NDA cases with actual precomputed analysis, full source evidence and references, matching the current supported engine.
 - Five historical records with original synthetic DOCX files.
+- A separate, **fictional** 300-entry decision log, accessible at `/decision-log.html`, linked by topic to current reviews and some fixed historical example DOCX files. These entries are not verified precedents or source-backed legal decisions.
 - Original baseline NDA, preserving source hashes.
 - Eight **unapproved** research reference specimens.
 - Twenty routine-looking client specimen files when PR #20 is present. These are **not analysed**, not blind matching tests and not automatically bound to a standard.
@@ -44,7 +45,8 @@ The experimental branch has a workflow to run validation, produce the snapshot, 
 4. Home shows nonzero counts; open Falcon and inspect linked source passages. Reference shows the research specimens.
 5. Download a synthetic original DOCX from a review and the research library.
 6. Confirm the public read-only banner appears and no upload, decision, publication or AI action is offered.
-7. Recheck at narrow viewport. Do not claim human creative or legal acceptance before it happens.
+7. Open `/decision-log.html`, filter on Falcon (T03), verify red flags and amended green examples are labelled as fictional, and follow its link back to the current review.
+8. Recheck at narrow viewport. Do not claim human creative or legal acceptance before it happens.
 
 ## Full interactive service: a separate decision
 

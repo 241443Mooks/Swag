@@ -1,0 +1,132 @@
+{
+  "version": "0.1",
+  "purpose": "Synthetic research reference catalogue; no application support or legal approval implied",
+  "references": [
+    {
+      "reference_id": "NDA-UK-EVAL",
+      "display_name": "Mutual NDA — Product evaluation (UK)",
+      "family": "nda",
+      "variant": "mutual_evaluation",
+      "deployment": null,
+      "channel": null,
+      "file": "references/nda/Mutual NDA - Product Evaluation - UK - v0.1.docx",
+      "approval_status": "unapproved_demo_candidate",
+      "version": "0.1"
+    },
+    {
+      "reference_id": "NDA-UK-SUPPLIER",
+      "display_name": "Mutual NDA — Supplier assessment (UK)",
+      "family": "nda",
+      "variant": "mutual_supplier_due_diligence",
+      "deployment": null,
+      "channel": null,
+      "file": "references/nda/Mutual NDA - Supplier Due Diligence - UK - v0.1.docx",
+      "approval_status": "unapproved_demo_candidate",
+      "version": "0.1"
+    },
+    {
+      "reference_id": "NDA-UK-ONEWAY",
+      "display_name": "One-way NDA — Customer disclosures (UK)",
+      "family": "nda",
+      "variant": "one_way_customer_disclosure",
+      "deployment": null,
+      "channel": null,
+      "file": "references/nda/One-way NDA - Customer Disclosure - UK - v0.1.docx",
+      "approval_status": "unapproved_demo_candidate",
+      "version": "0.1"
+    },
+    {
+      "reference_id": "ORDER-PRO-DIRECT",
+      "display_name": "Customer Order — Desktop user licences (direct)",
+      "family": "customer_order",
+      "variant": "desktop_seats",
+      "deployment": "desktop",
+      "channel": "direct",
+      "file": "references/sales-orders/Customer Order - Desktop User Licences - Direct - v0.1.docx",
+      "approval_status": "unapproved_demo_candidate",
+      "version": "0.1"
+    },
+    {
+      "reference_id": "ORDER-DAST-CLOUD",
+      "display_name": "Customer Order — Managed cloud scanning",
+      "family": "customer_order",
+      "variant": "managed_cloud_scanning",
+      "deployment": "vendor_cloud",
+      "channel": "direct",
+      "file": "references/sales-orders/Customer Order - Managed Cloud Scanning - v0.1.docx",
+      "approval_status": "unapproved_demo_candidate",
+      "version": "0.1"
+    },
+    {
+      "reference_id": "ORDER-DAST-SELF",
+      "display_name": "Customer Order — Self-hosted scanning",
+      "family": "customer_order",
+      "variant": "self_hosted_scanning",
+      "deployment": "customer_hosted",
+      "channel": "direct",
+      "file": "references/sales-orders/Customer Order - Self-hosted Scanning - v0.1.docx",
+      "approval_status": "unapproved_demo_candidate",
+      "version": "0.1"
+    },
+    {
+      "reference_id": "ORDER-COMBINED",
+      "display_name": "Customer Order — Desktop plus cloud bundle",
+      "family": "customer_order",
+      "variant": "combined_bundle",
+      "deployment": "mixed",
+      "channel": "direct",
+      "file": "references/sales-orders/Customer Order - Combined Desktop and Cloud - v0.1.docx",
+      "approval_status": "unapproved_demo_candidate",
+      "version": "0.1"
+    },
+    {
+      "reference_id": "ORDER-RESELLER",
+      "display_name": "Customer Order — Reseller desktop licences",
+      "family": "customer_order",
+      "variant": "desktop_reseller",
+      "deployment": "desktop",
+      "channel": "reseller",
+      "file": "references/sales-orders/Customer Order - Reseller Desktop Licences - v0.1.docx",
+      "approval_status": "unapproved_demo_candidate",
+      "version": "0.1"
+    }
+  ],
+  "incoming_tests": [
+    {
+      "id": "IN-01",
+      "file": "incoming-tests/Incoming - Evaluation NDA with Longer Retention.docx",
+      "expected_candidate_reference_id": "NDA-UK-EVAL",
+      "caution": "Broad archival use; review retention and commercial-use wording"
+    },
+    {
+      "id": "IN-02",
+      "file": "incoming-tests/Incoming - Hosted Scanning with Different Hosting Region.docx",
+      "expected_candidate_reference_id": "ORDER-DAST-CLOUD",
+      "caution": "Hosting-region variation may affect security and data obligations"
+    },
+    {
+      "id": "IN-03",
+      "file": "incoming-tests/Incoming - Desktop Reseller Seat Increase.docx",
+      "expected_candidate_reference_id": "ORDER-RESELLER",
+      "caution": "Check seat quantities, price and entitlement"
+    },
+    {
+      "id": "IN-04",
+      "file": "incoming-tests/Incoming - Ambiguous Reseller Cloud Scan Purchase.docx",
+      "expected_candidate_reference_id": null,
+      "caution": "No matching reference: reseller plus hosted/cloud context; abstain"
+    }
+  ],
+  "matching_contract": {
+    "hard_exclusions": [
+      "wrong family",
+      "incompatible deployment",
+      "direct versus reseller channel",
+      "disclosure direction",
+      "material unknowns"
+    ],
+    "safety_rule": "No safe reference candidate means abstain and escalate; never force a similarity match",
+    "binding": "Human confirms applicability; bind reference ID, version and immutable source hash; past reviews never change silently",
+    "ai_role": "Optional proposals and explanations only; no automatic legal approval"
+  }
+}

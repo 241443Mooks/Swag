@@ -2,7 +2,7 @@
 
 **Status: research fixtures, not supported by the running application, and not legally approved.**
 
-This directory is a proposed dataset for exploring intelligent matching of incoming agreements to the *applicable* reference, not merely the most textually similar one. It supplements GitHub issue [#16](https://github.com/241443Mooks/Swag/issues/16).
+This directory contains **8 synthetic reference documents and 4 incoming test documents**, along with a proposed dataset for exploring intelligent matching of incoming agreements to the *applicable* reference, not merely the most textually similar one. It supplements GitHub issue [#16](https://github.com/241443Mooks/Swag/issues/16).
 
 ## Candidate standards
 
@@ -46,6 +46,6 @@ AI may assist with classification, explanation or ranking but must not silently 
 - All parties, prices and terms are invented for demonstration.
 - The active ChugChug code supports one mutual-NDA heading family, not these extra agreements or automatic reference matching.
 - Do not place these files into `dataset/reference/`, `dataset/incoming/` or runtime precedent search without separate architecture, legal, security and evaluation work.
-- Original Word starter pack is maintained separately while the research documents are prepared for GitHub.
+- The 12 `.docx` documents under this folder are compact, regenerated Word specimens preserving the synthetic clause wording and key variations from the original starter set. **They are not byte-for-byte copies** of the separately supplied starter ZIP; formatting and ancillary metadata differ. Keep them research-only and revalidate them before test automation or legal review.
 
 The key test is not merely finding something similar: it is **knowing when not to match**.

@@ -216,9 +216,20 @@ small{display:block;margin-top:1.2rem;color:#536273;line-height:1.55}
         self.wfile.write(body)
 
     def _same_origin(self) -> bool:
+        # Cloudflare Containers forward traffic internally as Host: container.
+        # Trust the public-host value ONLY when running behind our single
+        # Cloudflare Worker, which verifies the hostname and overwrites this
+        # request header before forwarding. The container must not be reachable
+        # directly from the public Internet.
+        forwarded = (
+            self.headers.get("X-ChugChug-Public-Host")
+            if os.getenv("CHUGCHUG_CLOUDFLARE_PROXY") == "1"
+            else None
+        )
+        host = forwarded or self.headers.get("Host")
         return (
             self.headers.get("Origin") == self.origin
-            and self.headers.get("Host") == urlparse(self.origin).netloc
+            and host == urlparse(self.origin).netloc
         )
 
     def _with_session(self, operation, *, write=False):

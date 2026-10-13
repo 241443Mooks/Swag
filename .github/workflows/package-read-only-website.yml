@@ -1,0 +1,77 @@
+name: Package ChugChug read-only Pages site
+
+on:
+  push:
+    branches:
+      - feature/static-site-publish-package
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out complete synthetic static website
+        uses: actions/checkout@v4
+      - name: Validate data and absence of private/evaluation content
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          base=Path('web')
+          assert (base/'index.html').exists()
+          assert (base/'app.js').exists()
+          assert (base/'styles.css').exists()
+          queue=json.loads((base/'demo-data/queue.json').read_text())
+          research=json.loads((base/'demo-data/research.json').read_text())
+          assert len(queue['items'])==6
+          assert len(research['references'])==8
+          assert len(research['routine_clients'])==20
+          assert len(research['challenge_cases'])==4
+          for item in queue['items']:
+              assert (base/'demo-data/contracts'/f"{item['id']}.json").exists()
+          forbidden=['ground_truth','expected_matches','secret','decisions.jsonl']
+          for path in base.rglob('*'):
+              assert not any(term in str(path).lower() for term in forbidden), path
+          print('Ready: 6 analysed NDAs, 8 reference specimens, 20 client specimens, 4 challenge cases; no evaluation answer key.')
+          PY
+      - name: Check browser and Python regressions
+        run: |
+          node --check web/app.js
+          node --test tests/test_web_ui.mjs
+          python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: Build exact Cloudflare Pages root ZIP
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          source=Path('web')
+          output=Path('chugchug-cloudflare-pages.zip')
+          with ZipFile(output,'w',ZIP_DEFLATED,compresslevel=8) as bundle:
+              for f in sorted(source.rglob('*')):
+                  if f.is_file():
+                      bundle.write(f,f.relative_to(source).as_posix())
+          with ZipFile(output) as bundle:
+              members=set(bundle.namelist())
+              assert {'index.html','app.js','styles.css','demo-data/queue.json','demo-data/research.json'} <= members
+              assert all(not name.startswith('web/') for name in members)
+              print('Cloudflare upload ZIP contains',len(members),'files at the correct site root')
+          PY
+          sha256sum chugchug-cloudflare-pages.zip
+      - name: Keep ZIP in GitHub Actions artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: chugchug-cloudflare-pages
+          path: chugchug-cloudflare-pages.zip
+          retention-days: 30
+      - name: Publish optional one-click release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create chugchug-static-snapshot-20261013 chugchug-cloudflare-pages.zip \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "ChugChug read-only Pages upload (fictional data)" \
+            --notes "Self-contained Cloudflare Pages deployment ZIP. Upload this file to an existing Direct Upload Pages project. Site root is index.html; data under demo-data/. Fictional data only; decisions remain read-only." \
+            --prerelease

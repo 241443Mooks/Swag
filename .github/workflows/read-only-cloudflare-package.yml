@@ -60,6 +60,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: chugchug-readonly-cloudflare
-          path: chugchug-readonly-cloudflare.zip
+          path: web/
           retention-days: 14
           if-no-files-found: error

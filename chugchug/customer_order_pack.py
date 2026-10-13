@@ -41,6 +41,7 @@ def _sections(document: dict) -> tuple[list[dict], list[dict]]:
             previous = next(item for item in sections if item["key"] == key)
             duplicates.extend(previous["units"][:1])
             previous["units"].extend(units)
+            current = previous
         else:
             seen.add(key)
             sections.append(section)
@@ -144,16 +145,34 @@ class CustomerOrderPack:
         current, repeated_current = _sections(incoming)
         findings = []
         uncertainty = "Textual comparison does not establish legal or commercial effect. A person must review the complete source and context."
+
         if repeated_baseline or repeated_current:
-            ambiguous = _finding(
+            findings.append(_finding(
                 "structural_ambiguity",
                 "Repeated section heading",
                 "A heading occurs more than once, so section alignment is ambiguous. Inspect both documents in full.",
                 repeated_current,
                 repeated_baseline,
                 "Repeated headings may refer to different provisions; no unique clause pairing was inferred.",
-            )
-            findings.append(ambiguous)
+            ))
+            return {
+                **base,
+                "route": "review_required",
+                "status": "limited",
+                "reason": findings[0]["title"],
+                "findings": findings,
+                "checks": {"extraction": "complete", "comparison": "limited"},
+                "context": context,
+                "assurance": {
+                    "reference_sha256": identity["sha256"], "incoming_sha256": incoming.get("sha256"),
+                    "reference_bytes": reference.get("size"), "incoming_bytes": incoming.get("size"),
+                    "reference_passages": len(reference.get("units", [])), "incoming_passages": len(incoming.get("units", [])),
+                    "limitations": [
+                        "Repeated headings make section alignment ambiguous; section comparison was withheld.",
+                        "Reference applicability is not established by this comparator; a human must confirm the selected baseline.",
+                    ],
+                },
+            }
 
         before_by_key = {item["key"]: item for item in baseline}
         after_by_key = {item["key"]: item for item in current}
@@ -209,15 +228,13 @@ class CustomerOrderPack:
         limitations = ["Comparison is limited to extracted text grouped by numbered sections and named schedules/appendices.",
                        "Structured commercial fields such as quantities, fees, dates and renewal terms are surfaced as textual differences and are not interpreted.",
                        "Reference applicability is not established by this comparator; a human must confirm the selected baseline."]
-        if repeated_baseline or repeated_current:
-            limitations.append("Repeated headings make section alignment ambiguous.")
         return {
             **base,
             "route": route,
-            "status": "complete" if not repeated_baseline and not repeated_current else "limited",
+            "status": "complete",
             "reason": reason,
             "findings": findings,
-            "checks": {"extraction": "complete", "comparison": "limited" if repeated_baseline or repeated_current else "complete"},
+            "checks": {"extraction": "complete", "comparison": "complete"},
             "context": context,
             "assurance": {"reference_sha256": identity["sha256"], "incoming_sha256": incoming.get("sha256"),
                           "reference_bytes": reference.get("size"), "incoming_bytes": incoming.get("size"),

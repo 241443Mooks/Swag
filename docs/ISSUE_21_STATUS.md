@@ -8,13 +8,14 @@ This slice starts from refreshed `origin/main` at `442f3f7fb3c60c748fb33be7135dc
 - It accounts for preamble text, numbered sections, named schedules/appendices, and extracted non-body parts. It reports changed, added, missing and reordered sections with exact incoming/reference anchors.
 - It requires complete extraction and unambiguous customer-order family evidence before comparison; missing, conflicting or wrong-family context returns `needs_context` and does not compare sections.
 - Exact text against a research-only unapproved reference still routes to `review_required`. Differences are not assigned legal effect; amounts, dates, quantities and service terms remain plain text requiring a person to interpret.
+- Repeated section headings now stop section alignment and return only a source-linked structural-ambiguity finding. This avoids emitting potentially misleading added/changed section findings from a non-unique heading map.
 - This does not solve baseline applicability, confirm a candidate, or integrate orders into the reviewer UI. Those boundaries remain explicit until the owner has reviewed the current experience.
 
 ### Slice B test evidence
 
-- `python3 -m unittest tests.test_customer_order_pack -v`: 4 passed.
+- `python3 -m unittest tests.test_customer_order_pack -v`: 5 passed, including repeated-heading abstention.
 - Tests verify all five registry order references remain unapproved, exact research-source comparison cannot become approval, an existing synthetic incoming order yields source-resolvable evidence, and incomplete/wrong-family inputs block.
-- `python3 -m unittest discover -s tests -q`: 45 passed.
+- `python3 -m unittest discover -s tests -q`: 46 passed.
 - `python3 -m tests.evaluate`: original NDA routes agreed 6/6; T03/T04/T05 escalated.
 - `python3 -m tests.adversarial_audit`: 11/11 critical cases surfaced or safely blocked, zero false routine routes, 14/16 expected route matches. A05 and A08 remain conservative escalations above their written route targets.
 - `node --check web/app.js`, `node --test tests/test_web_ui.mjs` (4 passed), and `git diff --check`: passed.

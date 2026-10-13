@@ -68,6 +68,25 @@ class CustomerOrderPackTests(unittest.TestCase):
         self.assertEqual(report["checks"]["comparison"], "not run")
         self.assertEqual(report["context"]["dimensions"]["family"]["value"], "nda")
 
+    def test_repeated_headings_withhold_alignment_instead_of_inventing_diffs(self):
+        incoming_path = ROOT / "research/reference-library-v0.1/routine-clients/C009 - Inverlea Media Ltd.docx"
+        incoming = extract_file(incoming_path)
+        proposal = propose_reference(incoming, self.references)
+        selected = next(item for item in self.order_references
+                        if item["reference_id"] == proposal["proposal"]["reference_id"])
+        units = [dict(unit) for unit in incoming["units"]]
+        heading = next(unit for unit in units
+                       if unit["part"] == "word/document.xml" and unit["text"].startswith("1. "))
+        duplicate = dict(heading, anchor="word/document.xml:p999")
+        incoming = {**incoming, "units": units + [duplicate]}
+
+        report = self.pack.compare(selected, incoming)
+
+        self.assertEqual(report["status"], "limited")
+        self.assertEqual(report["checks"]["comparison"], "limited")
+        self.assertEqual([finding["category"] for finding in report["findings"]], ["structural_ambiguity"])
+        self.assertIn(duplicate["anchor"], {source["anchor"] for source in report["findings"][0]["sources"]})
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,167 @@
+{
+  "dataset": "routine-clients-v0.1",
+  "date": "2026-10-13",
+  "scope": "evaluation-only; runtime MUST NOT ingest these labels, file path names or expectation data for matching",
+  "cases": [
+    {
+      "id": "C001",
+      "client": "Alderbrook Digital Ltd",
+      "file": "../C001 - Alderbrook Digital Ltd.docx",
+      "expected_reference_id": "NDA-UK-EVAL",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C002",
+      "client": "Birchstone Analytics Ltd",
+      "file": "../C002 - Birchstone Analytics Ltd.docx",
+      "expected_reference_id": "NDA-UK-EVAL",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C003",
+      "client": "Cedarfield Technology Ltd",
+      "file": "../C003 - Cedarfield Technology Ltd.docx",
+      "expected_reference_id": "NDA-UK-EVAL",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C004",
+      "client": "DeltaWorks Consulting Ltd",
+      "file": "../C004 - DeltaWorks Consulting Ltd.docx",
+      "expected_reference_id": "NDA-UK-SUPPLIER",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C005",
+      "client": "Eastmere Infrastructure Ltd",
+      "file": "../C005 - Eastmere Infrastructure Ltd.docx",
+      "expected_reference_id": "NDA-UK-SUPPLIER",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C006",
+      "client": "Fellspring Operations Ltd",
+      "file": "../C006 - Fellspring Operations Ltd.docx",
+      "expected_reference_id": "NDA-UK-SUPPLIER",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C007",
+      "client": "Garnet Research Ltd",
+      "file": "../C007 - Garnet Research Ltd.docx",
+      "expected_reference_id": "NDA-UK-ONEWAY",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C008",
+      "client": "Harbourlight Systems Ltd",
+      "file": "../C008 - Harbourlight Systems Ltd.docx",
+      "expected_reference_id": "NDA-UK-ONEWAY",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C009",
+      "client": "Inverlea Media Ltd",
+      "file": "../C009 - Inverlea Media Ltd.docx",
+      "expected_reference_id": "ORDER-PRO-DIRECT",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C010",
+      "client": "Juniper Labs Ltd",
+      "file": "../C010 - Juniper Labs Ltd.docx",
+      "expected_reference_id": "ORDER-PRO-DIRECT",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C011",
+      "client": "Kestrel Studio Ltd",
+      "file": "../C011 - Kestrel Studio Ltd.docx",
+      "expected_reference_id": "ORDER-PRO-DIRECT",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C012",
+      "client": "Langford Services Ltd",
+      "file": "../C012 - Langford Services Ltd.docx",
+      "expected_reference_id": "ORDER-DAST-CLOUD",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C013",
+      "client": "Maplebrook Software Ltd",
+      "file": "../C013 - Maplebrook Software Ltd.docx",
+      "expected_reference_id": "ORDER-DAST-CLOUD",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C014",
+      "client": "Northwind Retail Ltd",
+      "file": "../C014 - Northwind Retail Ltd.docx",
+      "expected_reference_id": "ORDER-DAST-CLOUD",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C015",
+      "client": "Oakbridge Engineering Ltd",
+      "file": "../C015 - Oakbridge Engineering Ltd.docx",
+      "expected_reference_id": "ORDER-DAST-SELF",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C016",
+      "client": "Penrose Data Ltd",
+      "file": "../C016 - Penrose Data Ltd.docx",
+      "expected_reference_id": "ORDER-DAST-SELF",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C017",
+      "client": "Quarryside Finance Ltd",
+      "file": "../C017 - Quarryside Finance Ltd.docx",
+      "expected_reference_id": "ORDER-COMBINED",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C018",
+      "client": "Rosemere Applications Ltd",
+      "file": "../C018 - Rosemere Applications Ltd.docx",
+      "expected_reference_id": "ORDER-COMBINED",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C019",
+      "client": "Silverpeak Partners Ltd",
+      "file": "../C019 - Silverpeak Partners Ltd.docx",
+      "expected_reference_id": "ORDER-RESELLER",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    },
+    {
+      "id": "C020",
+      "client": "Tamarind Technology Ltd",
+      "file": "../C020 - Tamarind Technology Ltd.docx",
+      "expected_reference_id": "ORDER-RESELLER",
+      "expected_material_clause_changes": 0,
+      "expected_status": "routine-looking candidate; human commercial and legal verification required"
+    }
+  ]
+}

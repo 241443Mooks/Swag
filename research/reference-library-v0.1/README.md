@@ -2,7 +2,7 @@
 
 **Status: research fixtures, not supported by the running application, and not legally approved.**
 
-This directory contains **8 synthetic reference documents and 4 incoming test documents**, along with a proposed dataset for exploring intelligent matching of incoming agreements to the *applicable* reference, not merely the most textually similar one. It supplements GitHub issue [#16](https://github.com/241443Mooks/Swag/issues/16).
+This directory contains **8 synthetic reference documents and 4 incoming workflow fixtures**, along with a proposed dataset for exploring matching to an *applicable* reference, not merely the most textually similar one. It supplements GitHub issue [#16](https://github.com/241443Mooks/Swag/issues/16). The active registry reads only the eight records under `references/` and their `catalog.json` metadata; it does not load incoming fixtures or evaluation labels.
 
 ## Candidate standards
 
@@ -18,16 +18,18 @@ This directory contains **8 synthetic reference documents and 4 incoming test do
 - Customer Order — Desktop plus cloud bundle (`ORDER-COMBINED`)
 - Customer Order — Reseller desktop licences (`ORDER-RESELLER`)
 
-## Incoming cases (4)
+## Incoming workflow fixtures (4)
 
-- `IN-01`: Evaluation NDA with longer, broader archival use → evaluation NDA candidate; material retention/use concerns
-- `IN-02`: Managed cloud scanning order with different hosting region → hosted/cloud reference; region variation requires review
-- `IN-03`: Desktop reseller seat increase → reseller desktop reference; quantities and entitlements must be checked
-- `IN-04`: Reseller request for hosted/cloud scanning → **no appropriate approved reference** within this candidate set; abstain rather than substitute direct-cloud or desktop-reseller wording
+- `IN-01`: Evaluation NDA with longer, broader archival use
+- `IN-02`: Managed cloud scanning order with a different hosting region
+- `IN-03`: Desktop reseller seat increase
+- `IN-04`: Reseller request for hosted/cloud scanning
+
+These documents and their expected candidate labels are workflow/evaluation material, not a blind matching set. Expected labels are stored separately under `evaluation-only/expected-matches.json`; the application must not load that file, index it or send it to a model.
 
 ## Applicability before textual similarity
 
-Suggested metadata: reference ID, display name, family, variant, product, deployment, direct/reseller channel, disclosure direction, jurisdiction, version/effective dates, human approval status, provenance/hash, companion terms, known exclusions and escalation requirements.
+The controlled catalogue records reference ID, display name, family, variant, deployment, channel, disclosure direction, jurisdiction, a source-linked scope description, version, SHA-256 and explicit unapproved demo status. Missing source facts stay unspecified and appear as gaps; they are not inferred from document similarity.
 
 Proposed processing sequence:
 1. Retain original bytes and evidence anchors.
@@ -44,7 +46,9 @@ AI may assist with classification, explanation or ranking but must not silently 
 
 - Inspired by common software-company transactions and public product categories only; **not PortSwigger's internal legal templates or approved policy**.
 - All parties, prices and terms are invented for demonstration.
-- The active ChugChug code supports one mutual-NDA heading family, not these extra agreements or automatic reference matching.
+- These sources remain fictional research candidates, not approved legal wording or production policy. A proposed match requires human applicability confirmation before any comparison.
+- Jurisdiction is not stated in the five customer-order sources. Their proposals therefore retain an explicit jurisdiction gap; do not present the records as jurisdictionally applicable.
+- The active product does not yet compare customer orders or treat these standards as approved organizational guidance.
 - Do not place these files into `dataset/reference/`, `dataset/incoming/` or runtime precedent search without separate architecture, legal, security and evaluation work.
 - The 12 `.docx` documents under this folder are compact, regenerated Word specimens preserving the synthetic clause wording and key variations from the original starter set. **They are not byte-for-byte copies** of the separately supplied starter ZIP; formatting and ancillary metadata differ. Keep them research-only and revalidate them before test automation or legal review.
 

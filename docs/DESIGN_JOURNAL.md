@@ -107,3 +107,11 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Discovery:** Falcon's leading whole-document indicator has no direct comparison pair in the engine, but its related no-licence passage exactly matches the selected reference. Showing that exact reference protection beside the added wording makes the relationship legible without inventing a changed clause. When no exact reference passage is available, the UI says so rather than implying a match.
 
 **Evidence and uncertainty:** Browser checks covered filtered queues, Falcon source navigation, a synthetic decision and refresh, desktop and narrow layouts. They verify UI behaviour in a local demonstration, not reviewer understanding or legal interpretation. Owner creative acceptance remains pending under #13; broader families and incoming feeds remain discovery under #16.
+
+## Entry 014 — A close textual match is not enough to choose a standard
+
+**Observation:** The research library had eight differently scoped references, but its catalogue also mixed reference metadata with expected candidates for evaluation inputs. Several order sources do not state a jurisdiction, and NDA scope depends on whether disclosure is mutual and why the parties are exchanging information.
+
+**Decision:** Keep the runtime registry limited to hash-verified reference sources. Move expected labels into an evaluation-only file, extract contextual facts from exact source passages, hard-exclude known conflicts, and abstain or expose a gap where context is missing. Treat every result as an unapproved research candidate that a human must validate before comparison.
+
+**Evidence and uncertainty:** Independent synthetic tests cover mutual and one-way NDA context, supplier and product-evaluation purpose, direct cloud orders, reseller/cloud incompatibility, missing or contradictory context, incomplete extraction, source hashes and evaluation-file isolation. The rules have not been evaluated on a blind dataset or validated by legal reviewers; no matching accuracy or applicability claim follows.

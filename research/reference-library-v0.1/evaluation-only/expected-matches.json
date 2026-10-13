@@ -1,0 +1,29 @@
+{
+  "purpose": "Evaluation-only expected candidate labels; never load in runtime, prompts, indexing, or retrieval.",
+  "cases": [
+    {
+      "id": "IN-01",
+      "file": "incoming-tests/Incoming - Evaluation NDA with Longer Retention.docx",
+      "expected_candidate_reference_id": "NDA-UK-EVAL",
+      "caution": "Broad archival use; review retention and commercial-use wording"
+    },
+    {
+      "id": "IN-02",
+      "file": "incoming-tests/Incoming - Hosted Scanning with Different Hosting Region.docx",
+      "expected_candidate_reference_id": "ORDER-DAST-CLOUD",
+      "caution": "Hosting-region variation may affect security and data obligations"
+    },
+    {
+      "id": "IN-03",
+      "file": "incoming-tests/Incoming - Desktop Reseller Seat Increase.docx",
+      "expected_candidate_reference_id": "ORDER-RESELLER",
+      "caution": "Check seat quantities, price and entitlement"
+    },
+    {
+      "id": "IN-04",
+      "file": "incoming-tests/Incoming - Ambiguous Reseller Cloud Scan Purchase.docx",
+      "expected_candidate_reference_id": null,
+      "caution": "No matching reference: reseller plus hosted/cloud context; abstain"
+    }
+  ]
+}

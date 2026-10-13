@@ -11,7 +11,13 @@
       "channel": null,
       "file": "references/nda/Mutual NDA - Product Evaluation - UK - v0.1.docx",
       "approval_status": "unapproved_demo_candidate",
-      "version": "0.1"
+      "version": "0.1",
+      "direction": "mutual",
+      "jurisdiction": "England and Wales",
+      "scope": "possible software subscription or technical integration",
+      "scope_anchor": "word/document.xml:p9",
+      "sha256": "6a1055c5a7b2f93159080bd9a3b0f2a774390fdbdac89c1b669fa886bd4fe59a",
+      "demo_status": "fictional_research_candidate_not_approved"
     },
     {
       "reference_id": "NDA-UK-SUPPLIER",
@@ -22,7 +28,13 @@
       "channel": null,
       "file": "references/nda/Mutual NDA - Supplier Due Diligence - UK - v0.1.docx",
       "approval_status": "unapproved_demo_candidate",
-      "version": "0.1"
+      "version": "0.1",
+      "direction": "mutual",
+      "jurisdiction": "England and Wales",
+      "scope": "Assess a potential supplier, procurement process or service provider",
+      "scope_anchor": "word/document.xml:p5",
+      "sha256": "003922c5817e2f9af5d281f9f67af9f718d82955f4cbe72c68a3c3ffaef7b9b5",
+      "demo_status": "fictional_research_candidate_not_approved"
     },
     {
       "reference_id": "NDA-UK-ONEWAY",
@@ -33,7 +45,13 @@
       "channel": null,
       "file": "references/nda/One-way NDA - Customer Disclosure - UK - v0.1.docx",
       "approval_status": "unapproved_demo_candidate",
-      "version": "0.1"
+      "version": "0.1",
+      "direction": "one_way",
+      "jurisdiction": "England and Wales",
+      "scope": "One party discloses product information to a potential customer",
+      "scope_anchor": "word/document.xml:p5",
+      "sha256": "62437da75a43c01e7e183a0fba17bbc2424fec2def21e052db126d8134479138",
+      "demo_status": "fictional_research_candidate_not_approved"
     },
     {
       "reference_id": "ORDER-PRO-DIRECT",
@@ -44,7 +62,13 @@
       "channel": "direct",
       "file": "references/sales-orders/Customer Order - Desktop User Licences - Direct - v0.1.docx",
       "approval_status": "unapproved_demo_candidate",
-      "version": "0.1"
+      "version": "0.1",
+      "direction": null,
+      "jurisdiction": null,
+      "scope": "Subscription for 12 named desktop software users, for internal security testing by the customer.",
+      "scope_anchor": "word/document.xml:p9",
+      "sha256": "ccd5cb3bc208940be76d3649fa4c946e16317cc5ec4307d5f166bc533d641207",
+      "demo_status": "fictional_research_candidate_not_approved"
     },
     {
       "reference_id": "ORDER-DAST-CLOUD",
@@ -55,7 +79,13 @@
       "channel": "direct",
       "file": "references/sales-orders/Customer Order - Managed Cloud Scanning - v0.1.docx",
       "approval_status": "unapproved_demo_candidate",
-      "version": "0.1"
+      "version": "0.1",
+      "direction": null,
+      "jurisdiction": null,
+      "scope": "Managed cloud scanning subscription for the customer’s authorised web application testing programme.",
+      "scope_anchor": "word/document.xml:p9",
+      "sha256": "f943acb3a4898e965919f6e404ebfedc6568aa5077d85a1a8797d840d9978b97",
+      "demo_status": "fictional_research_candidate_not_approved"
     },
     {
       "reference_id": "ORDER-DAST-SELF",
@@ -66,7 +96,13 @@
       "channel": "direct",
       "file": "references/sales-orders/Customer Order - Self-hosted Scanning - v0.1.docx",
       "approval_status": "unapproved_demo_candidate",
-      "version": "0.1"
+      "version": "0.1",
+      "direction": null,
+      "jurisdiction": null,
+      "scope": "Subscription to self-hosted application scanning software for the customer’s internal authorised environments.",
+      "scope_anchor": "word/document.xml:p9",
+      "sha256": "7f184cb2a7652ca69f3644d92b38b0333a64a7a1d440e7ac6b3733c79688c24c",
+      "demo_status": "fictional_research_candidate_not_approved"
     },
     {
       "reference_id": "ORDER-COMBINED",
@@ -77,7 +113,13 @@
       "channel": "direct",
       "file": "references/sales-orders/Customer Order - Combined Desktop and Cloud - v0.1.docx",
       "approval_status": "unapproved_demo_candidate",
-      "version": "0.1"
+      "version": "0.1",
+      "direction": null,
+      "jurisdiction": null,
+      "scope": "Combined order covering 20 named desktop licences and a vendor-managed application scanning service.",
+      "scope_anchor": "word/document.xml:p9",
+      "sha256": "03a5c96d369208b09c1e18def17f7e9419baacd50e154ff9c9fab1c2061bc326",
+      "demo_status": "fictional_research_candidate_not_approved"
     },
     {
       "reference_id": "ORDER-RESELLER",
@@ -88,33 +130,13 @@
       "channel": "reseller",
       "file": "references/sales-orders/Customer Order - Reseller Desktop Licences - v0.1.docx",
       "approval_status": "unapproved_demo_candidate",
-      "version": "0.1"
-    }
-  ],
-  "incoming_tests": [
-    {
-      "id": "IN-01",
-      "file": "incoming-tests/Incoming - Evaluation NDA with Longer Retention.docx",
-      "expected_candidate_reference_id": "NDA-UK-EVAL",
-      "caution": "Broad archival use; review retention and commercial-use wording"
-    },
-    {
-      "id": "IN-02",
-      "file": "incoming-tests/Incoming - Hosted Scanning with Different Hosting Region.docx",
-      "expected_candidate_reference_id": "ORDER-DAST-CLOUD",
-      "caution": "Hosting-region variation may affect security and data obligations"
-    },
-    {
-      "id": "IN-03",
-      "file": "incoming-tests/Incoming - Desktop Reseller Seat Increase.docx",
-      "expected_candidate_reference_id": "ORDER-RESELLER",
-      "caution": "Check seat quantities, price and entitlement"
-    },
-    {
-      "id": "IN-04",
-      "file": "incoming-tests/Incoming - Ambiguous Reseller Cloud Scan Purchase.docx",
-      "expected_candidate_reference_id": null,
-      "caution": "No matching reference: reseller plus hosted/cloud context; abstain"
+      "version": "0.1",
+      "direction": null,
+      "jurisdiction": null,
+      "scope": "Purchase of 25 desktop user subscriptions by an authorised reseller for the named end customer.",
+      "scope_anchor": "word/document.xml:p9",
+      "sha256": "25faa37169e381da193d6e353b77c84aec9ca091e86c4a167d18e998cdd03fa1",
+      "demo_status": "fictional_research_candidate_not_approved"
     }
   ],
   "matching_contract": {

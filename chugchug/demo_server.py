@@ -17,7 +17,7 @@ import secrets
 import tempfile
 import threading
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from http.cookies import CookieError, SimpleCookie
 from http.server import ThreadingHTTPServer
 from pathlib import Path
@@ -49,6 +49,7 @@ class DemoSession:
     active: int = 0
     retired: bool = False
     writes: int = 0
+    request_lock: threading.RLock = field(default_factory=threading.RLock)
 
 
 class DemoSessions:
@@ -235,8 +236,9 @@ small{display:block;margin-top:1.2rem;color:#536273;line-height:1.55}
                     if session.writes >= MAX_WRITES:
                         return self._error(429, "This demo has reached its write limit. Reset to start again.")
                     session.writes += 1
-            self.app = session.app  # Per-request instance; never mutate Handler.app globally.
-            return operation(session, token)
+            with session.request_lock:
+                self.app = session.app  # Per-request instance; never mutate Handler.app globally.
+                return operation(session, token)
         finally:
             self.sessions.release(session)
 
@@ -352,6 +354,7 @@ def main():
     parser.add_argument("--port", type=int, default=8772)
     parser.add_argument("--origin", default=os.getenv("CHUGCHUG_DEMO_ORIGIN", ""))
     parser.add_argument("--local-http", action="store_true", help="Only for local browser testing, not public deployment")
+    parser.add_argument("--container-bind", action="store_true", help="Bind inside a container only; host port must remain loopback-only")
     args = parser.parse_args()
     password = os.getenv("CHUGCHUG_DEMO_PASSWORD", "")
     sessions = DemoSessions(password=password)
@@ -363,6 +366,8 @@ def main():
     parsed = urlparse(args.origin)
     if parsed.path not in ("", "/") or parsed.query or parsed.fragment or not parsed.netloc:
         parser.error("Origin must be a scheme and host only")
+    if args.container_bind and args.local_http:
+        parser.error("Container binding requires the HTTPS reverse-proxy configuration")
     if args.local_http:
         if args.origin != "http://127.0.0.1:" + str(args.port):
             parser.error("--local-http is only for the loopback origin")
@@ -375,7 +380,10 @@ def main():
     ConfiguredHandler.sessions = sessions
     ConfiguredHandler.origin = args.origin.rstrip("/")
     ConfiguredHandler.secure_cookies = not args.local_http
-    server = ThreadingHTTPServer(("127.0.0.1", args.port), ConfiguredHandler)
+    # Only use 0.0.0.0 inside a container with the published HOST port restricted
+    # to 127.0.0.1 and an HTTPS reverse proxy in front.
+    bind_address = "0.0.0.0" if args.container_bind else "127.0.0.1"
+    server = ThreadingHTTPServer((bind_address, args.port), ConfiguredHandler)
     print("ChugChug interactive demo listening on loopback port " + str(args.port), flush=True)
     try:
         server.serve_forever()

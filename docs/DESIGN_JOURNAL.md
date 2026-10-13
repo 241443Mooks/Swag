@@ -97,3 +97,13 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Observation:** The reviewer-facing name and the launch command used different product names, making a simple user-test handoff confusing.
 
 **Decision:** Use ChugChug consistently for the interface, Python package, optional AI settings and default local state path. Keep older dated test records and working GitHub links as historical identifiers. The local rename changes no review policy or safety route; the renamed app passed the existing tests and rendered smoke check. The repository slug still requires a separate GitHub rename.
+
+## Entry 013 — Show the decision and its evidence before the machinery
+
+**Observation:** In the owner's first Home and Falcon walkthrough, useful controls competed for attention. The Home counts did not route work, and the decision action was hard to find. Technical identifiers and multiple tabs appeared before the incoming/reference contrast.
+
+**Decision:** Home now starts with the next action and live, clickable counts for pending work. A contract opens with one concern, its qualified reason, exact incoming wording and applicable reference wording, followed by other material findings and specialist tools. The human decision action is visible immediately. Source identifiers, hashes and original files remain in Document details.
+
+**Discovery:** Falcon's leading whole-document indicator has no direct comparison pair in the engine, but its related no-licence passage exactly matches the selected reference. Showing that exact reference protection beside the added wording makes the relationship legible without inventing a changed clause. When no exact reference passage is available, the UI says so rather than implying a match.
+
+**Evidence and uncertainty:** Browser checks covered filtered queues, Falcon source navigation, a synthetic decision and refresh, desktop and narrow layouts. They verify UI behaviour in a local demonstration, not reviewer understanding or legal interpretation. Owner creative acceptance remains pending under #13; broader families and incoming feeds remain discovery under #16.

@@ -1,0 +1,34 @@
+name: Temporary read-only ChugChug GitHub Pages
+on:
+  push:
+    branches:
+      - feature/temporary-github-pages-demo
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: github-pages-readonly
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out read-only site
+        uses: actions/checkout@v4
+      - name: Build GitHub Pages subpath copy
+        run: |
+          python3 scripts/build_github_pages_preview.py
+          node --check tmp-github-pages/app.js
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload read-only Pages files
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: tmp-github-pages
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

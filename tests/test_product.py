@@ -53,7 +53,8 @@ class EngineTests(unittest.TestCase):
         return analyse(self.ref, extract(data, "mutation.docx"), self.hist, self.dec)
 
     def test_all_twelve_originals_and_decision_ids(self):
-        paths = list((ROOT / "dataset").glob("*/*.docx"))
+        paths = [path for folder in ("reference", "historical", "incoming")
+                 for path in (ROOT / "dataset" / folder).glob("*.docx")]
         self.assertEqual(len(paths), 12)
         self.assertEqual(set(self.hist), set(self.dec))
         for path in paths:

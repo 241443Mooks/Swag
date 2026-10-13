@@ -1,0 +1,390 @@
+{
+  "scope": "Small, authored synthetic challenge set; not real-world legal accuracy.",
+  "metrics": {
+    "critical_exception_recall": {
+      "surfaced": 5,
+      "total": 11
+    },
+    "critical_source_linked_findings": {
+      "count": 5,
+      "critical_cases": 11
+    },
+    "critical_safe_blocks": {
+      "count": 0,
+      "critical_cases": 11
+    },
+    "false_routine_recommendations": {
+      "count": 6,
+      "critical_cases": 11
+    },
+    "unnecessary_escalations": {
+      "count": 2,
+      "review_or_routine_targets": 9
+    },
+    "noncritical_false_escalations": {
+      "count": 2,
+      "noncritical_cases": 5
+    },
+    "expected_route_matches": {
+      "count": 7,
+      "total": 16
+    }
+  },
+  "cases": [
+    {
+      "id": "A01",
+      "file": "A01-footer-grant.docx",
+      "risk": "Critical right in footer",
+      "change": "Footer grants product-development use while body matches reference.",
+      "expected_route": "escalate",
+      "critical_exception": true,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": true,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A02",
+      "file": "A02-header-override.docx",
+      "risk": "Critical override in header",
+      "change": "Header overrides the permitted-use restriction.",
+      "expected_route": "escalate",
+      "critical_exception": true,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": true,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A03",
+      "file": "A03-hidden-protection.docx",
+      "risk": "Hidden protection",
+      "change": "No-licence paragraph is formatted as hidden text.",
+      "expected_route": "blocked_extraction",
+      "critical_exception": true,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": true,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A04",
+      "file": "A04-duplicate-part.docx",
+      "risk": "Ambiguous package",
+      "change": "ZIP contains duplicate document.xml members.",
+      "expected_route": "blocked_extraction",
+      "critical_exception": true,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": true,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A05",
+      "file": "A05-duplicate-heading.docx",
+      "risk": "Duplicate clause heading",
+      "change": "A second clause 9 adds a product-use grant under the same heading.",
+      "expected_route": "review_required",
+      "critical_exception": true,
+      "observed_route": "review_required",
+      "finding_categories": [
+        "changed_clause"
+      ],
+      "source_anchors": [
+        "word/document.xml:p20",
+        "word/document.xml:p33"
+      ],
+      "coverage_issues": [],
+      "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": true
+    },
+    {
+      "id": "A06",
+      "file": "A06-empty-protection.docx",
+      "risk": "Protection hollowed out",
+      "change": "No-licence heading remains but its prohibition is replaced by a grant.",
+      "expected_route": "escalate",
+      "critical_exception": true,
+      "observed_route": "review_required",
+      "finding_categories": [
+        "changed_clause"
+      ],
+      "source_anchors": [
+        "word/document.xml:p20"
+      ],
+      "coverage_issues": [],
+      "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A07",
+      "file": "A07-negation-flip.docx",
+      "risk": "Permitted-use negation",
+      "change": "Clause 3 changes shall not use to may use.",
+      "expected_route": "review_required",
+      "critical_exception": true,
+      "observed_route": "review_required",
+      "finding_categories": [
+        "changed_clause"
+      ],
+      "source_anchors": [
+        "word/document.xml:p8"
+      ],
+      "coverage_issues": [],
+      "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": true
+    },
+    {
+      "id": "A08",
+      "file": "A08-unfamiliar-grant.docx",
+      "risk": "Unfamiliar broad grant",
+      "change": "An added paragraph allows incorporating know-how into products without an explicit licence word.",
+      "expected_route": "review_required",
+      "critical_exception": true,
+      "observed_route": "review_required",
+      "finding_categories": [
+        "added_section"
+      ],
+      "source_anchors": [
+        "word/document.xml:p32"
+      ],
+      "coverage_issues": [],
+      "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": true
+    },
+    {
+      "id": "A09",
+      "file": "A09-negated-licence.docx",
+      "risk": "Negated broad-right wording",
+      "change": "Added wording explicitly denies a perpetual licence; must not be treated as an affirmative grant.",
+      "expected_route": "review_required",
+      "critical_exception": false,
+      "observed_route": "escalate",
+      "finding_categories": [
+        "broad_rights",
+        "added_section"
+      ],
+      "source_anchors": [
+        "word/document.xml:p32",
+        "word/document.xml:p32"
+      ],
+      "coverage_issues": [],
+      "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": true,
+      "noncritical_false_escalation": true,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A10",
+      "file": "A10-protective-override.docx",
+      "risk": "Protective cross-reference",
+      "change": "Added notwithstanding sentence strengthens the permitted-use restriction.",
+      "expected_route": "review_required",
+      "critical_exception": false,
+      "observed_route": "escalate",
+      "finding_categories": [
+        "override",
+        "added_section"
+      ],
+      "source_anchors": [
+        "word/document.xml:p32",
+        "word/document.xml:p32"
+      ],
+      "coverage_issues": [],
+      "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": true,
+      "noncritical_false_escalation": true,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A11",
+      "file": "A11-party-only.docx",
+      "risk": "Administrative party change",
+      "change": "Only the counterparty name differs from T01.",
+      "expected_route": "routine_candidate",
+      "critical_exception": false,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": true
+    },
+    {
+      "id": "A12",
+      "file": "A12-unchanged.docx",
+      "risk": "Exact supported template",
+      "change": "Byte-identical T01 for a routine-route control.",
+      "expected_route": "routine_candidate",
+      "critical_exception": false,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": true
+    },
+    {
+      "id": "A13",
+      "file": "A13-displaced-protection.docx",
+      "risk": "Displaced protection",
+      "change": "No-licence wording moves after signatures, leaving its heading with no body.",
+      "expected_route": "review_required",
+      "critical_exception": true,
+      "observed_route": "review_required",
+      "finding_categories": [
+        "added_section",
+        "changed_clause"
+      ],
+      "source_anchors": [
+        "word/document.xml:p31",
+        "word/document.xml:p19"
+      ],
+      "coverage_issues": [],
+      "exception_surfaced": true,
+      "source_linked_finding": true,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": true
+    },
+    {
+      "id": "A14",
+      "file": "A14-style-hidden-protection.docx",
+      "risk": "Style-hidden protection",
+      "change": "No-licence paragraph uses a custom paragraph style whose text is hidden.",
+      "expected_route": "blocked_extraction",
+      "critical_exception": true,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": true,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A15",
+      "file": "A15-struck-protection.docx",
+      "risk": "Struck-out protection",
+      "change": "The no-licence paragraph is formatted as struck out while its extracted text remains unchanged.",
+      "expected_route": "blocked_extraction",
+      "critical_exception": true,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": true,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": false
+    },
+    {
+      "id": "A16",
+      "file": "A16-disabled-strike.docx",
+      "risk": "Disabled strike control",
+      "change": "The no-licence paragraph carries an explicit strike property set to off; visible wording is unchanged.",
+      "expected_route": "routine_candidate",
+      "critical_exception": false,
+      "observed_route": "routine_candidate",
+      "finding_categories": [],
+      "source_anchors": [],
+      "coverage_issues": [],
+      "exception_surfaced": false,
+      "source_linked_finding": false,
+      "safe_block": false,
+      "valid_evidence": true,
+      "unsafe_routine": false,
+      "unnecessary_escalation": false,
+      "noncritical_false_escalation": false,
+      "meets_expected_route": true
+    }
+  ]
+}

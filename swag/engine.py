@@ -11,6 +11,8 @@ HEADING = re.compile(r"^(\d+)\.\s+(.+)$")
 PARTIES = re.compile(r"^This Mutual Non-Disclosure Agreement is made between [A-Za-z0-9 &'’-]+(?:Ltd|Limited|Inc|LLC|Corp) and [A-Za-z0-9 &'’-]+(?:Ltd|Limited|Inc|LLC|Corp)\. ")
 SIGNATURES = re.compile(r"^Signed for [^:]+: _+\s+Signed for [^:]+: _+$")
 ROUTE_ORDER = {"routine_candidate": 0, "review_required": 1, "escalate": 2, "blocked_extraction": 3}
+DECISION_FIELDS = {"document_id", "decision", "rationale", "reviewer", "decision_date", "reuse_authority"}
+DECISION_STATES = {"accepted", "accepted_with_conditions", "rejected", "escalated"}
 STOP = set("a an and are as at be by each for from in is it of on or shall the this to under with confidential information receiving party agreement purpose disclosure".split())
 
 
@@ -74,28 +76,55 @@ def compare(reference, incoming):
         if title not in baseline:
             source = after["units"] or [{"anchor": after["heading_anchor"], "text": after["title"]}]
             findings.append(_finding("added_section", "review_required", "Added: " + after["title"], "This section is not in the reference document.", source))
+    # The clause map accounts only for the main body. Compare every other
+    # extracted part explicitly; otherwise a changed footer can look routine.
+    nonbody_parts = sorted({u["part"] for u in reference["units"] + incoming["units"] if u["part"] != "word/document.xml"})
+    for part in nonbody_parts:
+        before = [u for u in reference["units"] if u["part"] == part]
+        after = [u for u in incoming["units"] if u["part"] == part]
+        if normal("\n".join(u["text"] for u in before)) != normal("\n".join(u["text"] for u in after)):
+            findings.append(_finding("changed_document_part", "review_required", "Changed: " + part, "Wording outside the main body differs from the reference. Inspect the complete part and original DOCX.", after, before[0] if before else None, uncertainty="Textual difference; legal effect requires human judgement."))
     return findings
+
+
+def duplicate_headings(document):
+    seen = set()
+    repeated = []
+    for unit in document["units"]:
+        if unit["part"] != "word/document.xml":
+            continue
+        match = HEADING.match(unit["text"])
+        if not match:
+            continue
+        title = normal(match.group(2))
+        if title in seen:
+            repeated.append(unit)
+        seen.add(title)
+    return repeated
 
 
 def whole_document_controls(reference, incoming):
     """Check every extracted unit, independently of diff and retrieved precedent."""
     findings = []
-    body = [u for u in incoming["units"] if u["part"] == "word/document.xml"]
+    units = incoming["units"]
     base = clauses(reference)
     current = clauses(incoming)
     if "no licence" in base and "no licence" not in current:
         ref = base["no licence"]
         ref_unit = ref["units"][0] if ref["units"] else {"anchor": ref["heading_anchor"], "text": ref["title"]}
         findings.append(_finding("protection_absent", "escalate", "No-licence protection is missing", "The reference has a no-licence provision; the incoming document has no matching section. This is a structural absence, not a legal conclusion.", [], ref_unit))
-    for unit in body:
+    for unit in units:
         text = normal(unit["text"])
         # These are broad legal-language indicators, not exhaustive legal classification.
-        grants_right = bool(re.search(r"\b(?:licen[cs]e|commercially exploit|develop and market|unrestricted use)\b", text))
-        broad_scope = bool(re.search(r"\b(?:perpetual|irrevocable|without restriction|any business purpose|competing products|commercially exploit)\b", text))
-        if grants_right and broad_scope:
+        explicit_grant = bool(re.search(r"\b(?:may|can|entitled to|right to|free to)\s+(?:use|incorporate|exploit|develop|retain)\b", text))
+        rights_language = bool(re.search(r"\b(?:licen[cs]e|commercially exploit|develop and market|unrestricted use)\b", text))
+        broad_scope = bool(re.search(r"\b(?:perpetual|irrevocable|without restriction|any business purpose|competing products|commercially exploit|without further consent|without consent|into (?:its|their) products)\b", text))
+        local_denial = bool(re.search(r"\b(?:neither party receives|no (?:intellectual property )?licen[cs]e|shall not|may not|does not grant)\b", text))
+        if broad_scope and (explicit_grant or rights_language) and not local_denial:
             related = current.get("no licence", {}).get("units", [])[:1] + current.get("permitted use", {}).get("units", [])[:1]
             findings.append(_finding("broad_rights", "escalate", "Potentially broad use or IP rights", "The quoted wording appears to grant or preserve use beyond the reference purpose. Compare it with the linked no-licence and permitted-use provisions.", [unit], uncertainty="Pattern-based flag; a reviewer must interpret the complete provision.", related=related))
-        if re.search(r"\b(?:despite|notwithstanding|prevails|override[sd]?)\b", text) and re.search(r"\b(?:clause|provision|agreement|schedule|term)\b", text):
+        override = bool(re.search(r"\b(?:despite|notwithstanding|prevails|override[sd]?)\b", text) and re.search(r"\b(?:clause|provision|agreement|schedule|term)\b", text))
+        if override and (explicit_grant or re.search(r"\b(?:prevails|override[sd]?)\b", text)) and not local_denial:
             related = current.get("permitted use", {}).get("units", [])[:1] + current.get("no licence", {}).get("units", [])[:1]
             findings.append(_finding("override", "escalate", "Possible override or conflict", "This wording may take precedence over another provision. Inspect the linked main provisions and the rest of the document.", [unit], uncertainty="The actual legal effect depends on the full agreement.", related=related))
     return findings
@@ -156,17 +185,22 @@ def precedents(findings, reference, historical, decisions, limit=3):
 
 def analyse(reference, incoming, historical, decisions):
     if incoming["coverage"]["status"] != "complete":
-        return {"route": "blocked_extraction", "findings": [], "precedents": [], "checks": {"extraction": "blocked", "comparison": "not run", "whole_document": "not run", "ai": "not run"}, "reason": "Document content could not be fully accounted for. Manual review is required."}
+        return {"route": "blocked_extraction", "findings": [], "precedents": [], "checks": {"extraction": "blocked", "comparison": "not run", "whole_document": "not run", "ai": "not run"}, "reason": "Document content could not be fully accounted for. Manual review is required.", "assurance": {"source_integrity": {"status": "identified", "sha256": incoming["sha256"], "bytes": incoming["size"]}, "extraction": {"status": "blocked", "parts": incoming["coverage"]["parts"], "passages": len(incoming["units"]), "issues": incoming["coverage"]["issues"]}, "comparison": {"status": "not run", "differences": None}, "safeguards": {"status": "not run", "passages_examined": 0}, "escalation_indicators": 0, "limitations": incoming["coverage"]["issues"], "human_review": {"status": "not recorded"}}}
     findings = compare(reference, incoming) + whole_document_controls(reference, incoming)
+    repeated = duplicate_headings(incoming)
+    for unit in repeated:
+        findings.append(_finding("structural_ambiguity", "review_required", "Repeated clause heading", "Two sections use the same heading. Clause alignment is ambiguous; inspect both in the original document.", [unit], uncertainty="The comparison groups repeated headings and may not represent their separate effects."))
     # Coalesce structural and independent-control descriptions of the same absence.
     if any(f["category"] == "protection_absent" for f in findings):
         findings = [f for f in findings if not (f["category"] == "missing_clause" and f["title"].lower().endswith("no licence"))]
-    priority = {"broad_rights": 0, "protection_absent": 1, "override": 2, "added_section": 3, "missing_clause": 4, "changed_clause": 5}
+    priority = {"broad_rights": 0, "protection_absent": 1, "override": 2, "structural_ambiguity": 3, "changed_document_part": 4, "added_section": 5, "missing_clause": 6, "changed_clause": 7}
     findings.sort(key=lambda finding: (-ROUTE_ORDER[finding["route"]], priority.get(finding["category"], 9)))
     route = max((f["route"] for f in findings), key=lambda value: ROUTE_ORDER[value], default="routine_candidate")
     context = precedents(findings, reference, historical, decisions) if findings else []
     reason = findings[0]["title"] if findings else "No material wording difference found; party details still need confirmation."
-    return {"route": route, "findings": findings, "precedents": context, "checks": {"extraction": "complete", "comparison": "complete", "whole_document": "complete", "ai": "not run"}, "reason": reason}
+    limitations = ["Repeated clause headings limit clause alignment; manual review required."] if repeated else []
+    assurance = {"source_integrity": {"status": "identified", "sha256": incoming["sha256"], "bytes": incoming["size"]}, "extraction": {"status": "complete", "parts": incoming["coverage"]["parts"], "passages": len(incoming["units"]), "issues": []}, "comparison": {"status": "limited" if repeated else "complete", "differences": sum(f["category"] in {"changed_clause", "added_section", "missing_clause", "changed_document_part"} for f in findings), "scope": "Body clauses and every extracted header/footer part"}, "safeguards": {"status": "complete", "passages_examined": len(incoming["units"]), "scope": "Pattern indicators and required no-licence heading across extracted passages"}, "escalation_indicators": sum(f["route"] == "escalate" for f in findings), "limitations": limitations + ["Pattern indicators are not exhaustive legal interpretation; a human must assess changed wording."], "human_review": {"status": "not recorded"}}
+    return {"route": route, "findings": findings, "precedents": context, "checks": {"extraction": "complete", "comparison": assurance["comparison"]["status"], "whole_document": "complete", "ai": "not run"}, "reason": reason, "assurance": assurance}
 
 
 def load_library(root: Path):
@@ -174,9 +208,23 @@ def load_library(root: Path):
     historical = {path.name.split("-", 1)[0]: extract_file(path) for path in sorted((root / "dataset/historical").glob("*.docx"))}
     incoming = {path.name.split("-", 1)[0]: extract_file(path) for path in sorted((root / "dataset/incoming").glob("*.docx"))}
     with (root / "dataset/review_records/historical_decisions.csv").open(newline="") as handle:
-        decisions = {row["document_id"]: row for row in csv.DictReader(handle)}
-    if set(decisions) != set(historical):
-        raise ValueError("Historical decision IDs do not match historical documents")
+        decisions = validate_decisions(csv.DictReader(handle), set(historical))
     if any(doc["coverage"]["status"] != "complete" for doc in [reference, *historical.values()]):
         raise ValueError("Reference or historical extraction incomplete")
     return reference, historical, incoming, decisions
+
+
+def validate_decisions(rows, historical_ids):
+    decisions = {}
+    for row in rows:
+        if not DECISION_FIELDS.issubset(row) or any(not (row.get(field) or "").strip() for field in DECISION_FIELDS):
+            raise ValueError("Historical decision record is incomplete")
+        document_id = row["document_id"]
+        if document_id in decisions:
+            raise ValueError("Duplicate historical decision ID: " + document_id)
+        if row["decision"] not in DECISION_STATES:
+            raise ValueError("Unsupported historical decision state: " + row["decision"])
+        decisions[document_id] = row
+    if set(decisions) != historical_ids:
+        raise ValueError("Historical decision IDs do not match historical documents")
+    return decisions

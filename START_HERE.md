@@ -2,6 +2,8 @@
 
 PortSwigger's task describes a small legal team receiving mostly standard commercial contracts, many with familiar amendments, while its queue grows faster than it can read everything. This proof of concept reorganises six **fictional mutual NDAs** around the exceptions that deserve a person's attention. It is decision support, not legal advice or automatic approval.
 
+**Product direction:** Swag is a foundation for an evolving, precedent-aware legal review system. Today it records human decisions and retrieves context from a fixed historical library; new decisions do not yet become searchable precedents. The proposed [governed learning loop](docs/PRODUCT_DIRECTION.md) explains how reviewed decisions could become reusable organisational knowledge without silently becoming policy.
+
 ## Start in under a minute
 
 Requires Python **3.9 or newer**. No package installation, account or API key is needed for the offline journey.
@@ -19,7 +21,8 @@ Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the 
 3. **Elm Studio / T04 and Moorland / T05:** One lacks the no-licence protection; the other has a Schedule 1 that overrides permitted use. Both must remain escalations despite otherwise familiar wording.
 4. **Brookside AI / T02:** See the five-year term change and H02's conditional acceptance. The previous decision is context, not reusable authority.
 5. **Orchard Research / T06 and Birchbridge / T01:** A paraphrase needs interpretation; the template-like document is only a routine *candidate* because a person must still confirm the parties and purpose.
-6. **Human decision:** On any document, enter a reviewer label, choose a decision and give a reason. Open Decision history, refresh the browser and see the append-only event tied to the exact SHA-256 hash.
+6. **Assurance:** Open the Assurance tab on T03. It separates source identity, extraction, comparison, independent indicators and human status. Expand “Scope, evidence and limits” to see what each check actually covered.
+7. **Human decision:** On any document, enter a reviewer label, choose a decision and give a reason. Open Decision history, refresh the browser and see the append-only event tied to the exact SHA-256 hash.
 
 ## What the system does
 
@@ -38,7 +41,7 @@ node --check web/app.js
 git diff --check
 ```
 
-The evaluator alone reads the held-out answer key. Runtime modules never access it. The current synthetic route result is 6/6, including the three mandatory escalations. These cases do not establish accuracy or safety on real agreements. Browser QA and limitations are recorded in [Sprint 01 status](docs/SPRINT_01_STATUS.md).
+The evaluator alone reads the held-out answer key. Runtime modules never access it. The current synthetic route result is 6/6, including the three mandatory escalations. These cases do not establish accuracy or safety on real agreements. The [missed-exception audit](docs/MISSED_EXCEPTION_AUDIT.md) records 16 separate adversarial documents, exact original/current outcomes and remaining risks. Browser QA and limitations are recorded in [Sprint 01 status](docs/SPRINT_01_STATUS.md) and [Sprint 02 status](docs/SPRINT_02_STATUS.md).
 
 ## Known limits
 

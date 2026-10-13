@@ -10,7 +10,7 @@ from xml.etree import ElementTree as ET
 
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 REQUIRED_PART = "word/document.xml"
-UNSUPPORTED = {"drawing", "pict", "object", "altChunk", "sdt", "fldChar", "instrText", "del", "ins", "txbxContent", "footnoteReference", "endnoteReference", "commentReference"}
+UNSUPPORTED = {"drawing", "pict", "object", "altChunk", "sdt", "fldChar", "fldSimple", "instrText", "del", "ins", "txbxContent", "footnoteReference", "endnoteReference", "commentReference", "vanish", "webHidden", "specVanish", "strike", "dstrike"}
 UNSUPPORTED_PARTS = ("word/footnotes", "word/endnotes", "word/comments", "word/embeddings/", "word/media/", "word/charts/", "word/diagrams/")
 METADATA_PARTS = {"word/styles.xml", "word/stylesWithEffects.xml", "word/settings.xml", "word/webSettings.xml", "word/fontTable.xml", "word/numbering.xml"}
 
@@ -32,6 +32,40 @@ def _text(element):
     return "".join(parts).strip()
 
 
+def _nonliteral_style_issues(archive, used_styles, issues):
+    """Reject styles that hide or strike text while extraction keeps its words."""
+    for name in ("word/styles.xml", "word/stylesWithEffects.xml"):
+        if name not in archive.namelist():
+            continue
+        root = ET.fromstring(archive.read(name))
+        styles = {}
+        defaults = []
+        for style in root.findall(W + "style"):
+            ident = style.get(W + "styleId")
+            if not ident:
+                continue
+            inherited = style.find(W + "basedOn")
+            hidden = any(node.get(W + "val", "1").lower() not in {"0", "false", "off"}
+                         for node in style.iter() if _tag(node) in {"vanish", "webHidden", "specVanish", "strike", "dstrike"})
+            styles[ident] = (inherited.get(W + "val") if inherited is not None else None, hidden)
+            if style.get(W + "default") == "1":
+                defaults.append(ident)
+
+        def hidden_chain(ident):
+            seen = set()
+            while ident and ident not in seen:
+                seen.add(ident)
+                parent, hidden = styles.get(ident, (None, False))
+                if hidden:
+                    return True
+                ident = parent
+            return False
+
+        affected = sorted(ident for ident in used_styles | set(defaults) if hidden_chain(ident))
+        if affected:
+            issues.append("Hidden or struck text style requires manual review in " + name + ": " + ", ".join(affected))
+
+
 def extract(data: bytes, filename: str) -> dict:
     result = {"filename": Path(filename).name, "sha256": hashlib.sha256(data).hexdigest(), "units": [], "coverage": {"status": "complete", "issues": [], "parts": []}, "size": len(data)}
     issues = result["coverage"]["issues"]
@@ -42,6 +76,9 @@ def extract(data: bytes, filename: str) -> dict:
     try:
         with zipfile.ZipFile(io.BytesIO(data)) as archive:
             names = archive.namelist()
+            used_styles = set()
+            if len(names) != len(set(names)):
+                issues.append("Duplicate DOCX part names make source content ambiguous")
             if REQUIRED_PART not in names or any(name.startswith("/") or ".." in Path(name).parts for name in names):
                 raise ValueError("Invalid DOCX package structure")
             if sum(info.file_size for info in archive.infolist()) > 10_000_000:
@@ -59,11 +96,13 @@ def extract(data: bytes, filename: str) -> dict:
             for part in parts:
                 result["coverage"]["parts"].append(part)
                 root = ET.fromstring(archive.read(part))
+                used_styles.update(node.get(W + "val") for node in root.iter() if _tag(node) in {"pStyle", "rStyle"} and node.get(W + "val"))
                 container = root.find(W + "body") if part == REQUIRED_PART else root
                 if container is None:
                     issues.append("Missing document body")
                     continue
                 _walk(container, part, result["units"], issues)
+            _nonliteral_style_issues(archive, used_styles, issues)
     except (zipfile.BadZipFile, ET.ParseError, KeyError, ValueError, OSError) as exc:
         issues.append("Unreadable DOCX: " + str(exc))
     if issues or not result["units"]:
@@ -107,8 +146,11 @@ def _walk(container, part, units, issues):
 
 def _paragraph(paragraph, anchor, part, units, issues):
     for node in paragraph.iter():
-        if _tag(node) in UNSUPPORTED:
-            issues.append("Unsupported " + _tag(node) + " at " + anchor)
+        kind = _tag(node)
+        if kind in UNSUPPORTED:
+            if kind in {"vanish", "webHidden", "specVanish", "strike", "dstrike"} and node.get(W + "val", "1").lower() in {"0", "false", "off"}:
+                continue
+            issues.append("Unsupported " + kind + " at " + anchor)
     value = _text(paragraph)
     if value:
         units.append({"anchor": anchor, "part": part, "kind": "paragraph" if ":t" not in anchor else "table", "text": value})

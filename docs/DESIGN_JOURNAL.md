@@ -60,3 +60,27 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Keep decision events and explicit publication/withdrawal events distinct, with the publication tied to a considered source passage and contextual limits. Search historical and newly published cases through one lexical ranker; leave review routing independent. The local publisher role is self-attested and visibly labelled as demonstration-only.
 
 **Evidence and limit:** The L01/L02 HTTP lifecycle and browser walkthrough show that publication makes a case retrievable and withdrawal removes it, while L02 still needs human judgement. This proves the interaction and state boundary, not legal applicability, secure authorisation or improved retrieval quality. See [feature evidence](LEARNING_LOOP_STATUS.md).
+
+## Entry 008 — A reference choice must bind the review, not just the current screen
+
+**Observation:** Choosing a different baseline for future uploads is useful, but a global reference switch could silently change an earlier finding or make an earlier human decision look as though it considered a different document.
+
+**Decision:** Bind every uploaded analysis and decision to the exact reference SHA-256 at intake. Persist reference originals separately; reject incomplete or differently structured baselines within this NDA-family slice. Show the chosen reference in each review and allow the bundled sample to be selected again.
+
+**Evidence and limit:** Restart, duplicate binding, tamper and custom-reference comparison tests pass. This is deliberately limited to the existing mutual NDA heading family; it does not perform concept-level alignment of arbitrary legal templates.
+
+## Entry 009 — A correction teaches a question before it teaches an answer
+
+**Observation:** A past correction to archive wording can be relevant to both a similarly restricted archive and a superficially similar commercial-use archive. A simple lexical match cannot establish that the same legal effect or acceptance applies.
+
+**Decision:** Keep comparison corrections separate from contract decisions and non-reusable until an explicit demo publication. Retrieval shows the past source, reviewer explanation, context, limits and an unverified-applicability label beside the current finding. It never edits the deterministic comparison or route.
+
+**Evidence and limit:** L01 → L03 / L02 tests show the authorised lesson appears for both, while both retain `review_required`; withdrawal removes active retrieval. This demonstrates governed organisational memory and the need for a reviewer to inspect the differing context. A genuine semantic improvement remains to be measured, not presumed.
+
+## Entry 010 — The reviewer must be able to challenge an empty finding list
+
+**Observation:** A correction control attached only to an existing finding cannot capture the most concerning feedback: the reviewer sees a provision Swig missed entirely. Leaving the route as routine after that report would misrepresent the known uncertainty.
+
+**Decision:** Offer a collapsed “Something Swig missed?” control on every completely extracted review. Require an exact incoming or reference passage and explanation. Record the challenge as a comparison event with no invented system finding, and lift a routine candidate to human review while the challenge remains in the audit history.
+
+**Evidence:** A synthetic T01 test begins with zero findings and a routine route, records a source-linked missed-provision report, then verifies `review_required` persists after restart. This is a reviewer signal, not a claim that the reported issue is legally material.

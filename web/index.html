@@ -11,9 +11,9 @@
 <body>
   <header class="masthead">
     <div class="brand">Swig<span class="brand-divider"></span><span class="brand-subtitle">Contract review</span></div>
-    <div class="header-note">Synthetic mutual NDA workspace <span aria-hidden="true">·</span> Human decisions only</div>
+    <nav class="main-nav" aria-label="Main navigation"><button type="button" data-page="home">Home</button><button type="button" data-page="queue">Review queue</button><button type="button" data-page="reference">Reference</button><button type="button" data-page="help">Help</button></nav>
   </header>
-  <div class="shell">
+  <div class="shell" id="shell">
     <aside class="queue-pane" aria-label="Review queue">
       <div class="queue-heading"><div><h1>Review queue</h1><p id="queue-count">Loading contracts…</p></div><label class="upload-button">Add DOCX<input id="upload" type="file" accept=".docx" hidden></label></div>
       <div class="queue-filter"><label for="filter">Show</label><select id="filter"><option value="all">All contracts</option><option value="attention">Need attention</option><option value="routine_candidate">Routine candidates</option><option value="blocked_extraction">Blocked analysis</option></select></div>

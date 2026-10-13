@@ -132,3 +132,11 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Treat next-action discovery as an unresolved P0 audit finding. Keep full evidence and checks available, and let the owner judge a focused hierarchy proposal before treating the experience as accepted. Do not infer acceptance from the audit or implement a wholesale redesign.
 
 **Evidence and uncertainty:** Owner walkthrough notes are recorded in Issue #5. The local browser run verified desktop keyboard access and the explicit separation between observed wording, suggested route and human decision. A narrow viewport, screen-reader behavior and the full upload/error path remain unverified.
+
+## Issue #5 implementation — put the action on the first screen
+
+**Observation:** Falcon's decision control existed, but at 1280 × 720 the source excerpts pushed it below the fold. The reviewer had to scan evidence before the next action became visible.
+
+**Decision:** Keep the four questions in order. Keep the main finding, explanation and uncertainty visible; put original/reference wording in a native disclosure and place the existing decision action immediately after the concise summary. Secondary findings, provenance, technical checks and history remain reachable through labelled disclosures or the existing evidence tabs.
+
+**Evidence and uncertainty:** The 1280 × 720 screenshot shows the action without scrolling; keyboard activation opened the existing decision form, and an Escalate decision with rationale persisted in an isolated temporary ledger. The available browser surface did not expose a viewport override, so narrow-screen layout is covered by responsive CSS and regression assertions but remains unverified in a resized browser. Creative acceptance remains with the owner.

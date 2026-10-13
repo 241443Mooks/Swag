@@ -51,32 +51,44 @@
 .review-focus.routine_candidate{border-left-color:var(--blue);background:#f1f5f8}
 .review-focus.blocked_extraction{border-left-color:#59616a;background:#f0f0ee}
 .focus-status{display:flex;gap:12px;align-items:center;font-size:12px;color:var(--muted)}
-.review-focus h3{font:700 clamp(24px,2.7vw,32px)/1.2 var(--serif);margin:14px 0 9px}
-.focus-why{max-width:75ch;font-size:15px;margin:0 0 10px;color:#405069}
-.focus-why strong{display:block;color:var(--ink);font-size:12px;margin-bottom:3px}
+.question-title{font:700 12px/1.35 var(--sans);letter-spacing:.045em;text-transform:uppercase;color:#566273;margin:16px 0 5px}
+.review-focus .question-title:first-of-type{margin-top:14px}
+.finding-headline{font:700 clamp(21px,2.4vw,27px)/1.25 var(--serif);margin:0;color:var(--ink)}
+.focus-why{max-width:75ch;font-size:15px;margin:0;color:#405069}
 .focus-uncertainty{font-size:13px;color:#5b6270;margin:0 0 12px}
-.decision-action{margin-top:9px;font-size:14px;padding:11px 19px}
-.primary-evidence{margin:0 0 28px}
-.primary-evidence .section-title{margin:0 0 10px}
+.primary-evidence{margin:0 0 19px}
+.primary-evidence .question-title{margin:0 0 10px}
+.primary-evidence>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:5px;background:#fff;padding:13px 15px}
+.primary-evidence>summary::-webkit-details-marker{display:none}
+.primary-evidence[open]>summary{border-radius:5px 5px 0 0}
+.primary-evidence[open]>.evidence-grid,.primary-evidence[open]>.evidence-context{margin:12px}
+.evidence-summary-note{font-size:12px;color:var(--muted);font-weight:400}
 .evidence-context{font-size:13px;color:var(--muted);margin:0 0 13px}
 .primary-evidence .evidence-box{background:#fff;border:1px solid var(--line);border-top:3px solid #b6c4ce;padding:16px}
 .primary-evidence .evidence-box:first-child{border-top-color:var(--accent)}
 .primary-evidence .evidence-box h4{font-size:12px}
 .primary-evidence .evidence-box blockquote{font-size:16px;line-height:1.55}
 .other-findings{margin:25px 0 8px}
-.other-findings .section-title{margin:0 0 10px}
 .finding-tools{margin:12px 0}
-.past-peek{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding:18px 0;margin-top:23px}
-.past-peek strong{font-size:14px}
-.past-peek p{font-size:13px;color:var(--muted);margin:2px 0}
-.past-peek .text-action{white-space:nowrap;align-self:start;font-size:13px}
-.decision-disclosure{scroll-margin-top:20px}
+.past-peek{border-top:1px solid var(--line);padding-top:3px;margin-top:12px}
+.decision-disclosure{scroll-margin-top:20px;border:1px solid var(--line);border-radius:5px;background:#fff}
+.decision-disclosure>summary,.other-findings>summary,.finding-tools>summary,.past-peek>summary,.evidence-more>summary{cursor:pointer;font-weight:700;padding:14px 16px;color:var(--blue)}
+.decision-disclosure>.decision-panel{margin:0 14px 14px}
+.next-step{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding:14px 0 18px;margin-top:5px}
+.next-step .question-title{margin:0 0 3px}
+.next-step p{margin:0;color:var(--muted);font-size:13px}
+.decision-action{flex:0 0 auto;font-size:14px;padding:11px 19px}
+.evidence-more{margin-top:10px;border-top:1px solid var(--line)}
+.evidence-more>.evidence-box{margin:0 12px 12px}
+.other-findings,.finding-tools,.past-peek{border-top:1px solid var(--line);padding-top:3px}
+.other-findings .finding-list,.finding-tools>.finding{margin:0 12px 12px}
+.past-peek>p,.past-peek>button{margin:0 16px 14px}
 .document-details{border-top:1px solid var(--line);margin-top:26px;padding-top:14px;font-size:13px;color:var(--muted)}
 .document-details summary{cursor:pointer;font-weight:650;color:var(--blue)}
 .document-details code{overflow-wrap:anywhere}
 .page-review .tabs{margin:15px 0 25px;gap:20px}
 .page-review .tab{font-size:13px}
-@media(max-width:700px){.home-work{margin-top:38px}.summary-route{grid-template-columns:38px 1fr 18px;gap:10px}.page-review .workspace{padding-top:23px}.review-focus{padding:17px 18px}.primary-evidence .evidence-grid{grid-template-columns:1fr}.past-peek{display:block}.past-peek .text-action{margin-top:7px}.page-review .tabs{gap:17px}}
+@media(max-width:700px){.home-work{margin-top:38px}.summary-route{grid-template-columns:38px 1fr 18px;gap:10px}.page-review .workspace{padding-top:23px}.review-focus{padding:17px 18px}.primary-evidence .evidence-grid{grid-template-columns:1fr}.primary-evidence>summary{display:block}.evidence-summary-note{display:block;margin-top:4px}.next-step{align-items:stretch;flex-direction:column}.decision-action{width:100%}.page-review .tabs{gap:17px}}
 
 /* Keep queue titles readable when the route badge competes for a narrow row. */
 .queue-item-top{flex-wrap:wrap}

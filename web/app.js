@@ -1,4 +1,4 @@
-const state={queue:[],id:null,detail:null,tab:'overview',page:'home',filter:'all',historyOpen:false,historyFilter:'all',historySource:null,historySourceId:null,reference:null,referenceCandidate:null,staticDemo:false,research:null};
+const state={queue:[],id:null,detail:null,tab:'overview',page:'home',filter:'all',historyOpen:false,historyFilter:'all',historySource:null,historySourceId:null,reference:null,referenceCandidate:null,staticDemo:false,research:null,demo:null};
 const el=id=>document.getElementById(id);
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const label={escalate:'Needs closer review',review_required:'Needs judgement',routine_candidate:'Looks routine',blocked_extraction:'Analysis blocked'};
@@ -38,6 +38,9 @@ function originalUrl(url){
   return url;
 }
 async function api(url,options){
+  if(state.demo && (options?.method||'GET').toUpperCase()!=='GET'){
+    options={...options,headers:{...(options.headers||{}),'X-ChugChug-CSRF':state.demo.csrf}};
+  }
   if(state.staticDemo){
     if((options?.method||'GET').toUpperCase()!=='GET')throw new Error('Read-only public demo: reviews, uploads and publications require the private Python service.');
     return readJson(staticJsonUrl(url));
@@ -53,6 +56,55 @@ async function api(url,options){
     }
     throw error;
   }
+}
+async function initDemoSession(){
+  // The normal local server and static site do not implement this endpoint.
+  try{
+    const response=await fetch('/demo/session',{cache:'no-store'});
+    if(response.ok&&(response.headers?.get('content-type')||'').includes('application/json')){
+      const result=await response.json();
+      if(result.active)state.demo=result;
+    }
+  }catch(error){console.warn('Interactive demonstration not available:',error.message)}
+}
+function samplePanel(){
+  if(!state.demo)return '';
+  return '<section class="demo-samples"><h2>Try another fictional contract</h2>'+
+    '<p>Add a sample to your private queue to practise making decisions, recording corrections or reusing precedent.</p>'+
+    '<div class="demo-sample-actions"><label for="demo-sample-choice">Sample <select id="demo-sample-choice">'+
+    state.demo.samples.map(sample=>'<option value="'+esc(sample.id)+'">'+esc(sample.name)+'</option>').join('')+
+    '</select></label><button type="button" class="secondary" id="demo-add-sample">Add to my queue</button></div>'+
+    '<p class="quiet-note">No real-document uploads in this public demo.</p></section>';
+}
+async function demoAddSample(){
+  const selection=el('demo-sample-choice');
+  if(!selection)return;
+  try{
+    const added=await api('/demo/add-sample',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sample_id:selection.value})});
+    await loadQueue();
+    await select(added.id);
+    toast('Fictional contract added to your workspace.');
+  }catch(error){toast(error.message)}
+}
+function applyDemoExperience(){
+  if(!state.demo)return;
+  if(!el('demo-bar')){
+    el('shell').insertAdjacentHTML('beforebegin',
+      '<div id="demo-bar" role="status"><span><strong>Your private demo workspace</strong> · Fictional cases only · Resets after 60 minutes of inactivity.</span>'+
+      '<span class="demo-tools"><button type="button" id="demo-reset">Reset my demo</button> <button type="button" id="demo-logout">Sign out</button></span></div>');
+    el('demo-reset').onclick=async()=>{
+      if(!confirm('Start again? All decisions and corrections in your current demo will be cleared.'))return;
+      try{await api('/demo/reset',{method:'POST'});location.reload()}catch(error){toast(error.message)}
+    };
+    el('demo-logout').onclick=async()=>{
+      try{await api('/demo/logout',{method:'POST'});location.reload()}catch(error){toast(error.message)}
+    };
+  }
+  document.querySelectorAll('.upload-button,#ai-run').forEach(node=>node.hidden=true);
+  if((state.page==='home'||state.page==='queue')&&!el('demo-sample-choice')){
+    el('workspace').insertAdjacentHTML('beforeend',samplePanel());
+  }
+  const add=el('demo-add-sample');if(add)add.onclick=demoAddSample;
 }
 function applyStaticDemo(){
   if(!state.staticDemo)return;
@@ -114,7 +166,7 @@ function researchView(){
 function helpView(){return `<section class="help-page"><h1>How ChugChug works</h1><ol><li>Choose a fictional reference NDA, then add an incoming DOCX.</li><li>ChugChug accounts for supported source content, compares wording and checks for selected whole-document exceptions.</li><li>Review the exact incoming and reference wording, alongside relevant past decisions.</li><li>A person records the legal decision. Sharing a past decision for later search is a separate action.</li></ol><h2>What the labels mean</h2><dl><dt>Needs closer review</dt><dd>A potentially consequential provision or missing protection needs closer review.</dd><dt>Needs judgement</dt><dd>A change or uncertainty needs interpretation.</dd><dt>Looks routine</dt><dd>Required checks completed within their stated scope; a person still confirms the parties, purpose and decision.</dd><dt>Analysis blocked</dt><dd>ChugChug could not account for all content, so comparison must not be treated as complete.</dd></dl><h2>What ChugChug cannot decide</h2><p>These checks are limited to supported synthetic mutual NDAs. They may miss unfamiliar legal effects. Similar historical wording is context, not permission to approve. AI is optional, off by default and cannot change review routes.</p><p><button class="text-action" type="button" data-page="explore">Explore the wider product concept</button></p></section>`}
 function historyDrawer(d){const scope=d.analysis.history_scope||{historical_records:0,active_published_records:0};const choices=[...new Set(d.analysis.precedents.map(row=>row.decision))];const shown=state.historyFilter==='all'?d.analysis.precedents:d.analysis.precedents.filter(row=>row.decision===state.historyFilter);return `<aside class="history-drawer" role="complementary" aria-label="Similar past decisions"><div class="drawer-head"><div><h3>Similar past decisions</h3><p>${d.analysis.precedents.length} related shown · ${scope.historical_records} historical + ${scope.active_published_records} published records searched</p></div><button type="button" class="secondary" data-history-close>Close</button></div><p class="quiet-note">Wording and topic are matched lexically. A past decision does not approve this contract.</p><label class="history-filter">Show <select id="history-filter"><option value="all">All related decisions</option>${choices.map(value=>`<option value="${esc(value)}" ${state.historyFilter===value?'selected':''}>${esc(value.replaceAll('_',' '))}</option>`).join('')}</select></label>${shown.map(precedentView).join('')||'<p class="empty">No related case with that decision.</p>'}${state.historySource?`<section class="history-source"><h4>Original reviewed contract · ${esc(state.historySource.document.filename)}</h4><a href="/api/history/${esc(state.historySourceId)}/original">Download exact historical DOCX ↗</a>${fullText(state.historySource)}<button class="text-action" type="button" data-source-close>Close original</button></section>`:''}</aside>`}
 function startReviewing(){const next=state.page==='queue'?queueItems()[0]:state.queue.find(item=>!item.latest_decision);if(!next)return navigate('queue');if(state.page==='home'){state.filter=next.route;sessionStorage.setItem('chugchug.queueFilter',next.route)}return select(next.id)}
-function renderPage(anchor){el('shell').className='shell page-'+state.page;document.title=state.page==='explore'?'Explore ChugChug · Potential workspaces':'ChugChug · Contract review';document.querySelectorAll('.main-nav [data-page]').forEach(button=>button.setAttribute('aria-current',button.dataset.page===state.page||(state.page==='review'&&button.dataset.page==='queue')?'page':'false'));if(state.page==='home')el('workspace').innerHTML=homeView();else if(state.page==='queue')el('workspace').innerHTML=queueView();else if(state.page==='reference')el('workspace').innerHTML=referenceView()+researchView();else if(state.page==='help')el('workspace').innerHTML=helpView();else if(state.page==='explore')el('workspace').innerHTML=exploreView();else render();document.querySelectorAll('[data-page]').forEach(button=>button.onclick=()=>navigate(button.dataset.page));document.querySelectorAll('[data-filter]').forEach(button=>button.onclick=()=>navigate('queue',button.dataset.filter));document.querySelectorAll('[data-start]').forEach(button=>button.onclick=startReviewing);document.querySelectorAll('[data-add-upload]').forEach(button=>button.onclick=()=>el('upload').click());const referenceUpload=el('reference-upload');if(referenceUpload)referenceUpload.onchange=uploadReference;const useReference=el('workspace').querySelector('[data-use-reference]');if(useReference)useReference.onclick=commitReference;const cancelReference=el('workspace').querySelector('[data-cancel-reference]');if(cancelReference)cancelReference.onclick=()=>{state.referenceCandidate=null;renderPage()};document.querySelectorAll('[data-select-reference]').forEach(button=>button.onclick=()=>chooseReference(button.dataset.selectReference));applyStaticDemo();if(anchor)requestAnimationFrame(()=>{const target=document.getElementById(anchor);target?.classList.add('evidence-focus');target?.scrollIntoView({behavior:'smooth',block:'center'})})}
+function renderPage(anchor){el('shell').className='shell page-'+state.page;document.title=state.page==='explore'?'Explore ChugChug · Potential workspaces':'ChugChug · Contract review';document.querySelectorAll('.main-nav [data-page]').forEach(button=>button.setAttribute('aria-current',button.dataset.page===state.page||(state.page==='review'&&button.dataset.page==='queue')?'page':'false'));if(state.page==='home')el('workspace').innerHTML=homeView();else if(state.page==='queue')el('workspace').innerHTML=queueView();else if(state.page==='reference')el('workspace').innerHTML=referenceView()+researchView();else if(state.page==='help')el('workspace').innerHTML=helpView();else if(state.page==='explore')el('workspace').innerHTML=exploreView();else render();document.querySelectorAll('[data-page]').forEach(button=>button.onclick=()=>navigate(button.dataset.page));document.querySelectorAll('[data-filter]').forEach(button=>button.onclick=()=>navigate('queue',button.dataset.filter));document.querySelectorAll('[data-start]').forEach(button=>button.onclick=startReviewing);document.querySelectorAll('[data-add-upload]').forEach(button=>button.onclick=()=>el('upload').click());const referenceUpload=el('reference-upload');if(referenceUpload)referenceUpload.onchange=uploadReference;const useReference=el('workspace').querySelector('[data-use-reference]');if(useReference)useReference.onclick=commitReference;const cancelReference=el('workspace').querySelector('[data-cancel-reference]');if(cancelReference)cancelReference.onclick=()=>{state.referenceCandidate=null;renderPage()};document.querySelectorAll('[data-select-reference]').forEach(button=>button.onclick=()=>chooseReference(button.dataset.selectReference));applyStaticDemo();applyDemoExperience();if(anchor)requestAnimationFrame(()=>{const target=document.getElementById(anchor);target?.classList.add('evidence-focus');target?.scrollIntoView({behavior:'smooth',block:'center'})})}
 function reviewNav(d){return `<nav class="tabs" aria-label="Review evidence and tools"><button class="tab ${state.tab==='overview'?'active':''}" data-tab="overview" ${state.tab==='overview'?'aria-current="page"':''}>Review</button><button class="tab ${state.tab==='document'?'active':''}" data-tab="document" ${state.tab==='document'?'aria-current="page"':''}>Full document</button><button class="tab ${state.tab==='reference'?'active':''}" data-tab="reference" ${state.tab==='reference'?'aria-current="page"':''}>Reference</button><button class="tab ${state.tab==='assurance'?'active':''}" data-tab="assurance" ${state.tab==='assurance'?'aria-current="page"':''}>Check coverage</button><button class="tab ${state.tab==='history'?'active':''}" data-tab="history" ${state.tab==='history'?'aria-current="page"':''}>Review history${d.history.length||d.corrections.length?` (${d.history.length+d.corrections.length})`:''}</button></nav>`}
 function render(){
   const d=state.detail;if(!d)return;
@@ -140,6 +192,7 @@ function render(){
   const ai=el('ai-run');if(ai)ai.onclick=()=>runAI(ai.dataset.finding)
   if(state.findingOpen&&state.tab==='overview'){const open=el(state.findingOpen);if(open)open.open=true}
   applyStaticDemo();
+  applyDemoExperience();
 }
 async function submitDecision(event){event.preventDefault();const form=event.currentTarget;const data=new FormData(form);try{await api('/api/decisions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({document_id:state.id,reviewer:data.get('reviewer'),decision:data.get('decision'),rationale:data.get('rationale'),conditions:data.get('conditions'),finding_ids:data.getAll('finding')})});toast('Human decision recorded with this document hash.');state.detail=await api(`/api/contracts/${encodeURIComponent(state.id)}`);await loadQueue();setTab('history')}catch(err){toast(err.message)}}
 async function submitPublication(event){event.preventDefault();const form=event.currentTarget;const data=new FormData(form);try{await api('/api/precedents',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({document_id:state.id,decision_id:form.dataset.decision,source_anchor:data.get('source_anchor'),authoriser:data.get('authoriser'),context:data.get('context'),reuse_limits:data.get('reuse_limits'),role:'demo_legal_reviewer',acknowledged:data.get('acknowledged')==='on'})});state.detail=await api(`/api/contracts/${encodeURIComponent(state.id)}`);setTab('history');toast('Shared as a demonstration precedent. Later reviews still need a human decision.')}catch(err){toast(err.message)}}
@@ -154,4 +207,4 @@ async function commitReference(){const file=state.referenceCandidate;if(!file)re
 el('filter').onchange=event=>navigate('queue',event.target.value);el('upload').onchange=async event=>{const file=event.target.files[0];if(!file)return;const form=new FormData();form.append('file',file);try{const data=await api('/api/upload',{method:'POST',body:form});await loadQueue();await select(data.id);toast('DOCX added to the local synthetic workspace.')}catch(err){toast(err.message)}event.target.value=''};
 window.addEventListener('popstate',()=>{const next=route();navigate(next.page,next.id,next.tab,next.anchor,true)});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&state.historyOpen){state.historyOpen=false;render();el('workspace').querySelector('[data-history-open]')?.focus()}});
-loadQueue().then(async()=>{state.reference=await api('/api/reference');if(state.staticDemo){try{state.research=await api('/demo-data/research.json')}catch(error){console.warn('Research fixtures are not exported:',error.message)}}const next=route();await navigate(next.page,next.id,next.tab,next.anchor,true)}).catch(err=>el('workspace').innerHTML=`<p class="empty">Could not load the local workspace: ${esc(err.message)}</p>`);
+loadQueue().then(async()=>{await initDemoSession();state.reference=await api('/api/reference');if(state.staticDemo||state.demo){try{state.research=await api('/demo-data/research.json')}catch(error){console.warn('Research fixtures are not exported:',error.message)}}const next=route();await navigate(next.page,next.id,next.tab,next.anchor,true)}).catch(err=>el('workspace').innerHTML=`<p class="empty">Could not load the local workspace: ${esc(err.message)}</p>`);

@@ -1,9 +1,13 @@
-# Swag — Precedent-Aware Contract Review
+# Swig — Precedent-Aware Contract Review
 
 A human-led prototype for reviewing routine commercial contracts using reference wording, previous review decisions, and independent full-document safeguards.
 
+Swig brings important differences, source evidence and relevant organisational experience together so a legal reviewer can make a better-supported decision with less repetitive work. **Simple on the surface. Exceptionally robust underneath.**
+
 ## Status
-**Working local proof of concept; pending human QA and live-AI verification.** The 12 synthetic DOCX contracts are committed in `dataset/`. Start with [START_HERE.md](START_HERE.md).
+**Working local proof of concept; pending human QA and live-AI verification.** The original 12 synthetic DOCX contracts and two learning-cycle examples are committed in `dataset/`. Start with [START_HERE.md](START_HERE.md).
+
+The GitHub repository is still `Swag`, and the Python package, API configuration names and local state path retain `swag` for compatibility. The product shown to reviewers is **Swig**.
 
 ## Repository map
 - `dataset/reference/` — one baseline synthetic mutual NDA
@@ -22,6 +26,7 @@ A human-led prototype for reviewing routine commercial contracts using reference
 - `docs/CREATIVE_INTENT.md` — simple on the surface, robust underneath
 - `docs/EXPERIENCE_PRINCIPLES.md` — calm, evidence-led reviewer journeys
 - `docs/CREATIVE_REVIEW.md` — human creative acceptance checkpoint
+- `docs/PRODUCT_ALIGNMENT_STATUS.md` — current naming, local review and verification evidence
 - `docs/DESIGN_JOURNAL.md` — design discoveries and hypotheses
 - `docs/decisions/` — evidence-based design decision records
 - `AGENTS.md` — autonomous coding-agent instructions

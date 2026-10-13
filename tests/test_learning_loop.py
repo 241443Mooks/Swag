@@ -41,7 +41,7 @@ class LearningLoopTests(unittest.TestCase):
 
     def upload(self, filename):
         data = (LEARNING / filename).read_bytes()
-        boundary = "swag-learning-boundary"
+        boundary = "swig-learning-boundary"
         multipart = (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{filename}"\r\nContent-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document\r\n\r\n').encode() + data + (f'\r\n--{boundary}--\r\n').encode()
         request = urllib.request.Request(self.base + "/api/upload", data=multipart, headers={"Content-Type": "multipart/form-data; boundary=" + boundary}, method="POST")
         with urllib.request.urlopen(request) as response:

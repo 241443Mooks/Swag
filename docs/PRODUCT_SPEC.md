@@ -1,4 +1,4 @@
-# Swag — Product specification (prototype v0.1)
+# Swig — Product specification (prototype v0.1)
 
 ## Problem
 A small in-house legal team reviews a steady stream of relatively standard commercial contracts, particularly NDAs and small order forms. Repeated boilerplate and recurring amendments create queues and peaks in workload. The opportunity is to reduce repetitive work **without allowing a standard-looking document to hide consequential terms**.
@@ -7,6 +7,8 @@ A small in-house legal team reviews a steady stream of relatively standard comme
 A legal reviewer needs to answer: What changed? What is missing? Has something similar been considered before? What was decided and under which conditions? What still requires my judgement?
 
 The system is a **decision-support prototype**, not a legal advice or automated approval service. The first vertical slice covers synthetic mutual NDAs only.
+
+**Product north star:** Make routine commercial contract review easier, safer and more consistent by bringing important differences, supporting evidence and relevant organisational experience together. Legal professionals retain judgement and authority. The product grows through deliberate feedback and governed reuse; AI is used only where it offers a worthwhile advantage over simpler methods.
 
 ## Core user journey
 1. Open the app and select or upload a synthetic DOCX.
@@ -48,7 +50,7 @@ Calm, accessible, professional and usable at ordinary laptop width. Prioritise r
 Production-grade legal analysis, deployment with real contracts, OCR guarantees, all contract families, autonomous negotiation, automatic redlining, silent model fine-tuning, or enterprise authentication. If these are not supported, say so explicitly.
 
 ## Architecture guidance
-Prefer a straightforward Python local app with testable modules for extraction, comparison, independent safeguards, precedent lookup, review ledger and UI. Begin with conventional baselines for semantic matching and precedent search. Implement at least one **genuine, commercially justified** model-assisted capability where comparison shows a plausible benefit, with explicit opt-in, provenance, and a robust non-AI fallback. Do not mandate AI for either function without evaluating alternatives. See `docs/ENGINEERING_PRINCIPLES.md` and `docs/AI_ARCHITECTURE.md`.
+Prefer a straightforward Python local app with testable modules for extraction, comparison, independent safeguards, precedent lookup, review ledger and UI. Conventional baselines handle the working offline journey. The optional model adapter explains a selected changed clause with explicit opt-in and provenance; its incremental benefit and live quality remain unverified. Do not mandate AI for review routing or precedent search without evidence against simpler methods. See `docs/ENGINEERING_PRINCIPLES.md` and `docs/AI_ARCHITECTURE.md`.
 
 ## Demonstration
 Use six synthetic incoming NDAs, one reference, and five historical precedents. Show both an easy review and a standard-looking contract with a hidden consequential deviation. Demonstrate why human review remains in control.
@@ -58,3 +60,7 @@ Provide a multi-document review queue and explain how it helps prioritise attent
 
 ## Definition of done
 A fresh checkout can install dependencies, start the app, process all six examples, show linked evidence and full original text, record a human decision, and run tests. Known blind spots and failure states are clearly documented. The draft PR includes exact commands and test outcomes.
+
+## Scope and validation
+
+**Working now:** synthetic mutual NDA review, assurance evidence, human decision history and explicit demo precedent publication/withdrawal. **Before real use:** qualified legal review, realistic usability and retrieval evaluation, privacy and security assessment, and verified authority for publication. **Possible later work:** approved playbooks, multi-user storage, other contract families and format adapters. The possible work is not a condition of this application prototype.

@@ -2,6 +2,8 @@
 
 PortSwigger's application task requests **a single zipped file** showing how AI could help a small legal team with routine contracts, recurring redlines and month-end/quarter-end review peaks. This is an application exercise, not a request for production legal automation.
 
+**Current status:** the working prototype can be reviewed locally. Human creative acceptance and final clean-package QA remain pending. Possible later product investments in `PRODUCT_DIRECTION.md` are not submission requirements. Package the final ZIP after the owner accepts the experience; do not describe an unobserved live AI run as completed.
+
 ## Reviewer experience
 - [ ] Start with a short `START_HERE.md` explaining the problem, approach, why conventional engineering handles much of it, and where the genuine AI contribution earns its place.
 - [ ] Provide a five-to-ten-minute guided walkthrough: routine NDA, context-limited precedent, hidden critical amendment, queue prioritisation, human decision.

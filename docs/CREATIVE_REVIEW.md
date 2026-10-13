@@ -1,9 +1,11 @@
-# Swag — Human creative review checkpoint
+# Swig — Human creative review checkpoint
 
 This is a **human judgement gate**, separate from automated correctness tests. Codex must prepare evidence and proposals, not self-certify creative quality or silently expand scope.
 
 ## When
 After a working end-to-end vertical slice and before final packaging. The reviewer may also use this checkpoint after seeing an early UI.
+
+For this consolidation, open the local app using [START_HERE](../START_HERE.md#start-in-under-a-minute). Try the queue and T03 evidence journey, the Assurance summary, a routine candidate and the separate L01/L02 learning cycle. Judge whether the main journey makes sense without reading the technical documentation. The owner has not yet recorded an acceptance outcome.
 
 ## Questions
 - Does this feel genuinely simpler than the original contract-review workflow, or have we just digitised its friction?

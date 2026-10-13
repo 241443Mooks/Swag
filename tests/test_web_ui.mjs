@@ -73,3 +73,21 @@ test('Start reviewing carries the next contract category back to the queue',asyn
   assert.equal(h.run('state.filter'),'escalate');
   assert.equal(h.storage.get('chugchug.queueFilter'),'escalate');
 });
+
+test('static hosting falls back to synthetic snapshot and refuses writes',async()=>{
+  const h=harness(items);
+  const calls=[];
+  h.context.fetch=async(url,options)=>{
+    calls.push(url);
+    if(url==='/api/queue')return {ok:true,headers:{get:()=> 'text/html'},json:async()=>{throw new Error('HTML is not data')}};
+    if(url==='/demo-data/queue.json')return {ok:true,headers:{get:()=> 'application/json'},json:async()=>({items})};
+    if(url==='/demo-data/contracts/T01.json')return {ok:true,headers:{get:()=> 'application/json'},json:async()=>({id:'T01'})};
+    throw new Error('Unexpected fetch: '+url);
+  };
+  const snapshot=await h.run("api('/api/queue')");
+  assert.equal(snapshot.items.length,4);
+  assert.equal(h.run('state.staticDemo'),true);
+  assert.equal((await h.run("api('/api/contracts/T01')")).id,'T01');
+  await assert.rejects(h.run("api('/api/decisions',{method:'POST'})"),/Read-only public demo/);
+  assert.deepEqual(calls,['/api/queue','/demo-data/queue.json','/demo-data/contracts/T01.json']);
+});

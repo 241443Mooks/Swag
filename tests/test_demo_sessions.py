@@ -3,9 +3,12 @@ from __future__ import annotations
 
 import http.cookiejar
 import json
+import os
 import tempfile
 import threading
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -164,6 +167,24 @@ class DemoHTTPTests(unittest.TestCase):
         with self.assertRaises(urllib.error.HTTPError) as sample:
             self.request(self.a, "/demo/add-sample", {"sample_id": "not-a-sample"}, csrf=a["csrf"])
         self.assertEqual(sample.exception.code, 400)
+
+    def test_cloudflare_verified_hostname_without_weakening_direct_mode(self):
+        origin = "https://chugchug-preview.smooks.co.uk"
+        fake = SimpleNamespace(
+            origin=origin,
+            headers={
+                "Origin": origin,
+                "Host": "container",
+                "X-ChugChug-Public-Host": "chugchug-preview.smooks.co.uk",
+            },
+        )
+        with patch.dict(os.environ, {"CHUGCHUG_CLOUDFLARE_PROXY": "1"}):
+            self.assertTrue(DemoHandler._same_origin(fake))
+            fake.headers["X-ChugChug-Public-Host"] = "attacker.example"
+            self.assertFalse(DemoHandler._same_origin(fake))
+        fake.headers["X-ChugChug-Public-Host"] = "chugchug-preview.smooks.co.uk"
+        with patch.dict(os.environ, {"CHUGCHUG_CLOUDFLARE_PROXY": ""}):
+            self.assertFalse(DemoHandler._same_origin(fake))
 
     def test_research_material_is_authenticated_and_unassessed(self):
         with self.assertRaises(urllib.error.HTTPError) as forbidden:

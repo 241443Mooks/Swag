@@ -16,9 +16,9 @@
   <div class="shell" id="shell">
     <aside class="queue-pane" aria-label="Review queue">
       <div class="queue-heading"><div><h1>Review queue</h1><p id="queue-count">Loading contracts…</p></div><label class="upload-button">Add DOCX<input id="upload" type="file" accept=".docx" hidden></label></div>
-      <div class="queue-filter"><label for="filter">Show</label><select id="filter"><option value="all">All contracts</option><option value="attention">Need attention</option><option value="routine_candidate">Routine candidates</option><option value="blocked_extraction">Blocked analysis</option></select></div>
+      <div class="queue-filter"><label for="filter">Show</label><select id="filter"><option value="all">All contracts</option><option value="escalate">Needs closer review</option><option value="review_required">Needs judgement</option><option value="routine_candidate">Looks routine</option><option value="blocked_extraction">Analysis blocked</option></select></div>
       <nav id="queue" class="queue-list" aria-label="Contracts"></nav>
-      <p class="queue-foot">Synthetic documents only. Routes organise human work; the system never approves a contract.</p>
+      <p class="queue-foot">Synthetic demonstration · Every route needs a human decision.</p>
     </aside>
     <main id="workspace" class="workspace" aria-live="polite"><div class="loading">Opening review workspace…</div></main>
   </div>

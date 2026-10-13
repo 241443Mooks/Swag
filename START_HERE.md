@@ -47,9 +47,18 @@ python3 -m chugchug.server --port 8771
 
 Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the repository root. If 8771 is busy, choose another unused port. Decisions and uploaded local demonstration files go into ignored `.chugchug-data/`; a clean checkout starts without reviewer decisions. Use synthetic documents only.
 
-The first screen now offers **Start reviewing**, **Add incoming DOCX**, and a link to the currently selected reference. Home, Review queue, Reference and Help remain available in the top navigation. The review screen starts with one observation; findings, past decisions, check detail and correction controls open when needed.
+Home leads with **Start reviewing** and live counts for **Needs closer review**, **Needs judgement** and **Looks routine**. Each count opens a queue filtered to contracts still awaiting a human decision. **Review queue** also provides **Add DOCX**. The selected reference for new uploads is linked from Home; each existing review remains bound to the reference used at intake.
 
-For the wider product idea, choose **Explore ChugChug's potential workspaces** near the bottom of Home (or open `#explore`). Legal is the only working tile and opens the real review queue. Muted department cards are concepts, with no navigation or data behind them. Daily reviewers can continue directly through Home or Review queue. See the [Issue #10 status](docs/ISSUE_10_STATUS.md), [workspace wireframe](docs/ISSUE_10_WORKSPACE_WIREFRAME.md) and [architecture decision](docs/decisions/002-legal-pack-and-workspace-boundary.md).
+Opening a contract now shows its leading concern, why it may matter, the incoming and applicable reference wording, and **Record decision** before the deeper tools. Other material findings remain listed below. **Full document**, **Reference**, **Check coverage** and **Review history** are available after the first comparison. Document details contain the original DOCX, source identity and hashes. The **Help** page links to the optional **Explore** concept; only Legal is a working journey. See the [Issue #10 status](docs/ISSUE_10_STATUS.md) and [architecture decision](docs/decisions/002-legal-pack-and-workspace-boundary.md).
+
+To rehearse from untouched synthetic state without changing an existing review ledger:
+
+```sh
+demo_state_dir=$(mktemp -d /tmp/chugchug-review-XXXXXX)
+python3 -m chugchug.server --port 8771 --state-dir "$demo_state_dir"
+```
+
+Open `http://127.0.0.1:8771/#home`. Use a different port if 8771 is occupied. Keep the generated directory path if you want to revisit that rehearsal; each new `mktemp` directory starts with no recorded decisions.
 
 ## Issue #8: reference → review → correction → reuse
 
@@ -65,13 +74,13 @@ The Python package (`chugchug`), `CHUGCHUG_AI_*` configuration names and `.chugc
 
 ## Five-minute walkthrough
 
-1. **Home → Start reviewing:** Notice three escalation candidates before the two judgement cases and the routine candidate. These are routes for human work, not legal outcomes.
-2. **Falcon Data / T03:** Open the first item. The clause 11 addition preserves commercially exploitable rights despite a standard no-licence clause. Follow “View in full text” to the exact passage. Compare the linked clause 9 and the rejected H03 prior decision. Open the original DOCX if needed.
+1. **Home → Start reviewing:** The live counts show the pending review mix. Choose a category to see only contracts awaiting a decision, or use Start reviewing for the next task.
+2. **Falcon Data / T03:** The first view pairs the added commercial-exploitation wording with the applicable reference no-licence protection. Follow **View in full text** to the exact passages. Inspect the other findings and the related rejected historical case. **Document details and original files** contains the source identifiers and original DOCX.
 3. **Elm Studio / T04 and Moorland / T05:** One lacks the no-licence protection; the other has a Schedule 1 that overrides permitted use. Both must remain escalations despite otherwise familiar wording.
 4. **Brookside AI / T02:** See the five-year term change and H02's conditional acceptance. The previous decision is context, not reusable authority.
 5. **Orchard Research / T06 and Birchbridge / T01:** A paraphrase needs interpretation; the template-like document is only a routine *candidate* because a person must still confirm the parties and purpose.
-6. **Assurance:** Open the Assurance tab on T03. It separates source identity, extraction, comparison, independent indicators and human status. Expand “Scope, evidence and limits” to see what each check actually covered.
-7. **Human decision:** On any document, enter a reviewer label, choose a decision and give a reason. Open Decision history, refresh the browser and see the append-only event tied to the exact SHA-256 hash.
+6. **Check coverage:** Open **Check coverage** on T03. It separates source identity, extraction, comparison, independent indicators and human status. Expand “Scope, evidence and limits” to see what each check actually covered.
+7. **Human decision:** Choose **Record decision** from the first review view. Mark findings actually considered, enter a reviewer label, choose an outcome and give a reason. Open **Review history**, refresh the browser and see the append-only event tied to the exact document hash. Return to the filtered queue for the next task.
 
 ## Five-minute learning-cycle walkthrough
 
@@ -98,6 +107,7 @@ To enable later, supply `OPENAI_API_KEY`, set `CHUGCHUG_AI_ENABLED=1`, `CHUGCHUG
 python3 -m unittest discover -s tests -v
 python3 -m tests.evaluate
 node --check web/app.js
+node --test tests/test_web_ui.mjs
 git diff --check
 ```
 

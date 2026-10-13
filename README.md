@@ -3,7 +3,7 @@
 A human-led prototype for reviewing routine commercial contracts using reference wording, previous review decisions, and independent full-document safeguards.
 
 ## Status
-**Dataset ready; application not yet implemented.** The 12 synthetic DOCX contracts are committed in `dataset/`.
+**Working local proof of concept; pending human QA and live-AI verification.** The 12 synthetic DOCX contracts are committed in `dataset/`. Start with [START_HERE.md](START_HERE.md).
 
 ## Repository map
 - `dataset/reference/` — one baseline synthetic mutual NDA
@@ -11,6 +11,10 @@ A human-led prototype for reviewing routine commercial contracts using reference
 - `dataset/incoming/` — six challenge documents
 - `dataset/review_records/` — fictional decisions, not approved policy
 - `dataset/ground_truth/` — held-out evaluation answer key; **never accessible to runtime**
+- `swag/` — conservative extraction, comparison, safeguards, precedent search, AI adapter, ledger and local server
+- `web/` — queue and reviewer interface
+- `tests/` — adversarial, HTTP journey and isolated evaluation checks
+- `START_HERE.md` — startup, walkthrough and limitations
 - `docs/PRODUCT_SPEC.md` — workflow, review states, data and safety requirements
 - `docs/ACCEPTANCE_TESTS.md` — test cases and mandatory release gates
 - `docs/AI_ARCHITECTURE.md` — scoped genuine model integration, provenance and queue triage
@@ -31,7 +35,7 @@ A human-led prototype for reviewing routine commercial contracts using reference
 - Humans make every final decision.
 - Synthetic data only. No external AI processing by default.
 
-## First development task
-Audit the actual DOCX files and implement the vertical slice described in `docs/PRODUCT_SPEC.md`. Work in a feature branch and open a draft PR; do not merge automatically.
+## Review status
+The implementation is ready for owner QA on a feature branch. See `docs/SPRINT_01_STATUS.md` for test evidence and remaining verification. Human creative acceptance and live AI quality are pending; the draft PR must remain unmerged.
 
 This project is a demonstration, not a production legal review service or legal advice.

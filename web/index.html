@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f4">
+  <title>Swag · Contract review</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand">Swag<span class="brand-divider"></span><span class="brand-subtitle">Contract review</span></div>
+    <div class="header-note">Synthetic mutual NDA workspace <span aria-hidden="true">·</span> Human decisions only</div>
+  </header>
+  <div class="shell">
+    <aside class="queue-pane" aria-label="Review queue">
+      <div class="queue-heading"><div><h1>Review queue</h1><p id="queue-count">Loading contracts…</p></div><label class="upload-button">Add DOCX<input id="upload" type="file" accept=".docx" hidden></label></div>
+      <div class="queue-filter"><label for="filter">Show</label><select id="filter"><option value="all">All contracts</option><option value="attention">Need attention</option><option value="routine_candidate">Routine candidates</option><option value="blocked_extraction">Blocked analysis</option></select></div>
+      <nav id="queue" class="queue-list" aria-label="Contracts"></nav>
+      <p class="queue-foot">Synthetic documents only. Routes organise human work; the system never approves a contract.</p>
+    </aside>
+    <main id="workspace" class="workspace" aria-live="polite"><div class="loading">Opening review workspace…</div></main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

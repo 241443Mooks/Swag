@@ -91,3 +91,20 @@ test('static hosting falls back to synthetic snapshot and refuses writes',async(
   await assert.rejects(h.run("api('/api/decisions',{method:'POST'})"),/Read-only public demo/);
   assert.deepEqual(calls,['/api/queue','/demo-data/queue.json','/demo-data/contracts/T01.json']);
 });
+
+test('interactive demo passes its session CSRF token on every write',async()=>{
+  const h=harness(items);
+  h.run("state.demo={active:true,csrf:'per-visitor-token',samples:[{id:'retention',name:'Maple Metrics'}]}");
+  let received=null;
+  h.context.fetch=async(url,options)=>{
+    received={url,options};
+    return {ok:true,headers:{get:()=> 'application/json'},json:async()=>({ok:true})};
+  };
+  await h.run("api('/api/decisions',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})");
+  assert.equal(received.url,'/api/decisions');
+  assert.equal(received.options.headers['X-ChugChug-CSRF'],'per-visitor-token');
+  assert.equal(received.options.headers['Content-Type'],'application/json');
+  const view=h.run('samplePanel()');
+  assert.match(view,/Maple Metrics/);
+  assert.match(view,/No real-document uploads/);
+});

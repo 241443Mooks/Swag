@@ -25,7 +25,8 @@ jobs:
       - name: UI JavaScript syntax and tests
         run: |
           node --check web/app.js
-          node --test tests/test_web_ui.mjs
+          node --check cloudflare/worker.js
+          node --test tests/test_web_ui.mjs tests/test_cloudflare_worker.mjs
       - name: Independent adversarial regression
         run: python3 -m tests.adversarial_audit
       - name: Build isolated demo container

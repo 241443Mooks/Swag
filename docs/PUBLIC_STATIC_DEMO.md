@@ -10,12 +10,12 @@ The deployed static frontend requests /api/queue and /api/reference. When the si
 
 Prerequisites: Python 3.9+ and the complete repository with research PR #20's twenty synthetic client fixtures. From repository root:
 
-\`\`\`sh
+```sh
 python3 -m unittest discover -s tests -p 'test_*.py'
 node --check web/app.js
 node --test tests/test_web_ui.mjs
 python3 scripts/export_public_demo.py
-\`\`\`
+```
 
 The exporter writes **web/demo-data/** with:
 
@@ -30,17 +30,17 @@ The export starts with a fresh empty ledger and exports **no reviewer names, upl
 
 ## Publish
 
-Configure the static host's publish directory as \`web/\`. Ensure every file under \`web/demo-data/\` is included in the deployment; merely deploying \`web/index.html\`, \`app.js\` and \`styles.css\` is not sufficient.
+Configure the static host's publish directory as `web/`. Ensure every file under `web/demo-data/` is included in the deployment; merely deploying `web/index.html`, `app.js` and `styles.css` is not sufficient.
 
-When the browser requests \`/api/queue\` and receives a non-JSON static fallback, ChugChug will load \`/demo-data/queue.json\` instead, display the read-only public notice and disable all write controls. Reference and individual review pages load snapshot JSON and link to exported original fictional DOCX files. If the host does not support this static fallback, add an appropriate rewrite to \`/index.html\` for SPA routes but do not rewrite \`/demo-data/*\` to HTML.
+When the browser requests `/api/queue` and receives a non-JSON static fallback, ChugChug will load `/demo-data/queue.json` instead, display the read-only public notice and disable all write controls. Reference and individual review pages load snapshot JSON and link to exported original fictional DOCX files. If the host does not support this static fallback, add an appropriate rewrite to `/index.html` for SPA routes but do not rewrite `/demo-data/*` to HTML.
 
 The experimental branch has a workflow to run validation, produce the snapshot, and commit generated files **to that feature branch** when Actions are enabled. If Actions are disabled, run the commands above before publishing. This does not automatically update the existing public deployment until the relevant PRs are accepted and the website is redeployed.
 
 ## Smoke check
 
-1. \`https://chugchug.smooks.co.uk/demo-data/queue.json\` returns \`application/json\` and exactly six \`items\`.
-2. \`/demo-data/reference.json\` shows the bundled fictional reference.
-3. \`/demo-data/research.json\` lists 8 standards, 20 ordinary-looking client files, and 4 challenge documents, all flagged as research specimens.
+1. `https://chugchug.smooks.co.uk/demo-data/queue.json` returns `application/json` and exactly six `items`.
+2. `/demo-data/reference.json` shows the bundled fictional reference.
+3. `/demo-data/research.json` lists 8 standards, 20 ordinary-looking client files, and 4 challenge documents, all flagged as research specimens.
 4. Home shows nonzero counts; open Falcon and inspect linked source passages. Reference shows the research specimens.
 5. Download a synthetic original DOCX from a review and the research library.
 6. Confirm the public read-only banner appears and no upload, decision, publication or AI action is offered.

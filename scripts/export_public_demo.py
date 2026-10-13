@@ -15,11 +15,12 @@ import re
 import shutil
 import tempfile
 from pathlib import Path
-
-from chugchug.server import App
-
+import sys
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))  # Allow direct script execution from any directory.
+
+from chugchug.server import App
 SAFE_NAME = re.compile(r"^[A-Za-z0-9_-]+$")
 
 

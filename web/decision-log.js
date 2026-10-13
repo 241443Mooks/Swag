@@ -11,13 +11,15 @@ function matchingRows(){
 }
 function renderRow(r){
   const source=r.related_fixed_example_id;
+  const localBackend=location.hostname==='127.0.0.1'||location.hostname==='localhost';
+  const sourceUrl=source?(localBackend?'/api/history/'+encodeURIComponent(source)+'/original':'/demo-data/originals/history/'+encodeURIComponent(source)+'.docx'):null;
   return '<article class="log-entry" data-flag="'+htmlEscape(r.flag)+'" aria-label="'+htmlEscape(r.id)+'">'+
     '<div class="log-entry-head"><span>'+htmlEscape(r.id)+' · '+htmlEscape(r.date)+' · '+htmlEscape(r.reviewer)+'</span><span>'+htmlEscape(flagName[r.flag])+'</span></div>'+
     '<h3>'+htmlEscape(r.issue)+'</h3>'+
     '<p class="outcome">'+htmlEscape(outcomeName[r.decision])+' · '+htmlEscape(r.fictional_counterparty)+'</p>'+
     '<p>'+htmlEscape(r.rationale)+'</p><p class="condition"><strong>Context or condition:</strong> '+htmlEscape(r.conditions)+'</p>'+
     '<div class="log-links"><a href="/#review/'+encodeURIComponent(r.review_id)+'/overview">Open '+htmlEscape(reviewName[r.review_id])+' review ('+htmlEscape(r.review_id)+') →</a>'+
-    (source?'<a href="/demo-data/originals/history/'+encodeURIComponent(source)+'.docx" download>Related fixed example '+htmlEscape(source)+' (not evidence for this log entry) ↗</a>':'')+
+    (source?'<a href="'+sourceUrl+'" download>Related fixed example '+htmlEscape(source)+' (not evidence for this log entry) ↗</a>':'')+
     '</div><p class="provenance">Fictional scenario analogue only · Not a verified source-backed decision or reusable precedent.</p></article>';
 }
 function render(){

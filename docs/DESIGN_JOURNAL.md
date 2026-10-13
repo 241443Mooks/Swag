@@ -115,3 +115,11 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Keep the runtime registry limited to hash-verified reference sources. Move expected labels into an evaluation-only file, extract contextual facts from exact source passages, hard-exclude known conflicts, and abstain or expose a gap where context is missing. Treat every result as an unapproved research candidate that a human must validate before comparison.
 
 **Evidence and uncertainty:** Independent synthetic tests cover mutual and one-way NDA context, supplier and product-evaluation purpose, direct cloud orders, reseller/cloud incompatibility, missing or contradictory context, incomplete extraction, source hashes and evaluation-file isolation. The rules have not been evaluated on a blind dataset or validated by legal reviewers; no matching accuracy or applicability claim follows.
+
+## Entry 015 — Baseline confirmation is its own reviewer action
+
+**Observation:** The shared registry can return NDA and customer-order candidates, while the order comparator accepts a selected order record. Passing matcher output straight to the comparator would blur candidate proposal, applicability confirmation and comparison.
+
+**Decision:** Add a customer-order application boundary that filters to order candidates, requires a reviewer confirmation tied to the exact reference ID and source hash, and returns comparison observations, routing and a pending legal decision as separate fields. Keep the integration outside the NDA pack and reviewer UI.
+
+**Evidence and uncertainty:** Synthetic integration tests verify source-anchor resolution and abstention for wrong-family, wrong-deployment, missing-context, incomplete-extraction and repeated-heading inputs. This validates the backend handoff contract, not legal applicability, reviewer usability or suitability of the research references.

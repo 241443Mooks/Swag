@@ -1,5 +1,22 @@
 # Issue #21 — Reference registry, matching and comparison
 
+## Slice C — Reviewer application boundary
+
+`chugchug.customer_order_review.CustomerOrderReview` now orchestrates the existing verified registry, context matcher and `CustomerOrderPack` for a caller that supplies an extracted incoming document. It returns applicability context and eligible customer-order candidates, then requires an explicit reviewer confirmation matching the selected registry ID and SHA-256 before comparison.
+
+- The response keeps the reference proposal, reference confirmation, comparison observations, review route and pending human decision in separate fields. A baseline confirmation is not an order decision.
+- Comparison observations expose a difference type, exact incoming/reference passages and anchors, missing information and uncertainty. The result cannot become approval; the route remains a human-review route for the unapproved research sources.
+- The adapter excludes non-order references. Wrong family, missing applicability context, incomplete extraction, an ineligible deployment/channel selection and missing confirmation leave comparison unrun. The comparator's repeated-heading abstention remains source-linked and intact.
+- This is a backend contract only. No reviewer UI files, upload routing, ledger behavior, or NDA pack behavior changed; coordinate any later UI consumption with Issue #5 UX work.
+
+### Slice C test evidence
+
+- `python3 -m unittest discover -s tests -q`: 50 passed, including the new order-boundary tests and existing NDA regressions.
+- `python3 -m tests.evaluate`: original NDA routes agreed 6/6; T03/T04/T05 escalated.
+- `python3 -m tests.adversarial_audit`: all 11 critical exceptions surfaced or safely blocked, zero false routine recommendations, 14/16 route matches; A05 and A08 remain conservative escalations above their review-required targets.
+- `node --check web/app.js`, `node --test tests/test_web_ui.mjs` (4 passed), and `git diff --check`: passed. No UI files were changed.
+- No live AI calls, external transmission, real customer data, deployment or merge.
+
 ## Slice B — Customer-order backend comparison
 
 This slice starts from refreshed `origin/main` at `442f3f7fb3c60c748fb33be7135dc4e4ceb44b96` (PR #23 merge). The earlier registry and candidate-matching work is already on that base. This change adds a backend-only `CustomerOrderPack`; no UI, upload routing, review ledger, policy status, or deployment path is changed.

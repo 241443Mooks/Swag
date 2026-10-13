@@ -124,3 +124,11 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Evidence and uncertainty:** The before/after accessibility-tree role changed from text to button, and a regression test verifies the markup and click wiring. The file chooser itself, screen-reader output, and mobile layout were not exercised. Owner creative acceptance remains pending.
 
 **Additional queue observation:** The fixed-width queue card forced the contract title into character-by-character wrapping beside its route badge. The title now gets a minimum readable width and may wrap the badge to its own line. A focused CSS regression assertion covers this layout rule; narrow device rendering still needs a real viewport check.
+
+## Issue #5 — The decision action is useful but hard to find
+
+**Observation:** In the owner’s 13 October Home → Falcon walkthrough, the initial review felt busy and the owner could not immediately identify how to act; locating **Record your decision** took effort. The owner described the content as useful but too much was presented at once.
+
+**Decision:** Treat next-action discovery as an unresolved P0 audit finding. Keep full evidence and checks available, and let the owner judge a focused hierarchy proposal before treating the experience as accepted. Do not infer acceptance from the audit or implement a wholesale redesign.
+
+**Evidence and uncertainty:** Owner walkthrough notes are recorded in Issue #5. The local browser run verified desktop keyboard access and the explicit separation between observed wording, suggested route and human decision. A narrow viewport, screen-reader behavior and the full upload/error path remain unverified.

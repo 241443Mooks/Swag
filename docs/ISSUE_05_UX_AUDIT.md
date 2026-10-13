@@ -2,13 +2,13 @@
 
 ## Outcome
 
-Two reproducible defects were found and fixed: the queue's **Add DOCX** control was styled as a button but was a non-focusable `label` containing a hidden file input; and the fixed-width queue squeezed the contract title against its route badge until titles wrapped character by character. The control now has native button semantics, and queue title/badge rows can wrap. Focused regression tests protect both changes.
+Two local desktop defects were reproduced and fixed: the queue's **Add DOCX** control was styled as a button but was a non-focusable `label` containing a hidden file input; and the fixed-width queue squeezed the contract title against its route badge until titles wrapped character by character. The control now has native button semantics, and queue title/badge rows can wrap. Focused regression tests protect both changes. The owner’s separate walkthrough adds an unresolved P0 task-clarity finding: the next action and decision entry were hard to discover.
 
-No other desktop defect was confirmed in the sampled local synthetic path. Creative acceptance remains with the owner. Mobile rendering, assistive-technology behavior beyond the browser accessibility tree, and the full upload/error journey remain **not verified**.
+No other defect was confirmed in the sampled local synthetic path beyond the two desktop findings and the owner-reported task-clarity issue below. Creative acceptance remains with the owner. Mobile rendering, assistive-technology behavior beyond the browser accessibility tree, and the full upload/error journey remain **not verified**.
 
 ## Reproduction and evidence
 
-**Environment:** refreshed `origin/main` base `442f3f7`; local server at `http://127.0.0.1:8773`, started with a disposable state directory at `/private/tmp/chugchug-issue5-audit-state`; Codex in-app browser; 1280 × 720 desktop viewport; synthetic dataset only. No AI call or external service was used.
+**Environment:** refreshed `origin/main` base `442f3f7`; local server at `http://127.0.0.1:8773`, started with a disposable state directory at `/private/tmp/chugchug-issue5-audit-state`; Codex in-app browser; 1280 × 720 desktop viewport; synthetic dataset only. No AI call or external service was used. The owner’s 13 October first-hand Home → Falcon walkthrough is recorded separately in Issue #5 and is included below as owner evidence, not as a qualified-user study or design acceptance.
 
 1. Open Home. The heading says **Review what needs attention**; **Start reviewing** and the three live category counts are buttons. Each category leads to its filtered pending queue. The footer states that every route needs a human decision.
 2. Use Tab from Home. Focus reaches Home → Review queue → Reference → Help → Start reviewing. Focus is visible. Activating Start reviewing opens the highest-priority pending contract (T03 / Falcon).
@@ -23,8 +23,9 @@ Desktop screenshots were captured during these steps in the in-app browser. The 
 
 | Priority | Finding | Reproduction | Status |
 |---|---|---|---|
-| P1 accessibility | **Add DOCX was not keyboard or screen-reader operable.** A styled label around a `hidden` input appeared as plain text in the accessibility tree and provided no focus target. | Review queue → inspect accessibility tree / Tab sequence. | Fixed with native button semantics and an explicit click handler. |
+| P1 accessibility | **Add DOCX was not keyboard-focusable and lacked button semantics in the accessibility tree.** A styled label around a `hidden` input appeared as plain text and provided no focus target. Screen-reader output was not tested. | Review queue → inspect accessibility tree / Tab sequence. | Fixed with native button semantics and an explicit click handler. |
 | P2 usability | **Queue card title collapsed beside the route badge.** In the rendered queue, the fixed-width card wrapped Falcon's name character by character, making the contract hard to scan. | Review queue → focus the first card at the available pane width. | Fixed by allowing the title/badge row to wrap and reserving a readable minimum title width. |
+| P0 task clarity | **The next review action and decision entry were not immediately discoverable.** In the owner’s Home → Falcon walkthrough, the first review view felt busy, the reviewer could not immediately tell how to act, and finding **Record your decision** took effort. The owner said the information was useful but too much was presented at once. | Owner’s 13 October walkthrough, described in Issue #5. | Open. Preserve the evidence and checks; evaluate a focused hierarchy change with the owner before claiming acceptance. This report does not prescribe or self-approve a redesign. |
 
 ## Focused regression checks
 
@@ -36,4 +37,4 @@ Desktop screenshots were captured during these steps in the in-app browser. The 
 
 ## Owner judgement
 
-Please review whether the first T03 screen makes the next action clear, whether the balance of concise explanation and evidence feels right, and whether the mobile queue and decision form work comfortably. This audit and its local synthetic checks are not a legal review or creative acceptance.
+The owner has already reported that the first Falcon screen feels busy and **Record your decision** was hard to find. The next owner judgement is whether a focused change makes the next action clear while keeping useful evidence accessible. Mobile queue and decision-form comfort remain unverified. This audit and its local synthetic checks are not a legal review or creative acceptance.

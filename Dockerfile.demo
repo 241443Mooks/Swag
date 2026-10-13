@@ -1,0 +1,20 @@
+# Single-process, no-dependencies, fictional-only interactive demonstration.
+# Use a TLS reverse proxy. NEVER publish port 8772 on a public interface.
+FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+RUN useradd --create-home --system --shell /usr/sbin/nologin chugchug
+WORKDIR /srv/chugchug
+# Explicit copies exclude dataset/ground_truth, adversarial test keys,
+# git history, local ledgers and source .env files from the runtime image.
+COPY --chown=chugchug:chugchug chugchug/ ./chugchug/
+COPY --chown=chugchug:chugchug dataset/reference/ ./dataset/reference/
+COPY --chown=chugchug:chugchug dataset/incoming/ ./dataset/incoming/
+COPY --chown=chugchug:chugchug dataset/historical/ ./dataset/historical/
+COPY --chown=chugchug:chugchug dataset/review_records/ ./dataset/review_records/
+COPY --chown=chugchug:chugchug dataset/learning/ ./dataset/learning/
+COPY --chown=chugchug:chugchug web/ ./web/
+USER chugchug
+EXPOSE 8772
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8772/healthz', timeout=3).read()"
+CMD ["python", "-m", "chugchug.demo_server", "--port", "8772", "--container-bind"]

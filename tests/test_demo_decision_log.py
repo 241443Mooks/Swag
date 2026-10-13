@@ -41,7 +41,7 @@ class DemoDecisionLogTests(unittest.TestCase):
             with self.subTest(review=review):
                 rows = [r for r in self.records if r["review_id"] == review]
                 self.assertGreaterEqual(len(rows), 40)
-                self.assertGreaterEqual(len({r["comparison_type"] for r in rows}), 2)
+                self.assertGreaterEqual(len({r["issue"] for r in rows}), 2)
         self.assertTrue(any(r["review_id"] == "T03" and r["comparison_type"] == "same_red_flag" for r in self.records))
         self.assertTrue(any(r["review_id"] == "T03" and r["comparison_type"] == "resolved_after_amendment" for r in self.records))
         self.assertTrue(any(r["review_id"] == "T01" and r["comparison_type"] == "same_green_pattern" for r in self.records))

@@ -33,8 +33,8 @@ class DemoDecisionLogTests(unittest.TestCase):
         self.assertEqual({r["flag"] for r in self.records}, {"green", "red", "amber"})
         self.assertEqual({r["decision"] for r in self.records},
                          {"approve", "request_amendment", "reject", "escalate"})
-        self.assertTrue(all((ROOT / "dataset" / "incoming" / f"{r['review_id']}-" ).parent.is_dir()
-                            for r in self.records))
+        for review in REVIEWS:
+            self.assertTrue(list((ROOT / "dataset" / "incoming").glob(f"{review}-*.docx")))
 
     def test_multiple_comparison_examples_in_existing_scenarios(self):
         for review in REVIEWS:

@@ -42,7 +42,7 @@ def copy_verified(source: Path, target: Path, expected_sha256: str | None = None
 def export(destination: Path) -> None:
     # A new empty temporary ledger ensures no real or locally entered decisions escape.
     # Clean the entire generated subtree so withdrawn fixture files cannot linger.
-    if destination.resolve() == ROOT.resolve() or not destination.resolve().is_relative_to(ROOT / "web"):
+    if destination.resolve() in (ROOT.resolve(), (ROOT / "web").resolve()) or not destination.resolve().is_relative_to((ROOT / "web").resolve()):
         raise ValueError("Export must stay inside web/ to prevent destructive cleanup")
     if destination.exists():
         shutil.rmtree(destination)

@@ -92,3 +92,8 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Put one optional Explore page behind a quiet Home link. Keep Legal as its only actionable tile, with other teams described as concepts. Move actual NDA policy and source-path choices behind a small pack boundary while leaving persistence and source identity in the application. Do not add speculative permissions or a pack registry.
 
 **Evidence and limit:** The pack-boundary test and six-route evaluator exercise the existing Legal path. Browser navigation and responsive inspection are recorded in the Issue #10 status. A second pack, organisational isolation and usefulness of the Explore page remain unvalidated; creative acceptance is pending.
+## Entry 012 — One name through the local demo (13 October 2026)
+
+**Observation:** The reviewer-facing name and the launch command used different product names, making a simple user-test handoff confusing.
+
+**Decision:** Use ChugChug consistently for the interface, Python package, optional AI settings and default local state path. Keep older dated test records and working GitHub links as historical identifiers. The local rename changes no review policy or safety route; the renamed app passed the existing tests and rendered smoke check. The repository slug still requires a separate GitHub rename.

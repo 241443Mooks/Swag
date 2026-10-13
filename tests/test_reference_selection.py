@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from swag.server import App
+from chugchug.server import App
 
 ROOT = Path(__file__).resolve().parents[1]
 

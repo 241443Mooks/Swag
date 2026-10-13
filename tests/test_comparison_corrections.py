@@ -9,7 +9,7 @@ import urllib.request
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 
-from swag.server import App, Handler
+from chugchug.server import App, Handler
 
 ROOT = Path(__file__).resolve().parents[1]
 LEARNING = ROOT / "dataset/learning"

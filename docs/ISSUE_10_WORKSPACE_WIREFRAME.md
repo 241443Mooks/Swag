@@ -4,11 +4,11 @@ Annotated desktop wireframe for `#explore` (implemented as a reversible proposal
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│ Swig · Contract review                          Home  Review queue  …       │
+│ ChugChug · Contract review                          Home  Review queue  …       │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │ ← Back to contract review         [1] Return to the normal Legal path       │
 │                                                                              │
-│ EXPLORE SWIG                                                                 │
+│ EXPLORE CHUGCHUG                                                                 │
 │ One working legal journey. A wider idea to test.                            │
 │ Legal is live; everything else here is an unbuilt concept.                  │
 │                                                                              │

@@ -1,13 +1,15 @@
-# Swig — Precedent-Aware Contract Review
+# ChugChug — Precedent-Aware Contract Review
 
 A human-led prototype for reviewing routine commercial contracts using reference wording, previous review decisions, and independent full-document safeguards.
 
-Swig brings important differences, source evidence and relevant organisational experience together so a legal reviewer can make a better-supported decision with less repetitive work. **Simple on the surface. Exceptionally robust underneath.**
+ChugChug brings important differences, source evidence and relevant organisational experience together so a legal reviewer can make a better-supported decision with less repetitive work. **Simple on the surface. Exceptionally robust underneath.**
 
 ## Status
 **Working local proof of concept; pending human QA and live-AI verification.** The original 12 synthetic DOCX contracts and two learning-cycle examples are committed in `dataset/`. Start with [START_HERE.md](START_HERE.md).
 
-The GitHub repository is still `Swag`, and the Python package, API configuration names and local state path retain `swag` for compatibility. The product shown to reviewers is **Swig**.
+The app, Python package, API configuration names and local state path now use **ChugChug**. The GitHub repository has not yet been renamed; its existing URL remains valid.
+
+Existing local state under the former default directory is left in place. The renamed app starts with a fresh `.chugchug-data/` state directory for user testing.
 
 ## Repository map
 - `dataset/reference/` — one baseline synthetic mutual NDA
@@ -15,7 +17,7 @@ The GitHub repository is still `Swag`, and the Python package, API configuration
 - `dataset/incoming/` — six challenge documents
 - `dataset/review_records/` — fictional decisions, not approved policy
 - `dataset/ground_truth/` — held-out evaluation answer key; **never accessible to runtime**
-- `swag/` — conservative extraction, comparison, safeguards, precedent search, AI adapter, ledger and local server
+- `chugchug/` — conservative extraction, comparison, safeguards, precedent search, AI adapter, ledger and local server
 - `web/` — queue and reviewer interface
 - `tests/` — adversarial, HTTP journey and isolated evaluation checks
 - `START_HERE.md` — startup, walkthrough and limitations

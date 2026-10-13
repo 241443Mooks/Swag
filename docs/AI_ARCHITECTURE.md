@@ -2,11 +2,11 @@
 
 ## Product position
 
-PortSwigger asks how AI **could help** a small legal team with repetitive commercial contracts. The brief does not require a live paid model call. Swig's current offline journey is useful without AI: deterministic extraction, comparison, independent checks, routing, lexical precedent retrieval and human decisions carry the workflow. AI should be retained or expanded only if it provides a worthwhile advantage over that conventional baseline, considering errors, confidentiality, latency, cost and maintenance.
+PortSwigger asks how AI **could help** a small legal team with repetitive commercial contracts. The brief does not require a live paid model call. ChugChug's current offline journey is useful without AI: deterministic extraction, comparison, independent checks, routing, lexical precedent retrieval and human decisions carry the workflow. AI should be retained or expanded only if it provides a worthwhile advantage over that conventional baseline, considering errors, confidentiality, latency, cost and maintenance.
 
 ## Current optional capability
 
-`swag/ai.py` integrates the OpenAI Responses API for one narrow task: explaining the possible effect and uncertainty of a **selected changed clause** against its reference wording. It is disabled by default. A user must configure a key and call/output caps, then invoke the action on a synthetic passage. The model cannot change the route, repair failed extraction, publish a precedent or approve a contract. This is not a whole-document contradiction detector or a required safeguard.
+`chugchug/ai.py` integrates the OpenAI Responses API for one narrow task: explaining the possible effect and uncertainty of a **selected changed clause** against its reference wording. It is disabled by default. A user must configure a key and call/output caps, then invoke the action on a synthetic passage. The model cannot change the route, repair failed extraction, publish a precedent or approve a contract. This is not a whole-document contradiction detector or a required safeguard.
 
 The adapter sends only the selected source and reference passages, treats them as untrusted data, requests structured output, validates the response and supplied source anchors, and labels a successful provider response with provider, model and timestamp. Failure is shown as unavailable; it never becomes a silent positive check. The UI distinguishes “not run” from a completed model response.
 

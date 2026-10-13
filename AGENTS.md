@@ -1,11 +1,11 @@
 ## Creative direction — mandatory
 **Simple on the surface. Exceptionally robust underneath.** Before building, read `docs/CREATIVE_INTENT.md` and `docs/EXPERIENCE_PRINCIPLES.md`. Complexity is justified only when it removes user friction, improves assurance or provides demonstrable business value. Build a coherent exception-first reviewer journey, not a generic AI dashboard. Follow `docs/CREATIVE_REVIEW.md`; record meaningful discoveries in `docs/DESIGN_JOURNAL.md`. Creative acceptance belongs to the human owner; do not self-certify it. Preserve full-document evidence and human judgement.
 
-# Agent operating instructions — Swig
+# Agent operating instructions — ChugChug
 
 This repository is a synthetic-data proof of concept for a **human-led, precedent-aware commercial contract review assistant**. Follow these instructions when making changes.
 
-**Product north star:** Swig makes routine commercial contract review easier, safer and more consistent by bringing important differences, source evidence and relevant organisational experience together. Legal professionals retain judgement and authority. Deliberate feedback and governed reuse should increase usefulness over time. AI is used only where it offers a worthwhile advantage over simpler methods. Keep the reviewer journey simple and the underlying checks inspectable.
+**Product north star:** ChugChug makes routine commercial contract review easier, safer and more consistent by bringing important differences, source evidence and relevant organisational experience together. Legal professionals retain judgement and authority. Deliberate feedback and governed reuse should increase usefulness over time. AI is used only where it offers a worthwhile advantage over simpler methods. Keep the reviewer journey simple and the underlying checks inspectable.
 
 ## Mission and boundaries
 - Build a demonstrable, locally runnable vertical slice for routine mutual NDA review.

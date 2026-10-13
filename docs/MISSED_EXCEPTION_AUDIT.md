@@ -86,7 +86,7 @@ python3 scripts/build_adversarial_fixtures.py
 python3 -m tests.adversarial_audit --out docs/ADVERSARIAL_AFTER.json
 python3 -m unittest discover -s tests -v
 python3 -m tests.evaluate
-python3 -m swag.server --port 8765 --state-dir .swag-data/audit-demo
+python3 -m chugchug.server --port 8765 --state-dir .chugchug-data/audit-demo
 ```
 
 In the UI, open T03, follow the first source link into the full text, inspect the prior H03 decision, open **Assurance** for check scope, then record a human escalation. For a blocked case, upload A03 or A14 from `dataset/adversarial/` to an isolated local state directory and inspect the explicit limitation. Use T01 for the quick routine-candidate path. Do not submit the synthetic QA decision or these fixtures to PortSwigger as proof of legal accuracy.

@@ -1,12 +1,12 @@
-# Swig — review the exceptions first
+# ChugChug — review the exceptions first
 
 PortSwigger's task describes a small legal team receiving mostly standard commercial contracts, many with familiar amendments, while its queue grows faster than it can read everything. This proof of concept reorganises six **fictional mutual NDAs** around the exceptions that deserve a person's attention. It is decision support, not legal advice or automatic approval.
 
-**Product direction:** Swig makes routine commercial contract review easier, safer and more consistent by bringing important differences, source evidence and relevant organisational experience together. Legal professionals retain judgement and authority. The synthetic prototype demonstrates a governed reuse cycle: a new decision enters later precedent search only after explicit local demo publication, and can be withdrawn. This does not create production authorisation or organisational policy. See [Product direction](docs/PRODUCT_DIRECTION.md).
+**Product direction:** ChugChug makes routine commercial contract review easier, safer and more consistent by bringing important differences, source evidence and relevant organisational experience together. Legal professionals retain judgement and authority. The synthetic prototype demonstrates a governed reuse cycle: a new decision enters later precedent search only after explicit local demo publication, and can be withdrawn. This does not create production authorisation or organisational policy. See [Product direction](docs/PRODUCT_DIRECTION.md).
 
 ## Risks, concerns and responsible use
 
-Swig explores whether a small legal team can spend less effort on repetitive contract checks, notice important exceptions and preserve the reasoning behind earlier decisions. **It is a workflow demonstration, not legal advice, an autonomous approval system or a validated legal product.**
+ChugChug explores whether a small legal team can spend less effort on repetitive contract checks, notice important exceptions and preserve the reasoning behind earlier decisions. **It is a workflow demonstration, not legal advice, an autonomous approval system or a validated legal product.**
 
 **Design principle:** Technology should earn its place by improving human capability, not by making human judgement subordinate to the technology. Faster processing alone is not proof of better decisions or a better working environment.
 
@@ -25,7 +25,7 @@ Swig explores whether a small legal team can spend less effort on repetitive con
 
 Automated tests, adversarial synthetic DOCX cases and the demonstrated publication/retrieval/withdrawal cycle establish that selected technical behaviours work in the tested conditions. They **do not establish legal accuracy, real-contract safety or measurable time savings**. No qualified legal professional has reviewed or validated this prototype. Legal subject-matter review, realistic user testing and an authorised operational design would be necessary before deployment.
 
-Human oversight must be meaningful: a reviewer needs access to the original wording, the ability to question the comparison or precedent, and authority to make an independent decision. Whether Swig actually improves reviewer autonomy and reduces cognitive burden remains untested.
+Human oversight must be meaningful: a reviewer needs access to the original wording, the ability to question the comparison or precedent, and authority to make an independent decision. Whether ChugChug actually improves reviewer autonomy and reduces cognitive burden remains untested.
 
 ### Why AI is optional
 
@@ -42,14 +42,14 @@ The design is informed by themes associated with the IAPP AIGP body of knowledge
 Requires Python **3.9 or newer**. No package installation, account or API key is needed for the offline journey.
 
 ```sh
-python3 -m swag.server --port 8771
+python3 -m chugchug.server --port 8771
 ```
 
-Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the repository root. If 8771 is busy, choose another unused port. Decisions and uploaded local demonstration files go into ignored `.swag-data/`; a clean checkout starts without reviewer decisions. Use synthetic documents only.
+Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the repository root. If 8771 is busy, choose another unused port. Decisions and uploaded local demonstration files go into ignored `.chugchug-data/`; a clean checkout starts without reviewer decisions. Use synthetic documents only.
 
 The first screen now offers **Start reviewing**, **Add incoming DOCX**, and a link to the currently selected reference. Home, Review queue, Reference and Help remain available in the top navigation. The review screen starts with one observation; findings, past decisions, check detail and correction controls open when needed.
 
-For the wider product idea, choose **Explore Swig's potential workspaces** near the bottom of Home (or open `#explore`). Legal is the only working tile and opens the real review queue. Muted department cards are concepts, with no navigation or data behind them. Daily reviewers can continue directly through Home or Review queue. See the [Issue #10 status](docs/ISSUE_10_STATUS.md), [workspace wireframe](docs/ISSUE_10_WORKSPACE_WIREFRAME.md) and [architecture decision](docs/decisions/002-legal-pack-and-workspace-boundary.md).
+For the wider product idea, choose **Explore ChugChug's potential workspaces** near the bottom of Home (or open `#explore`). Legal is the only working tile and opens the real review queue. Muted department cards are concepts, with no navigation or data behind them. Daily reviewers can continue directly through Home or Review queue. See the [Issue #10 status](docs/ISSUE_10_STATUS.md), [workspace wireframe](docs/ISSUE_10_WORKSPACE_WIREFRAME.md) and [architecture decision](docs/decisions/002-legal-pack-and-workspace-boundary.md).
 
 ## Issue #8: reference → review → correction → reuse
 
@@ -61,7 +61,7 @@ For the wider product idea, choose **Explore Swig's potential workspaces** near 
 
 The A/B/C check proves a governed retrieval path and a useful caution on the misleading variant. It does **not** prove that the comparison itself improved semantically, that a reviewer saved time, or that the legal interpretation is correct. The optional AI adapter remains disabled by default; no live model run was made for Issue #8. See [Issue #8 status](docs/ISSUE_08_STATUS.md).
 
-The repository URL, Python package (`swag`), `SWAG_AI_*` configuration names and `.swag-data/` state path retain their original technical names for compatibility. The reviewer-facing product is **Swig**.
+The Python package (`chugchug`), `CHUGCHUG_AI_*` configuration names and `.chugchug-data/` state path now match the reviewer-facing **ChugChug** name. The GitHub repository URL still uses its original slug.
 
 ## Five-minute walkthrough
 
@@ -75,7 +75,7 @@ The repository URL, Python package (`swag`), `SWAG_AI_*` configuration names and
 
 ## Five-minute learning-cycle walkthrough
 
-Use a fresh local state directory for this separate synthetic journey, for example `python3 -m swag.server --port 8771 --state-dir /tmp/swag-learning-demo`. Upload [L01](dataset/learning/L01-audit-retention.docx) and [L02](dataset/learning/L02-analytics-retention.docx) with **Add DOCX**.
+Use a fresh local state directory for this separate synthetic journey, for example `python3 -m chugchug.server --port 8771 --state-dir /tmp/chugchug-learning-demo`. Upload [L01](dataset/learning/L01-audit-retention.docx) and [L02](dataset/learning/L02-analytics-retention.docx) with **Add DOCX**.
 
 1. Open Maple Metrics (L01). Mark its changed return/destruction finding as considered. Record a human decision, rationale and the condition that the retained archive must serve a named regulatory duty with compliance-only access.
 2. In **Decision history**, expand **Share this decision as a precedent**. Confirm the exact source passage, enter the commercial context and reuse limits, and name the demonstration publisher. The local identity claim is self-attested; it is not a production permission check.
@@ -90,7 +90,7 @@ Conventional software preserves and hashes source bytes, accounts for DOCX body 
 
 The one AI capability is an **optional, real provider integration** for explaining the possible effect of a selected changed clause against the reference. The lexical baseline already finds the change and routes it to a person; the model may help a reviewer interpret a paraphrase. It never changes the route or makes a final decision. The interface says when AI has not run. This environment made **no live paid API call**, so model quality and live-provider behaviour are unverified. Mocked adapter tests only verify schema, citations, caps and failure handling. See [Decision 001](docs/decisions/001-scoped-semantic-comparison.md).
 
-To enable later, supply `OPENAI_API_KEY`, set `SWAG_AI_ENABLED=1`, `SWAG_AI_MODEL` (defaults to `gpt-4o-mini`), positive `SWAG_AI_SESSION_CAP`, `SWAG_AI_DOCUMENT_CAP`, `SWAG_AI_MAX_OUTPUT_TOKENS`, and `SWAG_AI_MAX_INPUT_CHARS` before starting the app. The last setting is a conservative input-size cap, not a token count. The UI then offers a per-change action and asks before sending the selected **synthetic** passages to OpenAI. Calls may incur charges. No key is stored in this repository. Do not use this mode with real or confidential contracts.
+To enable later, supply `OPENAI_API_KEY`, set `CHUGCHUG_AI_ENABLED=1`, `CHUGCHUG_AI_MODEL` (defaults to `gpt-4o-mini`), positive `CHUGCHUG_AI_SESSION_CAP`, `CHUGCHUG_AI_DOCUMENT_CAP`, `CHUGCHUG_AI_MAX_OUTPUT_TOKENS`, and `CHUGCHUG_AI_MAX_INPUT_CHARS` before starting the app. The last setting is a conservative input-size cap, not a token count. The UI then offers a per-change action and asks before sending the selected **synthetic** passages to OpenAI. Calls may incur charges. No key is stored in this repository. Do not use this mode with real or confidential contracts.
 
 ## Verify
 

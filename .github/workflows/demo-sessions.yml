@@ -1,0 +1,30 @@
+name: Validate isolated interactive demo
+on:
+  push:
+    branches:
+      - feature/isolated-interactive-demo
+  pull_request:
+    branches:
+      - feature/public-demo-data
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python compile and unit/integration tests
+        run: |
+          python3 -m compileall -q chugchug
+          python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: UI JavaScript syntax and tests
+        run: |
+          node --check web/app.js
+          node --test tests/test_web_ui.mjs
+      - name: Independent adversarial regression
+        run: python3 -m tests.adversarial_audit

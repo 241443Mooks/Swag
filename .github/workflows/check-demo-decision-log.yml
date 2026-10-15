@@ -1,0 +1,40 @@
+name: Check fictional decision log
+
+on:
+  pull_request:
+    paths:
+      - 'dataset/review_records/demo_decision_log.json'
+      - 'web/demo-data/decision-log.json'
+      - 'web/decision-log.*'
+      - 'web/index.html'
+      - 'chugchug/server.py'
+      - 'scripts/export_public_demo.py'
+      - 'tests/test_demo_decision_log.py'
+      - '.github/workflows/check-demo-decision-log.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Python regression suite
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: JavaScript checks
+        run: |
+          node --check web/app.js
+          node --check web/decision-log.js
+          node --test tests/test_web_ui.mjs
+      - name: Rebuild the snapshot
+        run: python3 scripts/export_public_demo.py
+      - name: Confirm exported fictional decision log is reproducible
+        run: git diff --exit-code -- web/demo-data/decision-log.json

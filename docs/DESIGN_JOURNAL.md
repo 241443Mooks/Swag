@@ -115,3 +115,12 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Keep the runtime registry limited to hash-verified reference sources. Move expected labels into an evaluation-only file, extract contextual facts from exact source passages, hard-exclude known conflicts, and abstain or expose a gap where context is missing. Treat every result as an unapproved research candidate that a human must validate before comparison.
 
 **Evidence and uncertainty:** Independent synthetic tests cover mutual and one-way NDA context, supplier and product-evaluation purpose, direct cloud orders, reseller/cloud incompatibility, missing or contradictory context, incomplete extraction, source hashes and evaluation-file isolation. The rules have not been evaluated on a blind dataset or validated by legal reviewers; no matching accuracy or applicability claim follows.
+
+
+## Entry 015 — Demonstrate accumulated experience without fabricating authority
+
+**Observation:** Five real synthetic historical source examples could not visually convey what a few hundred prior decisions might mean to a reviewer. Filling the append-only human ledger with invented records would falsely suggest those decisions were taken on inspected documents.
+
+**Decision:** Add a separate, conspicuously fictional 300-entry decision-log explorer with red-flag, amended/resolved, standard/acceptable and context-dependent analogues. Each invented entry links by topic to an existing incoming review, and some link to one of five fixed historical DOCX examples. The relationship is labelled illustrative, not evidential. Nothing enters precedent retrieval, changes routes, or impersonates signed-off legal guidance.
+
+**Evidence and limit:** Deterministic fixture counts, identifiers, source/public JSON parity and link targets are covered by test assertions. This demonstrates information architecture and browsing volume, not source-backed history or actual legal-team learning. A real governed corpus needs reviewed original sources, identity, conditions and explicit publication. Human creative acceptance remains open.

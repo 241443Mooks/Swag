@@ -1,63 +1,231 @@
-# ChugChug — product direction
+# CHUG — Product Direction
 
-**Working direction, 11 October 2026.** This records the owner's direction and the narrow synthetic learning-cycle demonstration added on the current feature branch. It does not declare the product ready for submission or real contracts.
+**Capture. Hold. Use. Grow.**
 
-## The product we are building toward
+*An enduring organisational knowledge foundation.*
 
-Make routine commercial contract review easier, safer and more consistent by bringing **important differences, supporting evidence and relevant organisational experience** together. ChugChug should make the next review easier by showing relevant past wording, decisions, reasons and conditions alongside the current document's evidence. A legal reviewer remains responsible for deciding whether that history applies. Deliberate feedback and governed reuse should increase usefulness over time; AI is used only where it offers a worthwhile advantage over simpler methods.
+**Status:** Working product direction. The first implementation is a synthetic legal-review proof of concept. The wider organisational approach remains an exploration.
 
-The experience stays simple: find the work needing attention, understand why, inspect the source and relevant history, then record a decision. Underneath, source coverage, check status, provenance, authority and uncertainty must remain explicit. Similarity to a previous acceptance never means approval.
+## What I'm building towards
 
-## What exists today
+I want to explore how organisations can build on what they already know, rather than repeatedly having to rediscover it.
 
-The prototype has a working review journey for synthetic mutual NDAs: queue routing, source-linked findings, comparison and independent indicators, a concise Assurance view, five fixed historical records for lexical precedent retrieval, and an append-only local decision ledger. The ledger records document hash, reviewer label, decision, rationale, conditions, finding references and timestamp.
+Organisational knowledge exists across people, documents, decisions and systems. The information may still be there, but the connections and context that make it useful can become difficult to recover, particularly as people, processes and technology change.
 
-**Recording a decision is not itself publication.** The current feature branch adds a separate, append-only publication event linked to a recorded decision and exact source passage. A named demonstration legal reviewer must explicitly publish it with commercial context and reuse limits. The single lexical retrieval path then searches both the five fixed historical records and active published examples. Withdrawal removes an example from active search while retaining its history. This local role is self-attested; there is no identity verification or production authorisation.
+Chug is an exploration of how to preserve a reliable, accessible map of that knowledge, so it can be found, understood and used when it's needed.
 
-Every precedent result remains context about a past case. It has no authority to change a review route or to approve wording. The current system neither updates an approved playbook nor evaluates reviewer corrections as improvements to its checks. Optional AI explains selected changed wording only when explicitly enabled and invoked; its live quality has not been established.
+I want to begin by solving an immediate, practical problem. If that work naturally creates useful knowledge, the foundation can grow without asking people to take on additional administration.
 
-## The governed learning loop
+Over time, that foundation could support different teams, workflows and capabilities, guided by the needs of the people using it.
 
-1. **Review:** Bring the current document's differences, safeguards, evidence and relevant prior cases to a person.
-2. **Record:** Preserve the human decision, rationale, conditions and source-linked findings.
-3. **Assess reuse:** A legal reviewer decides whether a past decision is sufficiently documented and applicable to future cases. Record its commercial context, conditions and limits.
-4. **Publish knowledge:** Make a selected precedent searchable with its source, status, publisher, version and withdrawal history. Treat authorised playbook guidance as a separate, more authoritative record.
-5. **Improve:** Measure retrieval usefulness, repeated questions, missed exceptions, unnecessary escalations and reviewer corrections. Turn verified failure examples into regression cases and revise checks or guidance through review.
+**The ambition is enduring organisational knowledge that becomes more useful through everyday work.**
 
-Steps 1–4 are demonstrated only in a local, synthetic, single-user form. Step 5 and real authorisation remain proposed. None requires automatic model retraining. A reviewed precedent helps a person reason about a new case; it does not authorise ChugChug to decide that case.
+## How the foundation works
 
-## How development should work with the legal team
+The four CHUG principles describe how I envisage the knowledge foundation developing.
 
-ChugChug should be developed **with the legal team, without making them responsible for building it**. Their knowledge of normal amendments, commercial context, escalation thresholds and practical review work is the starting point. The developer's responsibility is to translate that knowledge into a usable, testable system. The developer must not invent legal policy in the absence of legal expertise.
+### Capture
 
-Use a repeating, proportionate cycle:
+Identify useful information and events arising naturally through everyday work.
 
-1. **Understand together.** Spend focused time observing the team, examining representative contracts and asking what they check first, which variations recur, which decisions depend on context, where work slows down and what would make a tool untrustworthy. Agree a small initial scope and how success will be judged.
-2. **Develop independently.** Protect time to design, build, investigate and test a bounded improvement. Use deterministic methods where they are sufficient; assess AI only where it might add demonstrable value. Return with something usable rather than requiring the team to supervise implementation.
-3. **Test together.** Have legal professionals try representative examples and observe how they actually work, including hesitations, misunderstandings, missed issues, unnecessary escalations and whether they can challenge the system. Ask them to validate the legal assumptions and decide whether the result is useful and safe enough for its intended scope.
-4. **Iterate periodically.** Collect feedback and recurring patterns, prioritise improvements by impact and risk, then repeat. Keep a stable useful product between iterations; do not create a permanent dependency on development activity.
+Where possible, use existing records and system activity rather than asking people to produce additional documentation.
 
-**Learning during use is a parallel activity, not an automatic rule change.** Normal reviews can capture source-linked decisions, reasons, conditions and corrections. A suitably authorised person can explicitly publish selected examples as contextual precedents. Repeated patterns may suggest changes to checks or approved playbooks, but these require separate review, testing, versioning and authorisation. Neither one person's decision nor a frequently repeated practice should silently become policy.
+Capture what is necessary to make knowledge reusable, not everything simply because it is available.
 
-The intended outcome is a product that grows in usefulness as the team works, with minimal extra administration. The team owns legal judgement and acceptance criteria; the developer owns implementation and technical assurance; organisational owners must establish publication authority, privacy, security and deployment controls.
+### Hold
 
-**Current boundary:** This collaboration model is a proposed way of working, not an activity completed for the prototype. No qualified legal professional has yet validated ChugChug, and there are no observed real-team usability or productivity results.
+Preserve reliable references to knowledge, together with the context, history and relationships needed to find and understand it again.
 
-## Validation before real use
+The original information may remain in the system responsible for it.
 
-The next decision is whether a legal reviewer can use the current journey quickly and correctly. Human creative acceptance, legal assessment of representative wording, retrieval usefulness, and realistic exception testing remain open. Real documents additionally require privacy, security, verified publication authority and operational controls. These are gates for real use, not features to add to this application prototype.
+Holding knowledge means more than remembering that something exists. It means maintaining the ability to locate and access it when needed, subject to appropriate permissions.
 
-## Possible later investments
+References must remain trustworthy as records change, move or become unavailable.
 
-1. **Validate and harden the demonstrated reuse loop.** Test retrieval usefulness and context mismatch with legal reviewers. Before real contracts, replace self-attested demo publication with actual identity, roles and approval policy; define correction and version governance. Promotion must never silently change routing or legal approval.
-2. **Introduce versioned playbooks.** Separate individual precedents from approved organisational guidance, with named authority, effective dates, change history and reversal. Do this after the team defines who may publish guidance and how conflicts are resolved.
-3. **Establish evaluation.** Collect reviewer corrections and usefulness feedback without converting them directly into policy. Test retrieval relevance and safety on independent, representative cases before claiming that support has improved.
-4. **Extend the foundation.** Add format-independent source spans and extraction adapters before PDF or OCR; add secure multi-user storage, access control and data governance before real commercial contracts.
+### Use
 
-The synthetic slice demonstrates decision → explicit demo publication → contextual retrieval in a later review → withdrawal. Tests show that an unpublished decision stays out of search and a superficially similar but materially different contract retains its own review route and human decision. This is evidence of **workflow plumbing**, not evidence that retrieval is legally useful or that publication authority is secure.
+Make relevant knowledge accessible within the task someone is already performing.
 
-## Submission claim and limits
+Chug should help identify what may be useful, why it is relevant and where the original evidence can be found.
 
-Describe ChugChug as **a working foundation for an evolving, precedent-aware legal review system**. Demonstrate the current end-to-end review, source evidence, historical context, Assurance view, human decision capture and the small synthetic publication/withdrawal loop. Make clear that only explicitly published decisions enter later search. Do not call the prototype self-learning or claim measured legal accuracy or time savings from the synthetic demonstration.
+Relevance may be determined through straightforward rules, established relationships or other programmatic methods. AI is an option where it demonstrates additional value, not a prerequisite.
 
-Before real use, the legal team must define publication authority, required context and conditions, and how conflicting or withdrawn guidance is handled. Human creative acceptance and submission QA remain open. The possible investments above are not prerequisites for demonstrating the current prototype.
+The way information is presented should reflect the needs of the people using it and the systems in which they already work.
+
+People remain responsible for interpreting information and deciding what to do with it.
+
+### Grow
+
+Increase the usefulness of the foundation as more work takes place.
+
+Growth may mean discovering additional information sources, improving existing references, identifying useful relationships, reducing repeated searches or simplifying workflows.
+
+It does not necessarily mean collecting more information or introducing more AI.
+
+**The measure of growth is whether accumulated knowledge becomes more useful, reliable and accessible.**
+
+## Where the product lives
+
+I'm not particularly fixed on the current interface or the eventual form of the application.
+
+The contract-review experience is a practical starting point, not a commitment to a particular front-end design.
+
+What interests me most is the knowledge foundation underneath.
+
+I envisage Chug maintaining a reliable map of organisational knowledge: references to information held in existing systems, the relationships between records, relevant events and decisions, and the context needed to understand and use them.
+
+Where possible, information should remain in the system responsible for it. Chug should retain enough information to know what exists, where to find it, how it relates to other knowledge and when it may be relevant.
+
+That map is the enduring part of the product.
+
+Some tasks will need a dedicated interface to bring information together or provide functionality that existing systems cannot offer. Others may be better supported within the applications people already use.
+
+I want the experience to follow the needs of the work, rather than require the work to follow Chug.
+
+**The interface can evolve. The knowledge foundation is what I'm building towards.**
+
+The current prototype demonstrates an early approach to working with source evidence, relationships and recorded decisions. It does not yet implement the wider cross-system knowledge map.
+
+## The first experiment: commercial contract review
+
+I'm starting with commercial contract review because it was the immediate need that prompted this exploration.
+
+It also provides an opportunity to test whether useful work can generate reusable organisational knowledge.
+
+I've built a small prototype that compares fictional contracts against reference standards, identifies differences, retrieves previous decisions and records new ones.
+
+The interface supports that particular workflow. But I'm interested in what happens underneath it.
+
+Can the knowledge generated through each review be preserved with its source, context and relationships? Can it be found again when another relevant piece of work arrives? And can that happen without creating additional administration?
+
+With a real team, I want to understand their existing systems and processes before deciding what else Chug needs to do.
+
+I'll begin by identifying what information is already available, measuring activity and outcomes, and looking for opportunities to reuse knowledge through the work they're already doing.
+
+The prototype demonstrates some of the technical building blocks. It has not yet demonstrated the value of a connected organisational knowledge map in a real working environment.
+
+**The first experiment is about contract review. What I'm testing is whether useful work can leave useful knowledge behind.**
+
+## Understanding the real work
+
+Before deciding what else to build, I want to understand how the team works, what information already exists and where opportunities for improvement might lie.
+
+I'll begin with the existing processes and systems, looking at the information they already hold and the events they already record.
+
+My first questions are quantitative.
+
+How much work arrives? What kinds of work are involved? How often is something reviewed, returned, amended, approved or rejected? How many rounds does a typical piece of work go through?
+
+I want to establish what happens before making assumptions about why it happens or what needs to change.
+
+From there, I envisage a collaborative, user-centred approach to development.
+
+The organisation already has considerable expertise. The people doing the work understand their tasks, challenges and priorities. Software engineers understand the technical possibilities and constraints. Together, those perspectives can shape something genuinely useful.
+
+The aim is to establish a small, working knowledge framework that people can experience, challenge and help develop.
+
+As that framework takes shape, I expect it will become easier for people to identify what would make their work easier: what information they need, where it already exists, how it relates to other information, and when, where and how they need it presented.
+
+Those needs should guide the experience. Sometimes the answer may be a new interface. Sometimes it may be an improvement within an existing system, a connection between systems or simply a better way of finding information.
+
+Development should be iterative and collaborative.
+
+**Understand the need. Build something useful. Test it together. Learn. Refine. Repeat.**
+
+Each iteration should help establish whether the solution is useful to the people doing the work, whether it reduces unnecessary effort and whether it makes relevant organisational knowledge easier to access.
+
+I don't want progress to be measured by how many features have been built. I want it measured by whether people can see the benefit, trust what they're using and recognise that it helps them do their work.
+
+Once a capability is genuinely useful, it becomes a stronger foundation for exploring the next opportunity.
+
+The direction can then develop through a combination of organisational needs, human expertise, technical possibilities and evidence from actual use.
+
+**The foundation creates possibilities. The people using it help determine which possibilities are worth pursuing.**
+
+## Trust, access and continuity
+
+A knowledge map is only useful if people can rely on what it tells them.
+
+I want Chug to preserve the origins, context and relationships of organisational knowledge so that information remains understandable and accessible as people, processes and systems change.
+
+Where information lives in another system, Chug should maintain reliable references to it rather than unnecessarily duplicate it.
+
+Those references need to remain trustworthy. Information may change, move, become outdated or be deleted. Chug should recognise when a reference can no longer be relied upon rather than present it as current.
+
+Accessibility does not mean unrestricted access.
+
+People should be able to find and use information relevant to their work, but Chug must respect existing permissions, confidentiality requirements and the organisation's information governance. The knowledge map itself may contain sensitive relationships that also require protection.
+
+It is equally important to distinguish between different kinds of knowledge.
+
+A recorded decision tells us what happened. A suggested relationship may help us discover something relevant. Neither automatically establishes an approved organisational position.
+
+People with the appropriate expertise and authority must remain responsible for deciding what information means, whether it applies and when it can be treated as organisational guidance.
+
+The foundation should also support correction, withdrawal and supersession, preserving appropriate history without continuing to present outdated information as authoritative.
+
+These are principles for the foundation I'm exploring, not claims that the current prototype has implemented production-ready controls.
+
+**Trust comes from knowing where information came from, whether it remains reliable, who may use it and what authority it carries.**
+
+## The role of AI
+
+I'm interested in what AI could make possible when an organisation has a reliable understanding of what knowledge it holds, where that knowledge exists and how it relates to other information.
+
+But I don't want to build Chug around a particular AI technology or assume that every problem needs an AI solution.
+
+Many useful tasks can be handled through conventional software, established rules and reliable references between systems.
+
+Where those approaches are sufficient, they may be the better choice.
+
+AI may offer additional opportunities to discover related information, recognise patterns, identify possible connections and help maintain the knowledge map as organisational information changes.
+
+Different teams and tasks may benefit from different capabilities.
+
+For one team, the greatest value might come from finding relevant information expressed in different language. Another might benefit from identifying connections between previously unrelated records. Elsewhere, a straightforward rule or improvement to an existing workflow may be all that's needed.
+
+I want those possibilities to emerge through collaboration with the people doing the work, rather than deciding in advance which technologies they should use.
+
+Any proposed AI capability should be evaluated against a simpler alternative, considering usefulness, reliability, transparency, cost, security and the effort required to maintain it.
+
+AI may help identify or propose relationships, but it should not silently establish organisational authority, determine organisational positions or turn previous decisions into approved policy.
+
+The existing prototype includes an optional AI integration for explaining selected contract wording. Its usefulness has not been established, and it does not define the direction of the wider knowledge foundation.
+
+The broader AI-assisted knowledge capabilities remain possibilities to explore, not features already implemented.
+
+**The knowledge foundation creates opportunities for AI. The needs of the people using it determine which opportunities are worth developing.**
+
+## How I'll know it's working
+
+I want to judge Chug by the difference it makes to people's work, not by the number of features, records or AI capabilities it contains.
+
+There are three things I want to understand.
+
+**Is the immediate work becoming easier?**
+
+Can people find what they need more readily? Are unnecessary steps, repeated searches or avoidable delays reduced? Does the experience fit naturally into their existing work?
+
+I want to combine measurable evidence with the team's own experience of using the solution.
+
+**Is the accumulated knowledge becoming more useful?**
+
+When a similar task arises, can Chug help people recover relevant information, previous experience or decisions without having to rediscover them?
+
+Are the references reliable? Are the relationships useful? Can people reach the original information when they need it, subject to appropriate permissions?
+
+I want to establish whether today's work genuinely makes future work easier.
+
+**Do people trust it and want to use it?**
+
+The team needs to understand what Chug is showing them, where information comes from and what remains uncertain.
+
+They should be able to question it, correct it and influence how it develops.
+
+I also want to understand whether the solution introduces any new burden. Saving time in one part of a process is not an improvement if it creates additional work elsewhere.
+
+Success should be assessed against a baseline agreed with the people doing the work, using both quantitative evidence and their direct feedback.
+
+The purpose of each development cycle is to learn what works, improve what doesn't and establish whether there is a worthwhile next step.
+
+**Progress means making work easier today while making organisational knowledge more useful tomorrow.**

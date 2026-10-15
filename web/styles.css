@@ -104,3 +104,22 @@
 @media (prefers-color-scheme: dark) {
   #demo-banner { background: #233143; color: #e8eef5; }
 }
+
+
+/* Authenticated, isolated visitor demonstration. No decorative access claims. */
+#demo-bar {
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.75rem 1.25rem;background:#e8eef4;color:#243750;
+  border-bottom:1px solid #cbd6e0;font-size:.9rem;line-height:1.5;
+}
+#demo-bar .demo-tools {display:flex;gap:.5rem;flex-wrap:wrap}
+#demo-bar button {border:1px solid #a6b5c4;background:transparent;border-radius:.5rem;
+  color:inherit;cursor:pointer;padding:.4rem .7rem;font:inherit}
+#demo-bar button:hover,#demo-bar button:focus-visible {background:#d7e3ee}
+.demo-samples {margin-top:2rem;border-top:1px solid var(--border,#d1d5db);padding-top:1rem}
+.demo-samples h2 {font-size:1.05rem;margin-bottom:.4rem}
+.demo-sample-actions {display:flex;align-items:end;flex-wrap:wrap;gap:.7rem}
+.demo-sample-actions label {display:grid;gap:.4rem;flex:1;min-width:190px}
+.demo-sample-actions select {padding:.6rem;max-width:100%;font:inherit}
+@media(max-width:660px){#demo-bar{align-items:start;flex-direction:column}#demo-bar .demo-tools{width:100%}}
+@media(prefers-color-scheme:dark){#demo-bar{background:#243247;color:#f1f5f9;border-bottom-color:#46536a}}

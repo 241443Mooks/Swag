@@ -124,11 +124,3 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Add a separate, conspicuously fictional 300-entry decision-log explorer with red-flag, amended/resolved, standard/acceptable and context-dependent analogues. Each invented entry links by topic to an existing incoming review, and some link to one of five fixed historical DOCX examples. The relationship is labelled illustrative, not evidential. Nothing enters precedent retrieval, changes routes, or impersonates signed-off legal guidance.
 
 **Evidence and limit:** Deterministic fixture counts, identifiers, source/public JSON parity and link targets are covered by test assertions. This demonstrates information architecture and browsing volume, not source-backed history or actual legal-team learning. A real governed corpus needs reviewed original sources, identity, conditions and explicit publication. Human creative acceptance remains open.
-
-## Entry 016 — Baseline confirmation is its own reviewer action
-
-**Observation:** The shared registry can return NDA and customer-order candidates, while the order comparator accepts a selected order record. Passing matcher output straight to the comparator would blur candidate proposal, applicability confirmation and comparison.
-
-**Decision:** Add a customer-order application boundary that filters to order candidates, requires a reviewer confirmation tied to the exact reference ID and source hash, and returns comparison observations, routing and a pending legal decision as separate fields. Keep the integration outside the NDA pack and reviewer UI.
-
-**Evidence and uncertainty:** Synthetic integration tests verify source-anchor resolution and abstention for wrong-family, wrong-deployment, missing-context, incomplete-extraction and repeated-heading inputs. This validates the backend handoff contract, not legal applicability, reviewer usability or suitability of the research references.

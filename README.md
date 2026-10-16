@@ -1,48 +1,91 @@
-# ChugChug — Precedent-Aware Contract Review
+# CHUG
 
-A human-led prototype for reviewing routine commercial contracts using reference wording, previous review decisions, and independent full-document safeguards.
+**Capture. Hold. Use. Grow.**
 
-ChugChug brings important differences, source evidence and relevant organisational experience together so a legal reviewer can make a better-supported decision with less repetitive work. **Simple on the surface. Exceptionally robust underneath.**
+*An enduring organisational knowledge foundation.*
 
-## Status
-**Working local proof of concept; pending human QA and live-AI verification.** The original 12 synthetic DOCX contracts and two learning-cycle examples are committed in `dataset/`. Start with [START_HERE.md](START_HERE.md).
+**Licence:** [Proprietary — evaluation only](LICENSE.md). You may inspect and test this prototype for assessment; reuse, redistribution and commercial use require written permission.
 
-The app, Python package, API configuration names and local state path now use **ChugChug**. The GitHub repository has not yet been renamed; its existing URL remains valid.
+## The idea
 
-Existing local state under the former default directory is left in place. The renamed app starts with a fresh `.chugchug-data/` state directory for user testing.
+Every day, organisations generate knowledge through the work their people do.
 
-## Repository map
-- `dataset/reference/` — one baseline synthetic mutual NDA
-- `dataset/historical/` — five historical synthetic NDAs
-- `dataset/incoming/` — six challenge documents
-- `dataset/review_records/` — fictional decisions, not approved policy
-- `dataset/ground_truth/` — held-out evaluation answer key; **never accessible to runtime**
-- `chugchug/` — conservative extraction, comparison, safeguards, precedent search, AI adapter, ledger and local server
-- `web/` — queue and reviewer interface
-- `tests/` — adversarial, HTTP journey and isolated evaluation checks
-- `START_HERE.md` — startup, walkthrough and limitations
-- `docs/PRODUCT_SPEC.md` — workflow, review states, data and safety requirements
-- `docs/ACCEPTANCE_TESTS.md` — test cases and mandatory release gates
-- `docs/AI_ARCHITECTURE.md` — scoped genuine model integration, provenance and queue triage
-- `docs/ENGINEERING_PRINCIPLES.md` — engineering, business-case and UX standards; AI only when justified
-- `docs/CREATIVE_INTENT.md` — simple on the surface, robust underneath
-- `docs/EXPERIENCE_PRINCIPLES.md` — calm, evidence-led reviewer journeys
-- `docs/CREATIVE_REVIEW.md` — human creative acceptance checkpoint
-- `docs/PRODUCT_ALIGNMENT_STATUS.md` — current naming, local review and verification evidence
-- `docs/DESIGN_JOURNAL.md` — design discoveries and hypotheses
-- `docs/decisions/` — evidence-based design decision records
-- `AGENTS.md` — autonomous coding-agent instructions
+People review information, solve problems, make decisions, develop expertise and learn from experience.
 
-## Non-negotiable principles
-- AI must earn its place: prefer a reliable conventional solution when it meets the need as well or better.
-- Similarity is not safety or approval.
-- Inspect the whole document, including schedules and omitted clauses; incomplete extraction blocks shortcut routing.
-- Show exact source passages and preserve original bytes.
-- Previous decisions are context-specific and do not automatically create policy.
-- Humans make every final decision.
-- Synthetic data only. No external AI processing by default.
+Much of that knowledge already exists somewhere — in documents, systems, previous decisions and people's heads. But it isn't always easy to find, connect or reuse when a similar situation arises.
 
-## Review status
-The implementation is ready for owner QA on a feature branch. See `docs/SPRINT_01_STATUS.md` for test evidence and remaining verification. Human creative acceptance and live AI quality are pending; the draft PR must remain unmerged.
+Organisations change, too. People move on, teams evolve and systems are replaced. Information may survive, but the context, connections and experience that make it valuable can be lost.
 
-This project is a demonstration, not a production legal review service or legal advice.
+**An organisation should be able to build on what it already knows, rather than repeatedly starting again.**
+
+That's the idea I'm exploring with Chug.
+
+I want to understand how organisations can preserve the knowledge generated through everyday work, make it available when needed and allow its usefulness to grow over time.
+
+Not by asking people to spend more time documenting what they know, but by finding ways to capture useful knowledge through the work they're already doing.
+
+The principle is simple:
+
+**The work creates knowledge. Chug preserves and connects it. That knowledge helps with the next piece of work.**
+
+Capture. Hold. Use. Grow.
+
+The ambition is not to replace human expertise, but to help it survive, circulate and grow.
+
+## Starting with commercial contract review
+
+My first experiment explores a problem faced by legal teams.
+
+Many commercial contracts follow established templates. Amendments and exceptions often resemble things the team has considered before, yet reviewing each new document can still involve substantial repetitive work.
+
+I'm exploring whether I can reduce that effort using conventional software to compare incoming contracts with reference standards, make differences easier to inspect and bring relevant previous decisions into view.
+
+At the same time, I want to understand how much useful organisational knowledge can be captured simply through that review process, without creating more work for the people using it.
+
+I'll start with what's already available, establish what happens and how often, then explore where additional context, connections or AI capabilities would genuinely help.
+
+**The legal workflow is the first experiment. The knowledge foundation is the bigger idea.**
+
+## What I've built so far
+
+I've built a small working prototype using fictional commercial contracts to explore this idea in practice.
+
+Chug compares incoming contracts against reference standards, highlights differences and makes relevant previous decisions easier to find.
+
+It also captures decisions made during the review process, preserving their connection to the original documents and evidence.
+
+The comparison works without AI. People remain responsible for interpreting the information and making decisions.
+
+This is an early experiment, not a validated legal product.
+
+What I want to explore next is how much useful organisational knowledge can accumulate through ordinary work, without creating additional administration for the people doing it.
+
+For the working demonstration, technical details and limitations, see [START_HERE.md](START_HERE.md).
+
+## Where I'm exploring next
+
+The next step is to work with a real team to understand what information already exists, how work flows through the organisation and what knowledge can be captured naturally along the way.
+
+I want to start small: establish what happens, how often it happens and where the greatest opportunities lie before deciding what to build next.
+
+Over time, Chug could support different ways of finding, connecting and using organisational knowledge.
+
+AI may play an important role in that, but its purpose isn't to make decisions on behalf of people. It's to make accumulated knowledge more accessible and useful.
+
+Different teams may need different capabilities. The direction Chug takes will be shaped by the people doing the work, the problems worth solving and the evidence of what genuinely helps.
+
+**The foundation is intended to grow with the organisation's needs, rather than dictate how the organisation should work.**
+
+## Explore Chug
+
+Chug is an early-stage experiment, built using fictional data. It is not a production legal review system.
+
+The prototype can be run locally without an AI subscription.
+
+- [Start here](START_HERE.md) — explore the working demonstration.
+- [Product direction](docs/PRODUCT_DIRECTION.md) — the thinking behind Chug and how it might develop.
+- [AI architecture](docs/AI_ARCHITECTURE.md) — current capabilities, possibilities and limitations.
+
+This project is a work in progress. The aim is to learn what genuinely helps people, build on that evidence and let the solution develop from there.
+
+*thank you for exploring with me, Mooks*

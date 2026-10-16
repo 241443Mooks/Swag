@@ -493,9 +493,9 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-store")
             self.end_headers()
             return self.wfile.write(data)
-        if path in ("/", "/index.html", "/app.js", "/styles.css"):
+        if path in ("/", "/index.html", "/app.js", "/styles.css", "/decision-log.html", "/decision-log.js", "/decision-log.css", "/demo-data/decision-log.json"):
             filename = "index.html" if path == "/" else path[1:]
-            content_type = "text/html" if filename.endswith("html") else "text/javascript" if filename.endswith("js") else "text/css"
+            content_type = "application/json" if filename.endswith("json") else "text/html" if filename.endswith("html") else "text/javascript" if filename.endswith("js") else "text/css"
             data = (self.app.root / "web" / filename).read_bytes()
             self.send_response(200)
             self.send_header("Content-Type", content_type + "; charset=utf-8")

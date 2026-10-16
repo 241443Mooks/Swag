@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f4">
+  <title>ChugChug · Fictional decision log</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/decision-log.css">
+  <script defer src="/decision-log.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand">ChugChug<span class="brand-divider"></span><span class="brand-subtitle">Decision log</span></div>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="nav-link" href="/#home">Home</a>
+      <a class="nav-link" href="/#queue">Review queue</a>
+      <a class="nav-link" href="/#reference">Reference</a>
+      <a class="nav-link" href="/decision-log.html" aria-current="page">Decision log</a>
+    </nav>
+  </header>
+  <main class="log-shell" id="main">
+    <p class="log-eyebrow">Demonstration data · Fictional only</p>
+    <h1>What happened last time?</h1>
+    <p class="log-lead">Explore 300 invented past decisions beside ChugChug's six current synthetic reviews. See recurring concerns, previously acceptable wording and issues resolved after amendment.</p>
+    <p class="log-warning"><strong>These decisions did not actually happen.</strong> Reviewers, organisations and dates are fictional. The links to current reviews and original historical examples are topic references, not supporting evidence for these invented records. Nothing here is approved guidance or an automatic decision.</p>
+    <div class="log-stats" id="log-stats" aria-live="polite">Loading fictional history…</div>
+    <section class="log-controls" aria-label="Filter fictional decision log">
+      <label>Related current review
+        <select id="case-filter"><option value="all">All six reviews</option>
+          <option value="T01">T01 · Birchbridge · Routine</option>
+          <option value="T02">T02 · Brookside · Term</option>
+          <option value="T03">T03 · Falcon · Licence</option>
+          <option value="T04">T04 · Elm · Missing protection</option>
+          <option value="T05">T05 · Moorland · Appendix</option>
+          <option value="T06">T06 · Orchard · Wording</option>
+        </select>
+      </label>
+      <label>Previous outcome
+        <select id="flag-filter">
+          <option value="all">All earlier outcomes</option>
+          <option value="red">Earlier red flags</option>
+          <option value="green">Earlier acceptable or resolved</option>
+          <option value="amber">Context dependent</option>
+        </select>
+      </label>
+      <label>Search this history
+        <input id="log-search" type="search" placeholder="Licence, appendix, amendment…">
+      </label>
+    </section>
+    <div class="log-result-header"><h2 id="results-title">Decision history</h2><span id="result-count"></span></div>
+    <div id="log-list" class="log-list" aria-live="polite"></div>
+    <button id="load-more" type="button" class="secondary load-more" hidden>Show more decisions</button>
+    <p class="log-foot">This stand-alone fictional log is intentionally separate from the actual append-only reviewer ledger and governed publication process. A case being similar, common or previously accepted never changes the current review route or grants approval.</p>
+  </main>
+</body>
+</html>

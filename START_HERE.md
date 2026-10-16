@@ -1,128 +1,392 @@
-# ChugChug — review the exceptions first
+# CHUG — Start Here
 
-PortSwigger's task describes a small legal team receiving mostly standard commercial contracts, many with familiar amendments, while its queue grows faster than it can read everything. This proof of concept reorganises six **fictional mutual NDAs** around the exceptions that deserve a person's attention. It is decision support, not legal advice or automatic approval.
+**Capture. Hold. Use. Grow.**
 
-**Product direction:** ChugChug makes routine commercial contract review easier, safer and more consistent by bringing important differences, source evidence and relevant organisational experience together. Legal professionals retain judgement and authority. The synthetic prototype demonstrates a governed reuse cycle: a new decision enters later precedent search only after explicit local demo publication, and can be withdrawn. This does not create production authorisation or organisational policy. See [Product direction](docs/PRODUCT_DIRECTION.md).
+*An enduring organisational knowledge foundation.*
 
-## Risks, concerns and responsible use
+Chug explores how organisations can preserve, connect and reuse knowledge created through everyday work, so that people can build on what their organisation already knows.
 
-ChugChug explores whether a small legal team can spend less effort on repetitive contract checks, notice important exceptions and preserve the reasoning behind earlier decisions. **It is a workflow demonstration, not legal advice, an autonomous approval system or a validated legal product.**
+The first working experiment uses commercial contract review to explore this idea.
 
-**Design principle:** Technology should earn its place by improving human capability, not by making human judgement subordinate to the technology. Faster processing alone is not proof of better decisions or a better working environment.
+I've built a small prototype called Chug, using fictional contracts, to explore whether conventional software can make repetitive review work easier while preserving useful information and decisions for future use.
 
-| Concern | Current safeguard or approach | What remains unresolved |
-| --- | --- | --- |
-| Missed legal issues | Source-linked differences, omission checks, independent indicators and conservative routing | These checks cannot identify every legally material issue; synthetic expected outcomes are not legal validation |
-| False reassurance | Unsupported extraction blocks routine routing; a routine *candidate* still requires human confirmation | Reviewers might over-trust reassuring labels or incomplete checks |
-| Precedent misuse | Explicit publication with source, rationale, conditions and reuse limits; withdrawal retains history | Similar language may have a different legal or commercial effect; publisher identity is self-attested |
-| Automation bias | The system does not approve contracts or transfer earlier approval to a new case | Time pressure may still discourage independent review or challenge |
-| Unnecessary AI | Conventional methods handle predictable work; model interpretation is optional, scoped and cannot change the route | No live provider-quality, benefit, latency or cost evaluation has been completed |
-| Confidentiality and security | Local, synthetic-only demonstration; no external AI call by default | Real contracts need privacy, supplier, access-control, security and retention assessments |
-| Accountability | Source identity and append-only review/publication events | No production roles, authorised legal playbook, monitoring or operational recovery process |
-| Impact on people | Designed to reduce repetitive effort and surface evidence | Efficiency could be used to intensify workloads or monitor individual staff rather than support them |
+The prototype compares documents, highlights differences, retrieves relevant historical context and records human decisions. It also demonstrates how selected decisions can be deliberately shared for future reference or withdrawn.
 
-### Evidence and boundaries
+The aim isn't to replace professional judgement. It's to reduce unnecessary effort, make important information easier to find and understand, and explore how today's work might help with tomorrow's decisions.
 
-Automated tests, adversarial synthetic DOCX cases and the demonstrated publication/retrieval/withdrawal cycle establish that selected technical behaviours work in the tested conditions. They **do not establish legal accuracy, real-contract safety or measurable time savings**. No qualified legal professional has reviewed or validated this prototype. Legal subject-matter review, realistic user testing and an authorised operational design would be necessary before deployment.
+**This is a working experiment, not a validated legal product.**
 
-Human oversight must be meaningful: a reviewer needs access to the original wording, the ability to question the comparison or precedent, and authority to make an independent decision. Whether ChugChug actually improves reviewer autonomy and reduces cognitive burden remains untested.
+## Choose how to explore
 
-### Why AI is optional
+**Read-only web demonstration**
 
-AI is not the default solution. For predictable, testable tasks, conventional software is the starting point. Model-assisted interpretation should be retained only if comparison against that baseline shows a worthwhile improvement in understanding or outcomes, after accounting for errors, confidentiality, latency, running costs and maintenance. A decision *not* to add AI can be a valid outcome of that evaluation.
+Explore the fictional contracts, review findings, supporting evidence and historical context without installing anything. Recording decisions and changing documents are not available in this version.
 
-### Governance and ethics lens
+**Interactive local demonstration**
 
-The design is informed by themes associated with the IAPP AIGP body of knowledge, the EU AI Act's risk-based approach, and the human-centred ethical principles discussed in *Magnifica Humanitas*: proportionality, transparency, accountability, human dignity, professional autonomy and consequences for workers. These are **design considerations, not claims of AIGP certification, EU AI Act compliance or ethical endorsement**. Whether particular legal obligations apply depends on the actual AI functionality, intended use and deployment context, and requires separate assessment.
+Run the application on your own computer to experience the fuller workflow, including uploading fictional documents, recording decisions and exploring how knowledge can be published, retrieved and withdrawn.
 
-**The unresolved question:** Can legal professionals make better-informed decisions with less unnecessary effort, while retaining their independence, expertise and accountability? The developer and automated tests cannot answer that alone.
+Both experiences use synthetic information. The local demonstration works without an AI subscription or external model.
 
-## Start in under a minute
+Instructions for each experience follow below.
 
-Requires Python **3.9 or newer**. No package installation, account or API key is needed for the offline journey.
+## Getting started
+
+There are two ways to explore Chug.
+
+### Option 1 — Explore online
+
+The read-only demonstration lets you explore the contract-review experience directly in your browser at **[chug.smooks.co.uk](https://chug.smooks.co.uk)**.
+
+Start on **Home**, where you'll find a queue of fictional contracts organised by the attention they may need.
+
+Choose a contract to explore:
+
+- What has changed from the reference document.
+- Why those changes might matter.
+- What the original documents and supporting evidence show.
+- Whether similar wording has been reviewed before, and under what conditions.
+
+The online demonstration does not save new decisions or accept document uploads.
+
+### Option 2 — Run Chug locally
+
+The interactive demonstration provides the fuller experience, including recording decisions and exploring how knowledge from one review can become useful in another.
+
+You'll need Python 3.9 or newer. No additional packages, account or AI subscription are required.
+
+From the downloaded project's main folder, run:
 
 ```sh
 python3 -m chugchug.server --port 8771
 ```
 
-Open `http://127.0.0.1:8771`. The server binds only to loopback. Start from the repository root. If 8771 is busy, choose another unused port. Decisions and uploaded local demonstration files go into ignored `.chugchug-data/`; a clean checkout starts without reviewer decisions. Use synthetic documents only.
+Open the following address in your browser:
 
-Home leads with **Start reviewing** and live counts for **Needs closer review**, **Needs judgement** and **Looks routine**. Each count opens a queue filtered to contracts still awaiting a human decision. **Review queue** also provides **Add DOCX**. The selected reference for new uploads is linked from Home; each existing review remains bound to the reference used at intake.
+`http://127.0.0.1:8771`
 
-Opening a contract now shows its leading concern, why it may matter, the incoming and applicable reference wording, and **Record decision** before the deeper tools. Other material findings remain listed below. **Full document**, **Reference**, **Check coverage** and **Review history** are available after the first comparison. Document details contain the original DOCX, source identity and hashes. The **Help** page links to the optional **Explore** concept; only Legal is a working journey. See the [Issue #10 status](docs/ISSUE_10_STATUS.md) and [architecture decision](docs/decisions/002-legal-pack-and-workspace-boundary.md).
+You can now explore the same fictional contracts, upload supported synthetic DOCX documents, record decisions and experiment with sharing and withdrawing previous decisions.
 
-To rehearse from untouched synthetic state without changing an existing review ledger:
+Your local demonstration data is stored on your computer. The application does not send contracts to an AI provider unless you deliberately configure and invoke the optional AI feature.
 
-```sh
-demo_state_dir=$(mktemp -d /tmp/chugchug-review-XXXXXX)
-python3 -m chugchug.server --port 8771 --state-dir "$demo_state_dir"
-```
+**Please use fictional documents only.** This prototype is not designed for confidential or production information.
 
-Open `http://127.0.0.1:8771/#home`. Use a different port if 8771 is occupied. Keep the generated directory path if you want to revisit that rehearsal; each new `mktemp` directory starts with no recorded decisions.
+## Your first five minutes with Chug
 
-## Issue #8: reference → review → correction → reuse
+You don't need to understand the technology to explore Chug.
 
-1. Open **Reference**. Inspect the bundled fictional NDA or choose an uploaded synthetic reference. The selected reference applies to **new** incoming uploads. Each existing review keeps its original reference identity. Uploaded references must have complete supported DOCX extraction and the bundled mutual NDA clause headings; this is not a general contract-family matcher.
-2. Use **Add incoming DOCX** on Home or in the queue. Try [L01](dataset/learning/L01-audit-retention.docx). Open the returned review and inspect the changed Return or Destruction passage beside the reference. The original DOCX and exact extracted text are available from the review.
-3. Open **View history** from an original scenario such as Brookside AI / T02. The drawer shows the actual number of fictional records searched, why each was retrieved and whether its wording is exact, similar or merely the same topic. **Inspect original passage** opens the complete historical extraction and exact historical DOCX; the prior decision remains a whole-contract decision.
-4. On L01's changed finding, expand **Improve this comparison**. Record a fictional reviewer correction explaining that retained archives are limited to a named regulatory duty and unavailable for business use. This correction is separate from the legal decision and initially appears only in Review history.
-5. In **Review history → Comparison corrections**, explicitly share the lesson with fictional context and reuse limits. Upload [L03](dataset/learning/L03-regulatory-records.docx) and [L02](dataset/learning/L02-analytics-retention.docx). Both can surface the authorised correction beside their changed clause. L03 uses different words for a related restricted archive; L02 permits commercial analytics access. In both, applicability remains **unverified** and the independent review route stays **Needs judgement**. Withdraw the lesson from L01's history to remove it from later active retrieval while retaining its audit trail.
+Visit **https://chug.smooks.co.uk** and follow three fictional contract reviews to see how the experience works.
 
-The A/B/C check proves a governed retrieval path and a useful caution on the misleading variant. It does **not** prove that the comparison itself improved semantically, that a reviewer saved time, or that the legal interpretation is correct. The optional AI adapter remains disabled by default; no live model run was made for Issue #8. See [Issue #8 status](docs/ISSUE_08_STATUS.md).
+### 1. Start with the work
 
-The Python package (`chugchug`), `CHUGCHUG_AI_*` configuration names and `.chugchug-data/` state path now match the reviewer-facing **ChugChug** name. The GitHub repository URL still uses its original slug.
+On **Home**, select **Start reviewing**.
 
-## Five-minute walkthrough
+You'll see contracts organised by the attention they may need, rather than simply presented as a list of documents.
 
-1. **Home → Start reviewing:** The live counts show the pending review mix. Choose a category to see only contracts awaiting a decision, or use Start reviewing for the next task.
-2. **Falcon Data / T03:** The first view pairs the added commercial-exploitation wording with the applicable reference no-licence protection. Follow **View in full text** to the exact passages. Inspect the other findings and the related rejected historical case. **Document details and original files** contains the source identifiers and original DOCX.
-3. **Elm Studio / T04 and Moorland / T05:** One lacks the no-licence protection; the other has a Schedule 1 that overrides permitted use. Both must remain escalations despite otherwise familiar wording.
-4. **Brookside AI / T02:** See the five-year term change and H02's conditional acceptance. The previous decision is context, not reusable authority.
-5. **Orchard Research / T06 and Birchbridge / T01:** A paraphrase needs interpretation; the template-like document is only a routine *candidate* because a person must still confirm the parties and purpose.
-6. **Check coverage:** Open **Check coverage** on T03. It separates source identity, extraction, comparison, independent indicators and human status. Expand “Scope, evidence and limits” to see what each check actually covered.
-7. **Human decision:** Choose **Record decision** from the first review view. Mark findings actually considered, enter a reviewer label, choose an outcome and give a reason. Open **Review history**, refresh the browser and see the append-only event tied to the exact document hash. Return to the filtered queue for the next task.
+The aim is to help a reviewer understand where to focus their attention.
 
-## Five-minute learning-cycle walkthrough
+### 2. Explore an important exception — Falcon Data
 
-Use a fresh local state directory for this separate synthetic journey, for example `python3 -m chugchug.server --port 8771 --state-dir /tmp/chugchug-learning-demo`. Upload [L01](dataset/learning/L01-audit-retention.docx) and [L02](dataset/learning/L02-analytics-retention.docx) with **Add DOCX**.
+Open **Falcon Data**.
 
-1. Open Maple Metrics (L01). Mark its changed return/destruction finding as considered. Record a human decision, rationale and the condition that the retained archive must serve a named regulatory duty with compliance-only access.
-2. In **Decision history**, expand **Share this decision as a precedent**. Confirm the exact source passage, enter the commercial context and reuse limits, and name the demonstration publisher. The local identity claim is self-attested; it is not a production permission check.
-3. Open Harbour Analytics (L02). The new case appears beside its changed clause with its source, rationale, conditions and context. L02 remains **Needs judgement**: its commercial-team analytics use is different and requires a separate human decision. **View source in full text** returns to the published source passage.
-4. Return to L01 and withdraw the publication in Decision history. L02 no longer retrieves it as active context; L01 retains the publication and withdrawal trail. Refresh the browser to confirm persistence.
+This contract contains wording that could grant much broader rights than the reference agreement intended.
 
-See [learning-cycle status](docs/LEARNING_LOOP_STATUS.md) for test evidence and limits. This demonstrates governed workflow plumbing, not legal accuracy or measured productivity benefit.
+Explore what Chug has identified, why it might matter and where the relevant wording appears in the original and reference documents.
 
-## What the system does
+Notice that Chug highlights the concern but leaves its interpretation and resolution to a person.
 
-Conventional software preserves and hashes source bytes, accounts for DOCX body paragraphs, table cells, headers and footers, compares clause text and omissions, checks the whole document for broad rights/overrides, ranks context from the five historical decisions, and persists human review events. Every material finding has a source anchor or an explicit reference anchor for a missing provision. Unsupported or unaccounted content blocks extraction and therefore blocks a routine route.
+### 3. Explore a previous decision — Brookside AI
 
-The one AI capability is an **optional, real provider integration** for explaining the possible effect of a selected changed clause against the reference. The lexical baseline already finds the change and routes it to a person; the model may help a reviewer interpret a paraphrase. It never changes the route or makes a final decision. The interface says when AI has not run. This environment made **no live paid API call**, so model quality and live-provider behaviour are unverified. Mocked adapter tests only verify schema, citations, caps and failure handling. See [Decision 001](docs/decisions/001-scoped-semantic-comparison.md).
+Open **Brookside AI**.
 
-To enable later, supply `OPENAI_API_KEY`, set `CHUGCHUG_AI_ENABLED=1`, `CHUGCHUG_AI_MODEL` (defaults to `gpt-4o-mini`), positive `CHUGCHUG_AI_SESSION_CAP`, `CHUGCHUG_AI_DOCUMENT_CAP`, `CHUGCHUG_AI_MAX_OUTPUT_TOKENS`, and `CHUGCHUG_AI_MAX_INPUT_CHARS` before starting the app. The last setting is a conservative input-size cap, not a token count. The UI then offers a per-change action and asks before sending the selected **synthetic** passages to OpenAI. Calls may incur charges. No key is stored in this repository. Do not use this mode with real or confidential contracts.
+Here, Chug identifies a change to the contract's duration and brings a relevant previous decision into view.
 
-## Verify
+Explore the reasoning and conditions attached to that earlier decision.
+
+The important distinction is that a previous decision provides useful context. It does not automatically determine what should happen this time.
+
+### 4. Explore a routine candidate — Birchbridge
+
+Open **Birchbridge**.
+
+This contract closely resembles the reference agreement.
+
+Chug identifies it as a possible routine review, but it still requires a person to confirm that the agreement is appropriate.
+
+A routine candidate is not an automatic approval.
+
+### 5. Look beneath the summary
+
+Return to any contract and explore the supporting evidence.
+
+You can inspect the original wording, the reference document, previous review information and the checks performed.
+
+The aim is to make complex information easier to navigate without removing the ability to examine it in detail.
+
+**The idea to take away**
+
+Chug is exploring two connected opportunities: making today's work easier and preserving useful knowledge so that tomorrow's work can benefit from it.
+
+The online demonstration is read-only. The interactive local version also lets you record decisions and explore how knowledge can be deliberately shared, reused and withdrawn.
+
+## How Chug builds on previous work
+
+The contract-review demonstration is about more than comparing documents.
+
+It's an opportunity to explore how knowledge created through everyday work can become useful when a similar situation arises in the future.
+
+The interactive local version includes a small, fictional example of this process.
+
+### Capture — A decision is made
+
+Open the fictional **Maple Metrics (L01)** contract.
+
+A reviewer encounters wording allowing certain records to be retained after the agreement ends.
+
+The reviewer considers the wording, records a decision and explains the conditions under which the retained information may be acceptable.
+
+Chug preserves the decision alongside its source evidence, reasoning and context.
+
+### Hold — Preserve the knowledge
+
+The reviewer can choose to share that decision as a precedent for future reference.
+
+This is an explicit action. Recording a decision does not automatically make it approved organisational guidance.
+
+The original evidence, rationale and limitations remain connected to the published record.
+
+### Use — Find it when it's relevant
+
+Now explore **Harbour Analytics (L02)**.
+
+Chug can retrieve the earlier decision because the new contract contains potentially related wording.
+
+But the circumstances differ.
+
+The earlier decision concerned records retained for regulatory purposes. The new wording permits commercial analytics use.
+
+Chug presents the previous experience as relevant context, not an answer that should automatically be applied.
+
+A person must decide whether the distinction matters.
+
+### Grow — Improve what the organisation can use
+
+As further reviews take place, more decisions and their context may become available for future reference.
+
+Information can also be corrected or withdrawn when it should no longer be relied upon.
+
+The aim is to make accumulated experience more accessible and useful, while preserving its history and limitations.
+
+This does not mean Chug automatically trains an AI model or turns individual decisions into organisational policy.
+
+**Capture. Hold. Use. Grow.**
+
+The longer-term question is whether this approach could help organisations retain and reuse valuable knowledge across many different activities, not just legal review.
+
+## Trust, safeguards and limitations
+
+Chug is designed to help people work with information more effectively, not to replace their expertise or judgement.
+
+For that to be useful, people need to understand what Chug has identified, where the information came from, what remains uncertain and what they are responsible for deciding.
+
+### What the prototype does to support trust
+
+- **Source evidence:** Findings are linked to original documents and reference wording so people can inspect them.
+- **Conservative recommendations:** Incomplete analysis or potentially important exceptions require further attention. A routine candidate is not an approval.
+- **Previous decisions:** Historical experience is presented with its context and limitations, rather than automatically applied to a new situation.
+- **Human authority:** People make and record decisions. Sharing a decision for future reuse requires a separate, explicit action.
+- **Traceable history:** Recorded decisions, publications and withdrawals preserve a history of what happened.
+- **Optional AI:** Conventional software supports the main workflow. AI is only introduced where it may provide additional value.
+
+### What hasn't been established
+
+This is an early prototype tested using fictional contracts.
+
+It has not been validated by qualified legal professionals or tested within a real legal team's working environment.
+
+The existing checks cannot guarantee that every legally important issue will be identified. We have not established measurable time savings, improved legal outcomes or the effectiveness of the optional AI integration.
+
+The local prototype is not a secure, multi-user production system. It does not provide the access controls, privacy assurance or operational safeguards that would be necessary for real organisational information.
+
+**Please do not upload real or confidential documents.**
+
+### Keeping people at the centre
+
+I also want to understand the wider consequences of introducing technology into people's work.
+
+Reducing repetitive effort should create opportunities for people to concentrate on work that benefits from their expertise. It should not simply become a reason to increase workloads, reduce professional autonomy or introduce unnecessary monitoring.
+
+The people using a system should be able to understand it, challenge it and influence how it develops.
+
+**A useful system should make people more capable, not less important.**
+
+These considerations will need to be tested and developed with the people who would actually use Chug.
+
+## Explore the interactive learning cycle
+
+The local version of Chug lets you go beyond inspecting existing information. You can make fictional decisions, preserve their context and explore how they become useful during later work.
+
+This short exercise demonstrates the process.
+
+### 1. Review a contract
+
+Start the local application using the instructions above.
+
+Choose **Add DOCX** and upload `dataset/learning/L01-audit-retention.docx`.
+
+Open the Maple Metrics review.
+
+The contract contains a change concerning the retention of information after an agreement ends.
+
+Inspect the original wording, the reference agreement and the concerns Chug has identified.
+
+### 2. Record a decision
+
+Choose **Record decision**.
+
+Select the findings you've considered, enter a fictional reviewer name, choose an outcome and record your reasoning.
+
+For this example, consider whether retaining records for a specific regulatory obligation, with access restricted to compliance purposes, might be acceptable.
+
+The decision is preserved with its supporting evidence.
+
+**Recording a decision does not automatically make it approved guidance for future work.**
+
+### 3. Share the experience
+
+Open the recorded decision in **Review history**.
+
+Choose **Share this decision as a precedent**.
+
+Confirm the source passage and record the context, conditions and limitations that someone would need to understand before considering this decision again.
+
+Publication is deliberate, rather than automatic. The demonstration uses a self-declared reviewer role; it does not verify real organisational authority.
+
+### 4. See what happens next
+
+Upload `dataset/learning/L02-analytics-retention.docx` and open Harbour Analytics.
+
+Chug can now retrieve the earlier decision as potentially relevant historical context.
+
+But there's an important difference.
+
+The earlier review concerned regulatory record retention. The new contract permits information to be retained for commercial analytics.
+
+Explore how Chug presents that earlier experience without assuming the same decision applies.
+
+### 5. Withdraw the precedent
+
+Return to Maple Metrics and withdraw the published decision from its history.
+
+Revisit Harbour Analytics.
+
+The withdrawn decision should no longer appear as active published precedent, while the original publication and withdrawal remain recorded in the demonstration history.
+
+### Explore further
+
+You can also experiment with **Improve this comparison** to record a correction to how wording has been compared.
+
+Corrections are separate from legal decisions. They can be deliberately shared for future retrieval, with their original context and limitations preserved.
+
+The additional fictional contract `dataset/learning/L03-regulatory-records.docx` provides an opportunity to compare genuinely related wording with a misleadingly similar example.
+
+**What this demonstrates**
+
+A practical workflow can preserve more than its immediate outcome.
+
+It can create a source-linked record of what happened, why a decision was made and under what conditions that experience might be useful again.
+
+The experiment demonstrates a technical mechanism for knowledge reuse. It does not establish legal correctness, improved productivity or an automatically learning AI system.
+
+## Technical reference and verification
+
+Chug's current prototype is a small, locally runnable Python application with a browser-based interface.
+
+It uses conventional software for document extraction, comparison, evidence tracking, review routing and historical retrieval.
+
+The core demonstration works offline, without additional Python packages or AI credentials.
+
+### Running the tests
+
+From the project's main folder, run:
 
 ```sh
 python3 -m unittest discover -s tests -v
 python3 -m tests.evaluate
-node --check web/app.js
-node --test tests/test_web_ui.mjs
-git diff --check
+python3 -m tests.adversarial_audit
 ```
 
-The evaluator alone reads the held-out answer key. Runtime modules never access it. The current synthetic route result is 6/6, including the three mandatory escalations. These cases do not establish accuracy or safety on real agreements. The [missed-exception audit](docs/MISSED_EXCEPTION_AUDIT.md) records 16 separate adversarial documents, exact original/current outcomes and remaining risks. Browser QA and limitations are recorded in [Sprint 01 status](docs/SPRINT_01_STATUS.md) and [Sprint 02 status](docs/SPRINT_02_STATUS.md).
+These checks cover the implemented functionality, the six original fictional NDA scenarios and additional adversarial cases designed to expose misleading or incomplete analysis.
 
-## Known limits
+For the browser-interface checks, Node.js is required:
 
-- This is a local single-reviewer demonstration. There is no authentication, shared workflow, real-contract privacy review or production storage model.
-- The document parser conservatively blocks unfamiliar Word structures. It does not support OCR, nested tables, tracked changes, footnotes, embedded objects or every DOCX feature. Full source bytes are available for manual inspection.
-- Structural matching assumes this mutual NDA clause family. Lexical controls are indicators, not a comprehensive legal risk model. A routine candidate means checks completed within that scope, not legal safety.
-- Precedent ranking is lexical and contextual. It does not infer policy or transfer conditional acceptance.
-- Demo publication requires explicit action and a source-linked considered finding, but publisher identity is self-attested. There is no multi-user access control or legally authorised playbook.
-- AI live quality, latency, provider errors and cost remain unverified until an authorised paid test. No synthetic time savings or legal-team productivity study is claimed.
-- Human creative acceptance and submission QA are pending. Do not submit this ZIP as a final employer response without review.
+```sh
+node --check web/app.js
+node --test tests/test_web_ui.mjs
+```
 
-## What comes next
+These tests provide evidence about specific technical behaviours. They are not a substitute for practical user evaluation or qualified legal review.
 
-The **working prototype** is the offline synthetic review journey, assurance view, decision history and explicit demo precedent publication/withdrawal. **Before real use**, legal reviewers must validate the experience and legal assumptions, and the team needs privacy, security, identity and publication controls. **Possible later work** includes authorised playbooks, retrieval feedback, other contract families and document formats. Those are product options, not unfinished application requirements. See [Product direction](docs/PRODUCT_DIRECTION.md).
+### Keeping experiments separate
+
+By default, local review decisions and uploaded demonstration files are stored in `.chugchug-data/`.
+
+To start with a fresh set of fictional decisions, launch the application with a separate state directory:
+
+```sh
+python3 -m chugchug.server --port 8771 --state-dir ./chug-review-test
+```
+
+This keeps the new experiment separate from previous local review activity.
+
+### Optional AI integration
+
+Chug includes an optional OpenAI Responses API integration for explaining selected differences in contract wording.
+
+It is disabled by default, requires explicit configuration and may incur API charges.
+
+The deterministic review workflow does not depend on it.
+
+Configuration and implementation details are described in [`docs/AI_ARCHITECTURE.md`](docs/AI_ARCHITECTURE.md) and [`docs/decisions/001-scoped-semantic-comparison.md`](docs/decisions/001-scoped-semantic-comparison.md).
+
+Use fictional documents only.
+
+### Technical boundaries
+
+The prototype currently supports a limited family of synthetic DOCX agreements. It does not support every Word document structure or provide a general-purpose legal analysis service.
+
+The wider knowledge foundation, cross-system integrations, production access controls and advanced retrieval capabilities remain areas for future exploration.
+
+For more detail, see:
+
+- [`docs/PRODUCT_DIRECTION.md`](docs/PRODUCT_DIRECTION.md) — the wider product vision.
+- [`docs/AI_ARCHITECTURE.md`](docs/AI_ARCHITECTURE.md) — current AI capability and possible future architecture.
+- [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) — functional requirements and implementation boundaries.
+- [`docs/CREATIVE_INTENT.md`](docs/CREATIVE_INTENT.md) — experience and design principles.
+- [`docs/ENGINEERING_PRINCIPLES.md`](docs/ENGINEERING_PRINCIPLES.md) — technical and evaluation principles.
+
+The source code, tests and documentation are available in the project repository.
+
+## Where Chug goes next
+
+The commercial contract-review prototype is a starting point, not the intended limit of Chug.
+
+What interests me is whether organisations can become better at preserving and using the knowledge they already create.
+
+The next step is to explore that possibility with the people doing the work.
+
+I want to understand their existing systems, processes and challenges, identify where useful knowledge already exists, and explore how making it easier to find and connect could help.
+
+The approach is collaborative and iterative: understand the work, build something useful, test it together, learn and refine.
+
+The eventual solution might involve a dedicated interface, improvements within existing systems, connections between them or carefully chosen AI capabilities.
+
+I don't want to determine those answers in advance.
+
+**The aim is to make today's work easier while allowing tomorrow's work to benefit from what the organisation has already learned.**
+
+---
+
+*Thank you for exploring with me,*
+
+*Mooks*

@@ -4,6 +4,8 @@
 
 *An enduring organisational knowledge foundation.*
 
+**Licence:** [Proprietary — evaluation only](LICENSE.md). You may inspect and test this prototype for assessment; reuse, redistribution and commercial use require written permission.
+
 ## The idea
 
 Every day, organisations generate knowledge through the work their people do.

@@ -1,0 +1,65 @@
+name: Package read-only Cloudflare Pages demo
+
+on:
+  push:
+    branches:
+      - feature/read-only-cloudflare-package
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify engine, safety and browser
+        run: |
+          python3 -m unittest discover -s tests -p 'test_*.py'
+          node --check web/app.js
+          node --test tests/test_web_ui.mjs
+      - name: Refresh public snapshot from synthetic library
+        run: python3 scripts/export_public_demo.py
+      - name: Check contents, scope and document downloads
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from zipfile import ZipFile
+          web = Path('web')
+          data = web / 'demo-data'
+          q = json.loads((data/'queue.json').read_text())
+          r = json.loads((data/'research.json').read_text())
+          assert len(q['items']) == 6
+          assert len(r['references']) == 8
+          assert len(r['routine_clients']) == 20
+          assert len(r['challenge_cases']) == 4
+          assert not (web/'ground_truth').exists()
+          assert not (data/'expected-matches.json').exists()
+          files = [p for p in web.rglob('*') if p.is_file()]
+          assert (web/'index.html').is_file()
+          assert (web/'app.js').is_file()
+          assert (web/'styles.css').is_file()
+          assert len(list(data.rglob('*.docx'))) >= 30
+          assert len(files) >= 60
+          print('Validated',len(files),'web files; 6 NDA cases, 8 standards, 20 client contracts, 4 challenges')
+          with ZipFile('chugchug-readonly-cloudflare.zip', 'w') as archive:
+              for path in files:
+                  archive.write(path,path.relative_to(web).as_posix())
+          with ZipFile('chugchug-readonly-cloudflare.zip') as archive:
+              names=set(archive.namelist())
+              assert 'index.html' in names and 'app.js' in names
+              assert 'demo-data/queue.json' in names
+              assert 'demo-data/research.json' in names
+              assert not any('ground_truth' in n for n in names)
+          print('ZIP is upload-ready with index.html at its root')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chugchug-readonly-cloudflare
+          path: web/
+          retention-days: 14
+          if-no-files-found: error

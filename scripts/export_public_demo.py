@@ -135,6 +135,21 @@ def export(destination: Path) -> None:
                 "status": "Routine-looking specimen; match not verified",
             })
     write_json(destination / "research.json", records)
+    # A separate, explicitly fictional log: never import the private append-only ledger.
+    # These topic links are not source-backed past legal decisions or published precedents.
+    demo_history = json.loads((ROOT / "dataset" / "review_records" / "demo_decision_log.json").read_text(encoding="utf-8"))
+    entries = demo_history.get("records", [])
+    if demo_history.get("synthetic") is not True or len(entries) != 300:
+        raise ValueError("Demo decision log must contain 300 clearly synthetic entries")
+    if len({row.get("id") for row in entries}) != 300 or any(
+        row.get("synthetic") is not True
+        or row.get("record_status") != "illustrative_unverified"
+        or row.get("review_id") not in app.contracts
+        or row.get("related_fixed_example_id") not in (*app.historical.keys(), None)
+        for row in entries
+    ):
+        raise ValueError("Demo decision log has invalid IDs, links or provenance")
+    write_json(destination / "decision-log.json", demo_history)
     print(
         "Exported 6 working NDA review scenarios plus %d research standards, %d routine-looking clients, %d challenge files."
         % (len(records["references"]), len(records["routine_clients"]), len(records["challenge_cases"]))

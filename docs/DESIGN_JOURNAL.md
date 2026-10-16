@@ -124,3 +124,28 @@ Record meaningful discoveries, decisions and surprises as the product is built. 
 **Decision:** Add a separate, conspicuously fictional 300-entry decision-log explorer with red-flag, amended/resolved, standard/acceptable and context-dependent analogues. Each invented entry links by topic to an existing incoming review, and some link to one of five fixed historical DOCX examples. The relationship is labelled illustrative, not evidential. Nothing enters precedent retrieval, changes routes, or impersonates signed-off legal guidance.
 
 **Evidence and limit:** Deterministic fixture counts, identifiers, source/public JSON parity and link targets are covered by test assertions. This demonstrates information architecture and browsing volume, not source-backed history or actual legal-team learning. A real governed corpus needs reviewed original sources, identity, conditions and explicit publication. Human creative acceptance remains open.
+## Issue #5 audit — keyboard access to document intake
+
+**Observation:** In the rendered local queue, Add DOCX looked like a button but the accessibility tree exposed it as plain text because the visible label wrapped a hidden file input. Keyboard navigation could not focus the picker.
+
+**Decision:** Give the control native button semantics and keep the existing hidden file input and upload path. This is a narrow access fix; no route, evidence, or decision behavior changes.
+
+**Evidence and uncertainty:** The before/after accessibility-tree role changed from text to button, and a regression test verifies the markup and click wiring. The file chooser itself, screen-reader output, and mobile layout were not exercised. Owner creative acceptance remains pending.
+
+**Additional queue observation:** The fixed-width queue card forced the contract title into character-by-character wrapping beside its route badge. The title now gets a minimum readable width and may wrap the badge to its own line. A focused CSS regression assertion covers this layout rule; narrow device rendering still needs a real viewport check.
+
+## Issue #5 — The decision action is useful but hard to find
+
+**Observation:** In the owner’s 13 October Home → Falcon walkthrough, the initial review felt busy and the owner could not immediately identify how to act; locating **Record your decision** took effort. The owner described the content as useful but too much was presented at once.
+
+**Decision:** Treat next-action discovery as an unresolved P0 audit finding. Keep full evidence and checks available, and let the owner judge a focused hierarchy proposal before treating the experience as accepted. Do not infer acceptance from the audit or implement a wholesale redesign.
+
+**Evidence and uncertainty:** Owner walkthrough notes are recorded in Issue #5. The local browser run verified desktop keyboard access and the explicit separation between observed wording, suggested route and human decision. A narrow viewport, screen-reader behavior and the full upload/error path remain unverified.
+
+## Issue #5 implementation — put the action on the first screen
+
+**Observation:** Falcon's decision control existed, but at 1280 × 720 the source excerpts pushed it below the fold. The reviewer had to scan evidence before the next action became visible.
+
+**Decision:** Keep the four questions in order. Keep the main finding, explanation and uncertainty visible; put original/reference wording in a native disclosure and place the existing decision action immediately after the concise summary. Secondary findings, provenance, technical checks and history remain reachable through labelled disclosures or the existing evidence tabs.
+
+**Evidence and uncertainty:** The 1280 × 720 screenshot shows the action without scrolling; keyboard activation opened the existing decision form, and an Escalate decision with rationale persisted in an isolated temporary ledger. The available browser surface did not expose a viewport override, so narrow-screen layout is covered by responsive CSS and regression assertions but remains unverified in a resized browser. Creative acceptance remains with the owner.

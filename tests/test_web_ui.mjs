@@ -4,11 +4,15 @@ import {test} from 'node:test';
 import vm from 'node:vm';
 
 const source=readFileSync(new URL('../web/app.js',import.meta.url),'utf8').split("loadQueue().then(async()=>")[0];
+const html=readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
+const css=readFileSync(new URL('../web/styles.css',import.meta.url),'utf8');
+const falcon=JSON.parse(readFileSync(new URL('../web/demo-data/contracts/T03.json',import.meta.url),'utf8'));
 
 function harness(items){
   const elements=new Map();
+  const clicks=[];
   const node=id=>{
-    if(!elements.has(id))elements.set(id,{innerHTML:'',textContent:'',value:'',className:'',querySelectorAll:()=>[],querySelector:()=>null});
+    if(!elements.has(id))elements.set(id,{innerHTML:'',textContent:'',value:'',className:'',querySelectorAll:()=>[],querySelector:()=>null,click:()=>clicks.push(id)});
     return elements.get(id);
   };
   const location={hash:'#home'};
@@ -23,7 +27,7 @@ function harness(items){
     setTimeout,clearTimeout,
   });
   vm.runInContext(source,context);
-  return {context,node,location,storage,run:code=>vm.runInContext(code,context)};
+  return {context,node,location,storage,clicks,run:code=>vm.runInContext(code,context)};
 }
 
 const items=[
@@ -62,6 +66,40 @@ test('decision controls retain human outcomes, rationale and finding selection',
   assert.match(html,/name="rationale" required/);
   assert.match(html,/name="finding" value="finding-1"/);
   assert.match(html,/Recording a decision does not publish it as precedent/);
+});
+
+test('Falcon overview follows the four reviewer questions and puts decision entry before secondary detail',()=>{
+  const h=harness(items);
+  h.run('state.detail = '+JSON.stringify(falcon));
+  const html=h.run('overview(state.detail)');
+  const order=['1. What changed?','2. Why might it matter?','3. What does the original wording and reference say?','4. What should you do next?'];
+  let previous=-1;
+  for(const label of order){const at=html.indexOf(label);assert.ok(at>previous,`${label} should follow the previous review question`);previous=at;}
+  assert.match(html,/Potentially broad use or IP rights/);
+  assert.match(html,/commercially exploit all technical concepts/);
+  assert.match(html,/No intellectual property licence or other right is granted/);
+  assert.match(html,/data-open-decision aria-controls="decision-section"/);
+  assert.ok(html.indexOf('data-open-decision')<html.indexOf('Other findings'));
+  assert.match(html,/<details class="decision-disclosure" id="decision-section">/);
+  assert.match(html,/<details class="other-findings">/);
+  assert.match(html,/<details class="finding-tools">/);
+  assert.match(html,/Pattern-based flag; a reviewer must interpret the complete provision/);
+  assert.match(css,/\.next-step\{[^}]*justify-content:space-between/);
+  assert.match(css,/@media\(max-width:700px\)[\s\S]*?\.decision-action\{width:100%\}/);
+});
+
+test('Add DOCX is a keyboard-operable native button wired to the existing picker',()=>{
+  const h=harness(items);
+  assert.match(html,/<button class="upload-button" id="upload-trigger" type="button">Add DOCX<\/button>/);
+  assert.match(html,/<input id="upload" type="file" accept="\.docx" hidden>/);
+  assert.equal(typeof h.node('upload-trigger').onclick,'function');
+  h.node('upload-trigger').onclick();
+  assert.deepEqual(h.clicks,['upload']);
+});
+
+test('queue title and route badge can wrap without collapsing the title column',()=>{
+  assert.match(css,/\.queue-item-top\{[^}]*flex-wrap:\s*wrap/);
+  assert.match(css,/\.queue-item-title\{[^}]*min-width:\s*11ch[^}]*flex:\s*1\s+1\s+11ch/);
 });
 
 test('Start reviewing carries the next contract category back to the queue',async()=>{

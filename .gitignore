@@ -1,6 +1,7 @@
-.chugchug-data/
+.chug-data/
 __pycache__/
 *.pyc
 .DS_Store
 .env
 .env.local
+.chugchug-data/

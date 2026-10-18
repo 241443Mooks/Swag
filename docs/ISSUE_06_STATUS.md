@@ -21,7 +21,9 @@ The local API exposes a read-only library listing and detail, with an original d
 - Web source and UI regressions: `node --check web/app.js` — passed; `node --test tests/test_web_ui.mjs` — 13 passed.
 - `git diff --check` — passed.
 - The first sandboxed focused HTTP run could not bind a loopback port; rerunning the focused and full Python suites with loopback permission succeeded. No test depended on a live AI provider.
-- Browser screenshot/interaction QA: not verified because Playwright is not installed and there is no repository Playwright workflow. The DOM/UI regression tests passed, including the public static upload-hidden state.
+- Local UI acceptance: opened the Reference page, inspected a customer-order detail and the exact-original link, then uploaded a distinct fictional customer-order DOCX through the same multipart endpoint used by the hidden file picker (the available browser UI automation could not operate the hidden native file input). The UI displayed its family, registration and approval statuses, provenance, SHA-256, verified source and complete extraction.
+- Restart and byte-integrity acceptance: stopped and restarted the local Python server with the same isolated state directory. The uploaded reference ID, metadata and verified detail returned after restart; its downloaded original SHA-256 matched the uploaded DOCX (`33bee2706fb7483ae7954a767300113774cb3301bb06495b1ae2682acd8848c9`). The current NDA reference remained `2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817` before and after.
+- Browser interaction coverage: detail and post-restart visibility were checked in the local UI. The native file chooser itself was not driven through the browser; the endpoint upload and resulting UI state were verified instead. UI regression tests also passed, including the public static upload-hidden state.
 - Human creative acceptance: pending; this implementation does not self-certify the review experience.
 
 ## Limitations and decisions
@@ -29,4 +31,4 @@ The local API exposes a read-only library listing and detail, with an original d
 - Family identification and applicability fields use the existing deterministic extraction context. Unknown facts remain unknown; this is not a legal validation of the uploaded wording.
 - New customer-order standards are stored and viewable but are not yet bound to incoming order reviews or the review queue. The existing customer-order comparison component remains a separate explicit-confirmation path.
 - Uploaded reference version defaults to `1.0`; the filename stem supplies the display name. No approval controls are introduced in this issue.
-- PR #3 is still an open draft and currently reports a merge conflict against `main`. It modifies the old `chugchug/server.py` path and includes online security changes to that server. When #3 is rebased to current `chug/`, its server changes will need a manual forward-port and conflict resolution with this reference upload work. This branch does not alter PR #3.
+- PR #3 is intentionally left untouched. Reconcile its hosting changes after PR #11 is accepted, as requested; this branch makes no changes to PR #3.

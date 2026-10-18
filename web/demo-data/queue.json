@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "id": "T03",
+      "filename": "T03-hidden-perpetual-licence.docx",
+      "display_name": "Falcon Data Ltd · Mutual NDA",
+      "sha256": "e451562dc1fb3a83f96224b84f4741c63f152e69f629ecfd7958d3ef9fc7e0a2",
+      "reference_sha256": "2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817",
+      "route": "escalate",
+      "reason": "Potentially broad use or IP rights",
+      "findings_count": 3,
+      "latest_decision": null
+    },
+    {
+      "id": "T04",
+      "filename": "T04-missing-no-licence.docx",
+      "display_name": "Elm Studio Ltd · Mutual NDA",
+      "sha256": "6ad155911be4867f5697d3fc8f0e613e379034a648b966b6ca5586b2c5961a6e",
+      "reference_sha256": "2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817",
+      "route": "escalate",
+      "reason": "No-licence protection is missing",
+      "findings_count": 1,
+      "latest_decision": null
+    },
+    {
+      "id": "T05",
+      "filename": "T05-appendix-overrides.docx",
+      "display_name": "Moorland Products Ltd · Mutual NDA",
+      "sha256": "8989b4365aac733f6d085c63ba6d5f463d5e7136acd235962a309760b1275fac",
+      "reference_sha256": "2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817",
+      "route": "escalate",
+      "reason": "Potentially broad use or IP rights",
+      "findings_count": 4,
+      "latest_decision": null
+    },
+    {
+      "id": "T02",
+      "filename": "T02-known-term-change.docx",
+      "display_name": "Brookside AI Ltd · Mutual NDA",
+      "sha256": "8eeea9a9dede26c112da7ca9458dac228cd87f39ad914dae18f860b82fc473f3",
+      "reference_sha256": "2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817",
+      "route": "review_required",
+      "reason": "Changed: Term and Survival",
+      "findings_count": 1,
+      "latest_decision": null
+    },
+    {
+      "id": "T06",
+      "filename": "T06-paraphrase-equivalent.docx",
+      "display_name": "Orchard Research Ltd · Mutual NDA",
+      "sha256": "a01ef28e058ff5fb0cb8c24bb70f01f597e902f12666b1b8df507e8224b5446a",
+      "reference_sha256": "2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817",
+      "route": "review_required",
+      "reason": "Changed: Permitted Use",
+      "findings_count": 1,
+      "latest_decision": null
+    },
+    {
+      "id": "T01",
+      "filename": "T01-template-match.docx",
+      "display_name": "Birchbridge Ltd · Mutual NDA",
+      "sha256": "19d51e11d5d6277f3600283c1271fb4aa062cf1dbdeac768159e5c36626b7d03",
+      "reference_sha256": "2c9ab77e5256c2cd1a964955d97ab8f002fee40c26c61c2f23bae56da707e817",
+      "route": "routine_candidate",
+      "reason": "No material wording difference found; party details still need confirmation.",
+      "findings_count": 0,
+      "latest_decision": null
+    }
+  ]
+}

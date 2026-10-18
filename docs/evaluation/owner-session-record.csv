@@ -1,0 +1,2 @@
+session_id,condition,case_id,source_file,case_order,product_commit,environment,local_state_label,start_time,end_time,elapsed_minutes,reviewer_outcome,route_shown,route_reviewer_would_choose,material_points_noticed,material_points_missed,unnecessary_points,exact_source_found,exact_reference_found,clicks,context_switches,confidence_1_to_5,confidence_reason,cognitive_burden_1_to_5,friction_observation,correction_retrieval_observation,interruptions,free_notes
+,,,,,,,,,,,,,,,,,,,,,,,,,,,

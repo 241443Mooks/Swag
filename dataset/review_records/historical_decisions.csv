@@ -1,0 +1,6 @@
+document_id,decision,rationale,reviewer,decision_date,reuse_authority
+H01,accepted,Routine standard wording; counsel confirmed template match.,Fictional legal reviewer,2026-08-10,illustrative only; not general policy
+H02,accepted_with_conditions,Five-year survival accepted for a narrowly defined product evaluation only; not a blanket policy.,Fictional legal reviewer,2026-08-11,illustrative only; not general policy
+H03,rejected,Broad licence to confidential information rejected; required standard no-licence wording.,Fictional legal reviewer,2026-08-12,illustrative only; not general policy
+H04,escalated,Non-standard jurisdiction sent to legal lead; no approval recorded.,Fictional legal reviewer,2026-08-13,illustrative only; not general policy
+H05,accepted_with_conditions,Controlled-affiliate access accepted only after verifying affiliate definition and confidentiality flow-down.,Fictional legal reviewer,2026-08-14,illustrative only; not general policy

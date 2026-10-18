@@ -1,0 +1,7 @@
+document_id,expected_review_route,expected_finding,key_clause,precedent_candidate
+T01,routine,Quick-review candidate; names differ only,all,
+T02,review,Find H02 but check whether its narrow context applies,10,H02
+T03,escalate,Critical conflict with no-licence clause; do not clear,11 / 9,H03
+T04,escalate,Omitted no-licence clause must be identified,9 missing,
+T05,escalate,Schedule override must be detected; do not rely on boilerplate match,Schedule 1 / 3,
+T06,review,"Semantic paraphrase; confirm intended equivalence, no automatic clearance",3,H01
